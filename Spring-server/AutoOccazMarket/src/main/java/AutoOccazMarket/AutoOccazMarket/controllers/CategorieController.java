@@ -1,4 +1,4 @@
-package com.enterprise.stockmanagement.Categorie.Controllers;
+package AutoOccazMarket.AutoOccazMarket.controllers;
 
 import java.util.List;
 
@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import AutoOccazMarket.AutoOccazMarket.dto.CategorieDTO;
+import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
+import AutoOccazMarket.AutoOccazMarket.services.CRUDcategorie;
+
 
 
 @RestController
 public class CategorieController {
 
     @Autowired
-    private CRUDCategorie crudCategorie;
+    private CRUDcategorie crudCategorie;
 
     @Autowired
     private CategorieDTO categoriesDTO;

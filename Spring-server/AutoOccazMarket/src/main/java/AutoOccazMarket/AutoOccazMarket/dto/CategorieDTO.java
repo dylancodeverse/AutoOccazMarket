@@ -1,11 +1,11 @@
-package com.enterprise.stockmanagement.Categorie.DTO;
-
+package AutoOccazMarket.AutoOccazMarket.dto;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.enterprise.stockmanagement.Categorie.Entities.Categorie;
+import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
+
 
 @Component
 public class CategorieDTO {

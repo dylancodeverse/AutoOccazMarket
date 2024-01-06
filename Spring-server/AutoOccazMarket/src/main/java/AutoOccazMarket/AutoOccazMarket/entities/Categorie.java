@@ -1,3 +1,10 @@
+package AutoOccazMarket.AutoOccazMarket.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 @Entity
 public class Categorie {
 
@@ -6,7 +13,7 @@ public class Categorie {
     @Column(name = "id_categorie")
     private Integer idcategorie;
 
-    @Column(nullable = false, unique = true, lenght = 250)
+    @Column(nullable = false, unique = true, length  = 250)
     private String categorie;
     
 
