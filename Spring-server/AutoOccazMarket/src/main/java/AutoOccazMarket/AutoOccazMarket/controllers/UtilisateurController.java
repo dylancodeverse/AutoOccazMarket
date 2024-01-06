@@ -1,0 +1,68 @@
+package AutoOccazMarket.AutoOccazMarket.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
+import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
+import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
+
+@RestController
+public class UtilisateurController {
+
+    @Autowired
+    private CRUDutilisateur crudUtilisateur;
+
+    @Autowired
+    private UtilisateurDTO utilisateursDTO;
+
+    @GetMapping(path = "/utilisateurs")
+    public UtilisateurDTO getUtilisateurs() {
+        List<Utilisateur> utilisateurs = crudUtilisateur.getUtilisateurList();
+        utilisateursDTO.setUtilisateurAsList(utilisateurs);
+        return utilisateursDTO;
+    }
+
+    @GetMapping(path = "/utilisateurs/{id}")
+    public UtilisateurDTO getUtilisateursById(@PathVariable("id") final Integer id) {
+        Utilisateur utilisateurs = crudUtilisateur.getUtilisateurByID(Integer.valueOf(id));
+        utilisateursDTO.setUtilisateur(utilisateurs);
+
+        return utilisateursDTO;
+    }
+
+    @PostMapping(path = "/utilisateurs")
+    public UtilisateurDTO saveUtilisateur(@RequestBody UtilisateurDTO utilisateursDTO) {
+        try {
+            crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
+
+        } catch (Exception e) {
+            utilisateursDTO.setErrors(e.getMessage());
+        }
+
+        return utilisateursDTO;
+
+    }
+
+    @PutMapping(path = "/utilisateurs/{id}")
+    public UtilisateurDTO updateUtilisateur(@PathVariable("id") final Integer id,
+            @RequestBody UtilisateurDTO utilisateursDTO) {
+        crudUtilisateur.updateUtilisateur(id, utilisateursDTO.getUtilisateur());
+
+        return utilisateursDTO;
+    }
+
+    @DeleteMapping(path = "/utilisateurs/{id}")
+    public void deleteUtilisateur(@PathVariable("id") final Integer id) {
+        crudUtilisateur.deleteUtilisateurByID(id);
+    }
+}
