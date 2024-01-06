@@ -2,7 +2,6 @@ package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
@@ -12,7 +11,6 @@ import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 @Component
 public class ModelesDTO 
 {
-    @Autowired
     Modeles [] listModeles ;    
 
     Modeles modeles ;

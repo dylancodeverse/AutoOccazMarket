@@ -2,14 +2,12 @@ package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 
 @Component
 public class UtilisateurDTO {
-    @Autowired
     Utilisateur[] listUtilisateur;
 
     Utilisateur utilisateur;

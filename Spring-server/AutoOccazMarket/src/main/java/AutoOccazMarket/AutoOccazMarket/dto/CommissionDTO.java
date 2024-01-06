@@ -1,7 +1,6 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Commission;
@@ -9,7 +8,6 @@ import AutoOccazMarket.AutoOccazMarket.entities.Commission;
 
 @Component
 public class CommissionDTO {
-    @Autowired
     Commission[] listCommission;
 
     Commission commission;

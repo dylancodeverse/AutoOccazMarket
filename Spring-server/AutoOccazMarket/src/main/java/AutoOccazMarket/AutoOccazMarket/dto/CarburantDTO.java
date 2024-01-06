@@ -2,7 +2,6 @@ package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
@@ -11,7 +10,6 @@ import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
 
 public class CarburantDTO 
 {
-    @Autowired
     Carburant [] listCarburant ;    
 
     Carburant carburant ;
