@@ -4,9 +4,11 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ValidationAnnoncesHistorique 
@@ -17,7 +19,7 @@ public class ValidationAnnoncesHistorique
     @Column(name = "validationAnnoncesHistoriqueId")
     private Integer validationAnnoncesHistoriqueId ; 
 
-    @Column(name = "annonces")
+    @ManyToOne(optional = false ,fetch = FetchType.EAGER)
     private Annonces annonces ;
 
     @Column(name = "date_validation")
@@ -25,7 +27,7 @@ public class ValidationAnnoncesHistorique
 
     private String description ;
 
-
+    @ManyToOne(optional = false , fetch = FetchType.EAGER)
     private Utilisateur validateur ;
 
     @Column(name = "etat_validation")
