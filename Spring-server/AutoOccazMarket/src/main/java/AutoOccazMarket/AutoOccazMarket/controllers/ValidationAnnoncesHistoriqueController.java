@@ -17,33 +17,33 @@ public class ValidationAnnoncesHistoriqueController {
     private CRUDValidationAnnoncesHistorique crudValidationAnnoncesHistorique;
 
     @Autowired
-    private ValidationAnnoncesHistoriqueDTO utilisateursDTO;
+    private ValidationAnnoncesHistoriqueDTO validationAnnoncesHistoriqueDTO;
 
-    @GetMapping(path = "/utilisateurs")
+    @GetMapping(path = "/validationAnnoncesHistoriques")
     public ValidationAnnoncesHistoriqueDTO getValidationAnnoncesHistoriques() {
-        List<ValidationAnnoncesHistorique> utilisateurs = crudValidationAnnoncesHistorique.getValidationAnnoncesHistoriqueList();
-        utilisateursDTO.setValidationAnnoncesHistoriqueAsList(utilisateurs);
-        return utilisateursDTO;
+        List<ValidationAnnoncesHistorique> validationAnnoncesHistorique = crudValidationAnnoncesHistorique.getValidationAnnoncesHistoriqueList();
+        validationAnnoncesHistoriqueDTO.setValidationAnnoncesHistoriqueAsList(validationAnnoncesHistorique);
+        return validationAnnoncesHistoriqueDTO;
     }
 
-    @GetMapping(path = "/utilisateurs/{id}")
+    @GetMapping(path = "/validationAnnoncesHistoriques/{id}")
     public ValidationAnnoncesHistoriqueDTO getValidationAnnoncesHistoriquesById(@PathVariable("id") final Integer id) {
-        ValidationAnnoncesHistorique utilisateurs = crudValidationAnnoncesHistorique.getValidationAnnoncesHistoriqueByID(Integer.valueOf(id));
-        utilisateursDTO.setValidationAnnoncesHistorique(utilisateurs);
+        ValidationAnnoncesHistorique validationAnnoncesHistorique = crudValidationAnnoncesHistorique.getValidationAnnoncesHistoriqueByID(Integer.valueOf(id));
+        validationAnnoncesHistoriqueDTO.setValidationAnnoncesHistorique(validationAnnoncesHistorique);
 
-        return utilisateursDTO;
+        return validationAnnoncesHistoriqueDTO;
     }
 
-    @PostMapping(path = "/utilisateurs")
-    public ValidationAnnoncesHistoriqueDTO saveValidationAnnoncesHistorique(@RequestBody ValidationAnnoncesHistoriqueDTO utilisateursDTO) {
+    @PostMapping(path = "/validationAnnoncesHistoriques")
+    public ValidationAnnoncesHistoriqueDTO saveValidationAnnoncesHistorique(@RequestBody ValidationAnnoncesHistoriqueDTO validationAnnoncesHistoriqueDTO) {
         try {
-            crudValidationAnnoncesHistorique.postValidationAnnoncesHistorique(utilisateursDTO.getValidationAnnoncesHistorique());
+            crudValidationAnnoncesHistorique.postValidationAnnoncesHistorique(validationAnnoncesHistoriqueDTO.getValidationAnnoncesHistorique());
 
         } catch (Exception e) {
-            utilisateursDTO.setErrors(e.getMessage());
+            validationAnnoncesHistoriqueDTO.setErrors(e.getMessage());
         }
 
-        return utilisateursDTO;
+        return validationAnnoncesHistoriqueDTO;
 
     }
 

@@ -56,7 +56,8 @@ public class AnnoncesController
 
         return annoncesDTO;
 
-    }    
+    }
+        
 
     @PutMapping(path ="/annonces/{id}")
     public AnnoncesDTO updateAnnonces(@PathVariable("id") final Integer id , @RequestBody AnnoncesDTO annoncesDTO)

@@ -4,12 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
+import AutoOccazMarket.AutoOccazMarket.repositories.AnnoncesRepository;
 import AutoOccazMarket.AutoOccazMarket.repositories.ValidationAnnoncesHistoriqueRepository;
+import jakarta.transaction.Transactional;
 
 public class CRUDValidationAnnoncesHistorique {
     @Autowired
     ValidationAnnoncesHistoriqueRepository validationAnnoncesHistoriqueRepository;
+
+    @Autowired
+    AnnoncesRepository annoncesRepository ;    
 
     public List<ValidationAnnoncesHistorique> getValidationAnnoncesHistoriqueList() {
         return validationAnnoncesHistoriqueRepository.findAll();
@@ -20,7 +26,20 @@ public class CRUDValidationAnnoncesHistorique {
 
     }
 
+    /**
+     * Inserer validation ny objetif .
+     * Tokony efa voa set dieny mialoha ny etat anle validation .
+     * transactionel miaraka @ denomralisation
+     * @param validationAnnoncesHistorique
+     * @return
+     */
+    @Transactional
     public ValidationAnnoncesHistorique postValidationAnnoncesHistorique(ValidationAnnoncesHistorique validationAnnoncesHistorique) {
+
+        Annonces annonces = validationAnnoncesHistorique.getAnnonces();
+        annonces.setEtatValidation(validationAnnoncesHistorique.getEtatValidation());
+        annoncesRepository.save(annonces);
+
         return validationAnnoncesHistoriqueRepository.save(validationAnnoncesHistorique);
     }
 
