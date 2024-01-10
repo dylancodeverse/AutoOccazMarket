@@ -1,19 +1,26 @@
 package AutoOccazMarket.AutoOccazMarket.services;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
+import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
 import AutoOccazMarket.AutoOccazMarket.repositories.AnnoncesRepository;
+import AutoOccazMarket.AutoOccazMarket.repositories.ValidationAnnoncesHistoriqueRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CRUDAnnonces {
     
     @Autowired
     AnnoncesRepository annoncesRepository ;
+
+    @Autowired
+    ValidationAnnoncesHistoriqueRepository validationAnnoncesHistoriqueRepository ;
 
     public List<Annonces> getAnnoncesList() 
     {
@@ -26,9 +33,28 @@ public class CRUDAnnonces {
 
     }
 
+    /**
+     * Insertion annonces
+     * =>transactionel miaraka @ historisation
+     * @param annonces
+     * @return
+     */
+    @Transactional
     public Annonces postAnnonces(Annonces annonces)
     {
-        return annoncesRepository.save(annonces) ;
+        Annonces a= annoncesRepository.save(annonces) ;
+        ValidationAnnoncesHistorique v = new ValidationAnnoncesHistorique();
+        v.setAnnonces(annonces);
+        java.util.Date utilDate = new java.util.Date();
+                // Convertir java.util.Date en java.sql.Date
+        Date sqlDate = new Date(utilDate.getTime());
+        v.setDateValidation(sqlDate);
+        v.setDescription("premiere insertion");
+        v.setEtatValidation(1);
+        v.setValidateur(annonces.getUtilisateur());
+
+        validationAnnoncesHistoriqueRepository.save(v) ;
+        return a ;
     }
 
     public Annonces getAnnoncesByID (Integer id)

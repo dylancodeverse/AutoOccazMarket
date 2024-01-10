@@ -23,8 +23,8 @@ public class Utilisateur {
     @Column(nullable = false, unique = true, length = 250)
     private String prenom;
 
-    @Column(nullable = false, unique = true, length = 250)
-    private String hierarchie;
+    @Column(nullable = false, length = 250)
+    private Integer hierarchie;
 
     /**
      * @return Integer return the idutilisateur
@@ -85,14 +85,14 @@ public class Utilisateur {
     /**
      * @return String return the hierarchie
      */
-    public String getHierarchie() {
+    public Integer getHierarchie() {
         return hierarchie;
     }
 
     /**
      * @param hierarchie the hierarchie to set
      */
-    public void setHierarchie(String hierarchie) {
+    public void setHierarchie(Integer hierarchie) {
         this.hierarchie = hierarchie;
     }
 
