@@ -22,6 +22,11 @@ public class CRUDAnnonces {
     @Autowired
     ValidationAnnoncesHistoriqueRepository validationAnnoncesHistoriqueRepository ;
 
+
+    public List<Annonces> getAnnoncesNonPostees(){
+        return annoncesRepository.findByEtatValidation(1);
+    }
+
     public List<Annonces> getAnnoncesList() 
     {
         return annoncesRepository.findAll();
@@ -91,6 +96,9 @@ public class CRUDAnnonces {
         }
         if (annonces.getUtilisateur()!=null) {
             annoncesToUpdate.setUtilisateur(annonces.getUtilisateur());                    
+        }
+        if (annonces.getPrix()!=null) {
+            annoncesToUpdate.setPrix(annonces.getPrix());
         }
 
 
