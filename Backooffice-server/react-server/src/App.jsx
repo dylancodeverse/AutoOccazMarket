@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./components/gate/login/login";
 
 
 
@@ -10,9 +11,8 @@ function App() {
 
         <Route>
 
-          {/* <Route path="/login" element={<Login/>}/>
+          <Route path="/login" element={<Login/>}/>
 
-          <Route path="/" element={<ValidationDepartmentChef/>}/> */}
 
 
         </Route>        
