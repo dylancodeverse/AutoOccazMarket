@@ -25,16 +25,8 @@ public class AnnoncesAvecCommissionController
     @Autowired
     private AnnoncesAvecCommissionDTO annoncesDTO ;
 
-    @GetMapping(path = "/annoncesNonPostees")
-    public AnnoncesAvecCommissionDTO getAnnoncesAvecCommissionNonPostees()
-    {
-        List<AnnoncesAvecCommission> annonces = crudAnnoncesAvecCommission.getAnnoncesAvecCommissionList() ;
-        annoncesDTO.setAnnoncesAvecCommissionAsList(annonces);
-        return annoncesDTO ;
-    }    
 
-
-    @GetMapping(path = "/annonces")
+    @GetMapping(path = "/annoncesAvecCommission")
     public AnnoncesAvecCommissionDTO getAnnoncesAvecCommissions()
     {
         List<AnnoncesAvecCommission> annonces = crudAnnoncesAvecCommission.getAnnoncesAvecCommissionList() ;
@@ -42,7 +34,7 @@ public class AnnoncesAvecCommissionController
         return annoncesDTO ;
     }
 
-    @GetMapping(path = "/annonces/{id}")
+    @GetMapping(path = "/annoncesAvecCommission/{id}")
     public AnnoncesAvecCommissionDTO getAnnoncesAvecCommissionsById(@PathVariable("id") final Integer id)
     {
         AnnoncesAvecCommission annonces = crudAnnoncesAvecCommission.getAnnoncesAvecCommissionByID(Integer.valueOf(id)) ;
@@ -51,7 +43,7 @@ public class AnnoncesAvecCommissionController
         return annoncesDTO ;
     }
 
-    @PostMapping(path = "/annonces")
+    @PostMapping(path = "/annoncesAvecCommission")
     public AnnoncesAvecCommissionDTO saveAnnoncesAvecCommission(@RequestBody AnnoncesAvecCommissionDTO annoncesDTO)
     {
         try {
@@ -67,7 +59,7 @@ public class AnnoncesAvecCommissionController
         
 
 
-    @DeleteMapping(path = "/annonces/{id}")
+    @DeleteMapping(path = "/annoncesAvecCommission/{id}")
     public void deleteAnnoncesAvecCommission(@PathVariable("id") final Integer id)
     {
         crudAnnoncesAvecCommission.deleteAnnoncesAvecCommissionByID(id);
