@@ -29,7 +29,7 @@ public class AnnoncesController
     @GetMapping(path = "/annoncesNonPostees")
     public AnnoncesDTO getAnnoncesNonPostees()
     {
-        List<Annonces> annonces = crudAnnonces.getAnnoncesList() ;
+        List<Annonces> annonces = crudAnnonces.getAnnoncesNonPostees() ;
         annoncesDTO.setAnnoncesAsList(annonces);
         return annoncesDTO ;
     }    

@@ -23,7 +23,7 @@ public class ModelesStatsController
 
     @Value("${spring.datasource.password}")
     private String password ;
-    @GetMapping("/modelesStatsController")
+    @GetMapping("/modelesStats")
     
     
     public ModelesStatsDTO getAll() {
