@@ -26,6 +26,14 @@ public class AnnoncesController
     @Autowired
     private AnnoncesDTO annoncesDTO ;
 
+    @GetMapping(path = "/annoncesNonPostees")
+    public AnnoncesDTO getAnnoncesNonPostees()
+    {
+        List<Annonces> annonces = crudAnnonces.getAnnoncesList() ;
+        annoncesDTO.setAnnoncesAsList(annonces);
+        return annoncesDTO ;
+    }    
+
 
     @GetMapping(path = "/annonces")
     public AnnoncesDTO getAnnoncess()

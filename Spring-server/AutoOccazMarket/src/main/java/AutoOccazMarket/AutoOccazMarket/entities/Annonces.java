@@ -36,6 +36,16 @@ public class Annonces {
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")
     private ValidationAnnoncesHistorique[] validationAnnoncesHistoriques ;
 
+    private Double prix ;
+
+
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
 
     public Integer getIdAnnonce() {
         return idAnnonce;
