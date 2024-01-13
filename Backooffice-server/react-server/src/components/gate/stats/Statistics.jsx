@@ -1,5 +1,7 @@
 import Header from "../../constants/header/Header";
 import SideNav from "../../constants/sidenav/sideNav";
+import AnnoncesStat from "../../main-Table/AnnoncesStat";
+import ModelesStat from "../../main-Table/ModelesStat";
 
 export default function Statistics() {
     return(
@@ -11,8 +13,12 @@ export default function Statistics() {
                 <div class="main-panel">        
                    <div class="content-wrapper">
                         <div class="row">
-                            
+                            <AnnoncesStat/>                
                         </div>
+                        <div class="row">
+                            <ModelesStat/>                
+                        </div>
+
                     </div>
                 </div>
             </div>

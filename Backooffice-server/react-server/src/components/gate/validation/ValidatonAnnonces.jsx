@@ -1,5 +1,6 @@
 import Header from "../../constants/header/Header";
 import SideNav from "../../constants/sidenav/sideNav";
+import ValidationTableAnnonce from "../../main-Table/validationTable";
 
 export default function ValidationAnnonce() {
     return(
@@ -11,7 +12,7 @@ export default function ValidationAnnonce() {
                 <div class="main-panel">        
                    <div class="content-wrapper">
                         <div class="row">
-                            
+                            <ValidationTableAnnonce/>
                         </div>
                     </div>
                 </div>
