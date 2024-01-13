@@ -1,6 +1,10 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,11 +23,12 @@ public class ValidationAnnoncesHistorique
     @Column(name = "validationAnnoncesHistoriqueId")
     private Integer validationAnnoncesHistoriqueId ; 
 
-    @ManyToOne(optional = false ,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false ,fetch = FetchType.EAGER)
     private Annonces annonces ;
 
     @Column(name = "date_validation")
-    private Date dateValidation ;
+    @CreationTimestamp
+    private Timestamp dateValidation ;
 
     private String description ;
 
@@ -49,11 +54,11 @@ public class ValidationAnnoncesHistorique
         this.annonces = annonces;
     }
 
-    public Date getDateValidation() {
+    public Timestamp getDateValidation() {
         return dateValidation;
     }
 
-    public void setDateValidation(Date dateValidation) {
+    public void setDateValidation(Timestamp dateValidation) {
         this.dateValidation = dateValidation;
     }
 

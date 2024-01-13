@@ -1,7 +1,6 @@
 package AutoOccazMarket.AutoOccazMarket.services;
 
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +50,6 @@ public class CRUDAnnonces {
         Annonces a= annoncesRepository.save(annonces) ;
         ValidationAnnoncesHistorique v = new ValidationAnnoncesHistorique();
         v.setAnnonces(annonces);
-        java.util.Date utilDate = new java.util.Date();
-                // Convertir java.util.Date en java.sql.Date
-        Date sqlDate = new Date(utilDate.getTime());
-        v.setDateValidation(sqlDate);
         v.setDescription("premiere insertion");
         v.setEtatValidation(1);
         v.setValidateur(annonces.getUtilisateur());
