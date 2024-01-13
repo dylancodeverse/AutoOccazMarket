@@ -8,7 +8,13 @@ export default function ValidationAnnonce() {
             <div class="container-fluid page-body-wrapper">
                 <SideNav params={'Validation'}/>
                 {/* main foana avy eo */}
-                
+                <div class="main-panel">        
+                   <div class="content-wrapper">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )    
