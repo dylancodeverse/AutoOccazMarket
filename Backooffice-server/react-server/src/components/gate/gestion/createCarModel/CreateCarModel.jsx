@@ -1,5 +1,6 @@
 import Header from "../../../constants/header/Header";
 import SideNav from "../../../constants/sidenav/sideNav";
+import FormModelCar from "../../../main-Form/FormModelCar";
 
 export default function CreateCarModel() {
     return(
@@ -11,7 +12,7 @@ export default function CreateCarModel() {
                 <div class="main-panel">        
                    <div class="content-wrapper">
                         <div class="row">
-                            
+                            <FormModelCar/>
                         </div>
                     </div>
                 </div>
