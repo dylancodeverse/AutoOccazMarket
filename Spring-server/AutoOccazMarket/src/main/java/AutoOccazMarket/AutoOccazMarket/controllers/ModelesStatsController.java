@@ -23,9 +23,9 @@ public class ModelesStatsController
 
     @Value("${spring.datasource.password}")
     private String password ;
+
+
     @GetMapping("/modelesStats")
-    
-    
     public ModelesStatsDTO getAll() {
         ModelesStatsDTO m = new ModelesStatsDTO();
         try {

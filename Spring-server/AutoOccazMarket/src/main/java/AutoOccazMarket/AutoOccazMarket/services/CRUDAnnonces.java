@@ -47,6 +47,7 @@ public class CRUDAnnonces {
     @Transactional
     public Annonces postAnnonces(Annonces annonces)
     {
+        annonces.setEtatValidation(1);
         Annonces a= annoncesRepository.save(annonces) ;
         ValidationAnnoncesHistorique v = new ValidationAnnoncesHistorique();
         v.setAnnonces(annonces);

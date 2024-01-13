@@ -52,6 +52,7 @@ public class UtilisateurController {
 
     }
 
+
     @PutMapping(path = "/utilisateurs/{id}")
     public UtilisateurDTO updateUtilisateur(@PathVariable("id") final Integer id,
             @RequestBody UtilisateurDTO utilisateursDTO) {

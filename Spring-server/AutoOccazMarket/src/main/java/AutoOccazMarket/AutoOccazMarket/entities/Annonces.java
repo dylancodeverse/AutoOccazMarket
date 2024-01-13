@@ -1,6 +1,8 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,7 +36,7 @@ public class Annonces {
 
 
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")
-    private ValidationAnnoncesHistorique[] validationAnnoncesHistoriques ;
+    private List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques ;
 
     private Double prix ;
 
