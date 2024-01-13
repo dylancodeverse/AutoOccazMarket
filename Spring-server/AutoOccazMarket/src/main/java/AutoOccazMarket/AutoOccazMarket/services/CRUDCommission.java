@@ -5,14 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.Commission;
+import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
+import AutoOccazMarket.AutoOccazMarket.repositories.AnnoncesRepository;
 import AutoOccazMarket.AutoOccazMarket.repositories.CommissionRepository;
+import AutoOccazMarket.AutoOccazMarket.repositories.ValidationAnnoncesHistoriqueRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CRUDCommission {
     
     @Autowired
     CommissionRepository commissionRepository ;
+
+    @Autowired 
+    AnnoncesRepository annoncesRepository ;
+
+    @Autowired 
+    CRUDValidationAnnoncesHistorique validationAnnoncesHistoriqueCRUD ;    
+
+    @Autowired
+    ValidationAnnoncesHistoriqueRepository validationAnnoncesHistoriqueRepository;
 
     public List<Commission> getCommissionList() 
     {
@@ -25,8 +39,25 @@ public class CRUDCommission {
 
     }
 
+    @Transactional
     public Commission postCommission(Commission commission)
     {
+        Annonces a = annoncesRepository.findById(commission.getAnnonces().getIdAnnonce()).get();
+        ValidationAnnoncesHistorique validationAnnoncesHistorique = new ValidationAnnoncesHistorique();
+        validationAnnoncesHistorique.setAnnonces(a);
+        validationAnnoncesHistorique.setDescription("insertion de commission");
+        validationAnnoncesHistorique.setEtatValidation(20);
+        validationAnnoncesHistorique.setValidateur(commission.getValidateur());
+
+        a.setEtatValidation(20);
+
+        annoncesRepository.save(a);
+
+        validationAnnoncesHistoriqueRepository.save(validationAnnoncesHistorique);
+
+        commissionRepository.save(commission);
+        
+
         return commissionRepository.save(commission) ;
     }
 
@@ -53,9 +84,6 @@ public class CRUDCommission {
             commissionToUpdate.setAnnonces(commission.getAnnonces());                    
         }
 
-        if (commission.getMoisvalidable()!=null) {
-            commissionToUpdate.setMoisvalidable(commission.getMoisvalidable());                    
-        }
         if (commission.getPourcentages()!=null) {
             commissionToUpdate.setPourcentages(commission.getPourcentages());                    
         }
