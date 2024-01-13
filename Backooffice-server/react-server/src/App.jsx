@@ -24,6 +24,7 @@ function App() {
           <Route path="/statistics" element = {<Statistics/>} />
 
           <Route path="/validation" element = {<ValidationAnnonce/>} />
+          
         </Route>        
 
       </Routes>
