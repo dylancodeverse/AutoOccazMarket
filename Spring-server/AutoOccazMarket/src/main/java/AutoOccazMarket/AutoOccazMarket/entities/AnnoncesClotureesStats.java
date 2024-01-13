@@ -15,13 +15,13 @@ public class AnnoncesClotureesStats {
 
     public static AnnoncesClotureesStats[] select(Connection connection ) throws Exception{
         Statement statement = connection.createStatement();
-        ResultSet re = statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,  V_modelesPost as (select V_modeles_annonces.*  from V_modeles_annonces where etat_validation = 20), V_modelesPostCount as (select nom_modele , count(*) as nb_post from V_modelesPost group by nom_modele ), V_annonces_avec_commission as (select commission.pourcentages , annonces_avec_commission.* from annonces_avec_commission join commission on commission.id_commission = commission_id_commission), V_modelesCloturees as (select V_modeles_annonces.* , pourcentages  from V_modeles_annonces  join V_annonces_avec_commission on id_annonce =annonces_id_annonce where etat_validation = 30), V_modelesCloturees_stat as (select nom_modele , count(*) as nb_post, sum(prix *pourcentages) as prixVendu  from V_modelesCloturees group by nom_modele ) select * from V_modelesCloturees_stat ");
+        ResultSet re = statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix , id_annonce from modeles join annonces  on modeles_id_modeles = id_modeles and etat_validation= 30  ) , V_annonces_commission as (select V_modeles_annonces.* , commission.pourcentages from V_modeles_annonces join commission on V_modeles_annonces.id_modeles = commission.annonces_id_annonce ) select nom_modele , count(*) as nbreVoitureVendu, sum (prix*pourcentages) as prixvendu from V_annonces_commission group by nom_modele");
         ArrayList<AnnoncesClotureesStats> l = new ArrayList<>();
         while (re.next()) {
             AnnoncesClotureesStats v = new AnnoncesClotureesStats();
-            v.setNbrePosteClotures(re.getInt(0));
-            v.setNomModele(re.getString(0));
-            v.setPrixvendu(re.getDouble(0));            
+            v.setNbrePosteClotures(re.getInt(2));
+            v.setNomModele(re.getString(1));
+            v.setPrixvendu(re.getDouble(3));            
             l.add(v);
         }
         return l.toArray(new AnnoncesClotureesStats[l.size()]);
