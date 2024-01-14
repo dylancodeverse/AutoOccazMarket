@@ -25,49 +25,49 @@ public class CommissionController
     private CRUDCommission crudCommission ;
 
     @Autowired
-    private CommissionDTO commssionsDTO ;
+    private CommissionDTO commissionsDTO ;
 
 
-    @GetMapping(path = "/commssions")
+    @GetMapping(path = "/commissions")
     public CommissionDTO getCommissions()
     {
-        List<Commission> commssions = crudCommission.getCommissionList() ;
-        commssionsDTO.setCommissionAsList(commssions);
-        return commssionsDTO ;
+        List<Commission> commissions = crudCommission.getCommissionList() ;
+        commissionsDTO.setCommissionAsList(commissions);
+        return commissionsDTO ;
     }
 
-    @GetMapping(path = "/commssions/{id}")
+    @GetMapping(path = "/commissions/{id}")
     public CommissionDTO getCommissionsById(@PathVariable("id") final Integer id)
     {
-        Commission commssions = crudCommission.getCommissionByID(Integer.valueOf(id)) ;
-        commssionsDTO.setCommission(commssions) ;
+        Commission commissions = crudCommission.getCommissionByID(Integer.valueOf(id)) ;
+        commissionsDTO.setCommission(commissions) ;
 
-        return commssionsDTO ;
+        return commissionsDTO ;
     }
 
-    @PostMapping(path = "/commssions")
-    public CommissionDTO saveCommission(@RequestBody CommissionDTO commssionsDTO)
+    @PostMapping(path = "/commissions")
+    public CommissionDTO saveCommission(@RequestBody CommissionDTO commissionsDTO)
     {
         try {
-            crudCommission.postCommission(commssionsDTO.getCommission());
+            crudCommission.postCommission(commissionsDTO.getCommission());
             
         } catch (Exception e) {
-            commssionsDTO.setErrors(e.getMessage());
+            commissionsDTO.setErrors(e.getMessage());
         }
 
-        return commssionsDTO;
+        return commissionsDTO;
 
     }    
 
-    @PutMapping(path ="/commssions/{id}")
-    public CommissionDTO updateCommission(@PathVariable("id") final Integer id , @RequestBody CommissionDTO commssionsDTO)
+    @PutMapping(path ="/commissions/{id}")
+    public CommissionDTO updateCommission(@PathVariable("id") final Integer id , @RequestBody CommissionDTO commissionsDTO)
     {
-        crudCommission.updateCommission(id, commssionsDTO.getCommission());
+        crudCommission.updateCommission(id, commissionsDTO.getCommission());
 
-        return commssionsDTO;
+        return commissionsDTO;
     }
 
-    @DeleteMapping(path = "/commssions/{id}")
+    @DeleteMapping(path = "/commissions/{id}")
     public void deleteCommission(@PathVariable("id") final Integer id)
     {
         crudCommission.deleteCommissionByID(id);

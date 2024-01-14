@@ -1,11 +1,9 @@
 package AutoOccazMarket.AutoOccazMarket.Security.Encoder;
 
-import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@Component
 public class SHA256PasswordEncoder 
 {
 

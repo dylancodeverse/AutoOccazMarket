@@ -24,6 +24,7 @@ public class CRUDutilisateur {
     }
 
     public Utilisateur postUtilisateur(Utilisateur utilisateur) {
+        
         return utilisateurRepository.save(utilisateur);
     }
 

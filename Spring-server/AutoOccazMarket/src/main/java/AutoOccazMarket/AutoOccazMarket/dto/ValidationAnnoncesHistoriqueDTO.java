@@ -1,6 +1,7 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,16 @@ public class ValidationAnnoncesHistoriqueDTO {
     ValidationAnnoncesHistorique validationAnnoncesHistorique;
 
     String errors;
+
+    Map<String, String> tokenInformation;
+
+    public Map<String, String> getTokenInformation() {
+        return tokenInformation;
+    }
+
+    public void setTokenInformation(Map<String, String> tokenInformation) {
+        this.tokenInformation = tokenInformation;
+    }
 
     public void setValidationAnnoncesHistoriqueAsList(List<ValidationAnnoncesHistorique> list) {
         listValidationAnnoncesHistorique = list.toArray(new ValidationAnnoncesHistorique[list.size()]);

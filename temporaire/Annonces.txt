@@ -1,0 +1,30 @@
+Annonces
+    /annoncesNonPostees
+    /annonces
+    /annonces/{id}
+
+AnnoncesAvecCommission
+    /annoncesAvecCommission
+    /annoncesAvecCommission/{id}
+AnnoncesClotureesStats
+    /AnnoncesClotureesStats
+Carburant
+    /carburants
+    /carburants/{id}
+Categorie
+    /categories
+    /categories/{id}
+Commission
+    /commissions
+Marque
+    /marques
+Modeles 
+    /modeles    
+ModelesStats
+    /modelesStats
+PhotoAnnonce
+    /photoannonces
+Utilisateur
+    /utilisateurs
+ValidationAnnoncesHistorique
+    /validationAnnoncesHistoriques

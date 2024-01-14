@@ -1,5 +1,6 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,16 @@ public class CommissionDTO {
     Commission commission;
 
     String errors;
+
+    Map<String, String> tokenInformation;
+
+    public Map<String, String> getTokenInformation() {
+        return tokenInformation;
+    }
+
+    public void setTokenInformation(Map<String, String> tokenInformation) {
+        this.tokenInformation = tokenInformation;
+    }
 
     public void setCommissionAsList(List<Commission> list) {
         listCommission = list.toArray(new Commission[list.size()]);

@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
@@ -10,6 +11,7 @@ import AutoOccazMarket.AutoOccazMarket.repositories.AnnoncesRepository;
 import AutoOccazMarket.AutoOccazMarket.repositories.ValidationAnnoncesHistoriqueRepository;
 import jakarta.transaction.Transactional;
 
+@Component
 public class CRUDValidationAnnoncesHistorique {
     @Autowired
     ValidationAnnoncesHistoriqueRepository validationAnnoncesHistoriqueRepository;
@@ -37,6 +39,7 @@ public class CRUDValidationAnnoncesHistorique {
     public ValidationAnnoncesHistorique postValidationAnnoncesHistorique(ValidationAnnoncesHistorique validationAnnoncesHistorique) {
 
         Annonces annonces = validationAnnoncesHistorique.getAnnonces();
+        annonces = annoncesRepository.findById(annonces.getIdAnnonce()).get();
         annonces.setEtatValidation(validationAnnoncesHistorique.getEtatValidation());
         annoncesRepository.save(annonces);
 

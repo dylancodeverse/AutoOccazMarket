@@ -20,7 +20,9 @@ public class Commission {
 
     private Double pourcentages ;
 
-    private Integer moisvalidable;
+
+    @ManyToOne(optional = false)
+    private Utilisateur validateur;
 
     public Integer getIdCommission() {
         return idCommission;
@@ -46,11 +48,13 @@ public class Commission {
         this.pourcentages = pourcentages;
     }
 
-    public Integer getMoisvalidable() {
-        return moisvalidable;
+
+
+    public Utilisateur getValidateur() {
+        return validateur;
     }
 
-    public void setMoisvalidable(Integer moisvalidable) {
-        this.moisvalidable = moisvalidable;
+    public void setValidateur(Utilisateur validateur) {
+        this.validateur = validateur;
     } 
 }
