@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.utils.JWTGenerator;
 import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
@@ -13,6 +14,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.userSecurity.RegisterService;
 import AutoOccazMarket.AutoOccazMarket.services.userSecurity.UserAuth;
 
+@RestController
 public class AuthentificationController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class AuthentificationController {
         try {
             
             Utilisateur user = utilisateurDTO.getUtilisateur();
+            user.setHierarchie(1);
             registerService.registerUser(user);
         } catch (Exception e) {
             utilisateurDTO.setErrors(e.getMessage());

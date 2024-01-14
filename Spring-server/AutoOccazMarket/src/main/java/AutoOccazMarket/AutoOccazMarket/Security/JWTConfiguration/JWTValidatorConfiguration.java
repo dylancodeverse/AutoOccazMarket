@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.utils.JWTValidator;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.security.Keys;
 
 @Component
@@ -65,13 +64,6 @@ public class JWTValidatorConfiguration extends JWTValidator
 
             return null ;
         }
-        catch (SignatureException e1) 
-
-        {
-            System.out.println(e1);
-
-            return null;
-        } 
         catch (Exception e2) 
         {
             System.out.print(e2);
