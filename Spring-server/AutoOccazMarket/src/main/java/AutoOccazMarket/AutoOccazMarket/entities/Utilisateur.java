@@ -2,7 +2,6 @@ package AutoOccazMarket.AutoOccazMarket.entities;
 
 import java.sql.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import AutoOccazMarket.AutoOccazMarket.Security.Encoder.SHA256PasswordEncoder;
 import jakarta.persistence.Column;
