@@ -1,5 +1,10 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import AutoOccazMarket.AutoOccazMarket.Security.Encoder.SHA256PasswordEncoder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +27,11 @@ public class Utilisateur {
 
     @Column(nullable = false, unique = true, length = 250)
     private String prenom;
+
+    private Date birthday;
+
+    @Column(nullable = false, unique = true ,length = 250)
+    private String nom;
 
     @Column(nullable = false, length = 250)
     private Integer hierarchie;
@@ -65,7 +75,7 @@ public class Utilisateur {
      * @param mdp the mdp to set
      */
     public void setMdp(String mdp) {
-        this.mdp = mdp;
+        this.mdp= new SHA256PasswordEncoder().encodePassword(mdp);
     }
 
     /**
@@ -94,6 +104,22 @@ public class Utilisateur {
      */
     public void setHierarchie(Integer hierarchie) {
         this.hierarchie = hierarchie;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 }
