@@ -29,7 +29,7 @@ public class FilterSecurityConfiguration
      
         registrationBean.addUrlPatterns(
             "/commissions", "/annoncesNonPostees" ,"/modelesStats" ,"/AnnoncesClotureesStats"
-                                       );
+                            ,"/userAdmin"  );
         
         registrationBean.setOrder(1);
 

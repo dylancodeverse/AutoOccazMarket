@@ -21,7 +21,7 @@ public class Utilisateur {
     @Column(nullable = false, unique = true, length = 250)
     private String mail;
 
-    @Column(nullable = false, unique = true, length = 250)
+    @Column(nullable = false, length = 250)
     private String mdp;
 
     @Column(nullable = false, unique = true, length = 250)
