@@ -1,11 +1,12 @@
 package AutoOccazMarket.AutoOccazMarket.services.userSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import AutoOccazMarket.AutoOccazMarket.Security.Encoder.SHA256PasswordEncoder;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.repositories.UtilisateurRepository;
 
+@Component
 public class UserAuth {
 
     @Autowired
@@ -18,9 +19,10 @@ public class UserAuth {
         } catch (Exception e) {
             throw new Exception("Utilisateur non trouve:"+e.getMessage());
         }
-        SHA256PasswordEncoder passwordEncoder = new SHA256PasswordEncoder();
 
-        if (passwordEncoder.matches(utilisateur.getMdp(),u.getMdp() )) {
+
+
+        if ((utilisateur.getMdp().equals(u.getMdp()) )) {
             return u;
         }else{
             throw new Exception("Identifiant invalide ou mot de passe invalide ");
