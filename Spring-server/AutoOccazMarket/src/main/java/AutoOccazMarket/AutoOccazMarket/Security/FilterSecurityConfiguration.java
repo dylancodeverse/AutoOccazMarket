@@ -3,38 +3,52 @@ package AutoOccazMarket.AutoOccazMarket.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.JWTAuthorizationFilter;
-
+import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.Admin.AllPermission;
+import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.ClientAdmin.OnlyGetForClient;
 
 
 @Component
+@Configuration
 public class FilterSecurityConfiguration 
 {
     @Autowired
-    private JWTAuthorizationFilter jwtAuthorizationFilter;
+    private AllPermission adminAllPermission;
 
+    @Autowired 
+    private OnlyGetForClient clientAdmin ;
 
     @Bean
-    public FilterRegistrationBean<JWTAuthorizationFilter> filterConfiguration(){
-        FilterRegistrationBean<JWTAuthorizationFilter> registrationBean 
+    public FilterRegistrationBean<AllPermission> filterConfigurationForAdminOnly(){
+        FilterRegistrationBean<AllPermission> registrationBean 
               = new FilterRegistrationBean<>();
             
-        registrationBean.setFilter(jwtAuthorizationFilter);
+        registrationBean.setFilter(adminAllPermission);
      
         registrationBean.addUrlPatterns(
-
-                             "/fleet/car", 
-                                            "/fleet/car/*" ,
-                                            "/fleet/user/*",
-                                            "/fleet/user",
-                                            "/fleet/carMileage",
-                                            "/fleet/carMileage/*"
+            "/commissions", "/annoncesNonPostees" ,"/modelesStats" ,"/AnnoncesClotureesStats"
                                        );
         
         registrationBean.setOrder(1);
 
         return registrationBean;    
     }
+
+    @Bean
+    public FilterRegistrationBean<OnlyGetForClient> filterConfForAdminAndClient(){
+        FilterRegistrationBean<OnlyGetForClient> registrationBean 
+            = new FilterRegistrationBean<>();
+
+        registrationBean.setFilter(clientAdmin);
+
+        registrationBean.addUrlPatterns("/carburants" , "/categories" , "/marques" ,"/modeles"
+                                        );
+
+        registrationBean.setOrder(1);
+        
+        return registrationBean;
+    } 
+
 }

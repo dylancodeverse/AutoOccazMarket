@@ -1,4 +1,4 @@
-package AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter;
+package AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.OnlyClient;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -6,20 +6,16 @@ import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import AutoOccazMarket.AutoOccazMarket.Security.JWTConfiguration.JWTValidatorConfiguration;
-
-import org.springframework.util.StringUtils;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
-public class JWTAuthorizationFilter extends OncePerRequestFilter {
+public class AllForClient extends OncePerRequestFilter {
 
     @Autowired
     private JWTValidatorConfiguration jwtValidator;
@@ -39,7 +35,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
             System.out.println(username + role);
             // Role verification
-            if (role != null && role >=1) 
+            if (role != null && role ==1) 
             {
                 // OK
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList()));
@@ -69,5 +65,5 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
 
         return null;
-    }
+    }    
 }
