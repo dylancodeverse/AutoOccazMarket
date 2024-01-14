@@ -1,6 +1,7 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,16 @@ public class MarqueDTO
     Marque marque ;
 
     String errors ;
+
+    Map<String, String> tokenInformation;
+
+    public Map<String, String> getTokenInformation() {
+        return tokenInformation;
+    }
+
+    public void setTokenInformation(Map<String, String> tokenInformation) {
+        this.tokenInformation = tokenInformation;
+    }
 
     public void setMarqueAsList(List<Marque> list)
     {
