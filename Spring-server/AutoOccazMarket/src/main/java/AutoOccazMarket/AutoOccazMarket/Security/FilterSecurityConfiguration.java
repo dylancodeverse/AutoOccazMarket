@@ -49,6 +49,8 @@ public class FilterSecurityConfiguration
         registrationBean.setOrder(1);
         
         return registrationBean;
-    } 
+    }
+    
+
 
 }

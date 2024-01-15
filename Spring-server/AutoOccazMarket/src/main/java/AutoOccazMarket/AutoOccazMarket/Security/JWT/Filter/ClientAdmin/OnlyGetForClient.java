@@ -36,6 +36,8 @@ public class OnlyGetForClient extends OncePerRequestFilter {
     }
     private void GET(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException{
         String token = getJWTFromRequest(request);
+        System.out.println(token);
+        System.out.println(jwtValidator.validateToken(token));
         if (token != null && jwtValidator.validateToken(token)) {
 
             // token informations
