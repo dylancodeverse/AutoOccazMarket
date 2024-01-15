@@ -17,7 +17,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class UtilisateurController {
 
     @Autowired

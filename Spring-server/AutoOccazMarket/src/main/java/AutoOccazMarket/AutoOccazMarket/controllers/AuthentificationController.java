@@ -16,7 +16,7 @@ import AutoOccazMarket.AutoOccazMarket.services.userSecurity.RegisterService;
 import AutoOccazMarket.AutoOccazMarket.services.userSecurity.UserAuth;
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 
 public class AuthentificationController {
 

@@ -19,7 +19,7 @@ import AutoOccazMarket.AutoOccazMarket.services.CRUDCommission;
 
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class CommissionController 
 {
 

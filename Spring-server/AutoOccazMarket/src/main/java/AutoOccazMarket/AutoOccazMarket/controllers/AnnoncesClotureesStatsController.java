@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class AnnoncesClotureesStatsController {
 
     @Value("${spring.datasource.url}")

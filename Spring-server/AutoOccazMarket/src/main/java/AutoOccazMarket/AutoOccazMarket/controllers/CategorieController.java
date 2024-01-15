@@ -19,7 +19,7 @@ import AutoOccazMarket.AutoOccazMarket.services.CRUDcategorie;
 
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class CategorieController {
 
     @Autowired

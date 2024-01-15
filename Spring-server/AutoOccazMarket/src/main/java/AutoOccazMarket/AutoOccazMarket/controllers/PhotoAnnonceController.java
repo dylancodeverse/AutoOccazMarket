@@ -17,7 +17,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.PhotoAnnonce;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDPhotoAnnonce;
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class PhotoAnnonceController {
 
     @Autowired

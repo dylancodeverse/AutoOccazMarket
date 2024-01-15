@@ -18,7 +18,7 @@ import AutoOccazMarket.AutoOccazMarket.services.CRUDCarburant;
 
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class CarburantController 
 {
 

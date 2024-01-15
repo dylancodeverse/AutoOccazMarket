@@ -18,7 +18,7 @@ import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
 
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 
 public class AnnoncesController 
 {

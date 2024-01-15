@@ -17,7 +17,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDMarque;
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class MarqueController {
 
     @Autowired

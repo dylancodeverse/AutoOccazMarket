@@ -15,7 +15,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDValidationAnnoncesHistorique;
 
 @RestController
-@CrossOrigin(origins = "${UrlConfig.frontendUrl}")
+@CrossOrigin(origins = "${frontend.url}")
 public class ValidationAnnoncesHistoriqueController {
     @Autowired
     private CRUDValidationAnnoncesHistorique crudValidationAnnoncesHistorique;
