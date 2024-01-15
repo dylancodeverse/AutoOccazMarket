@@ -1,11 +1,28 @@
 // Import the API base URL from the config file
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../../Config';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the token is already present in local storage
+    const storedToken = localStorage.getItem('accessToken');
+    if (storedToken) {
+      // Redirect to ValidationAnnonce if the token is present
+      navigate('/validation');
+    }
+  }, [navigate]);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -18,10 +35,20 @@ export default function Login() {
         },
       });
 
-      // Handle the response as needed (e.g., redirect or store authentication token)
+      // Handle the response as needed
+      const { tokenInformation } = response.data;
+      const accessToken = tokenInformation.accessToken;
+
+      // Store the access token in local storage
+      localStorage.setItem('accessToken', accessToken);
+
+      // Redirect to ValidationAnnonce
+      navigate('/validation');
+
       console.log('Login Successful', response.data);
     } catch (error) {
       // Handle errors (e.g., display error message)
+      setError('Invalid username or password. Please try again.');
       console.error('Login Failed', error);
     }
   };
@@ -59,6 +86,11 @@ export default function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
+                  {error && (
+                    <div className="alert alert-danger" role="alert">
+                      {error}
+                    </div>
+                  )}
                   <div className="mt-3">
                     <button
                       type="submit"
