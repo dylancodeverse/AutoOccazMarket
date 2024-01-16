@@ -6,4 +6,6 @@ import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 
 public interface MarqueRepository extends JpaRepository <Marque,Integer>{
     
+    boolean existsByMarque(String marque) ;
+
 }

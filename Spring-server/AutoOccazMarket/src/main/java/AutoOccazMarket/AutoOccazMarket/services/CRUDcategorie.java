@@ -24,7 +24,10 @@ public class CRUDcategorie {
 
     }
 
-    public Categorie postCategorie(Categorie categorie) {
+    public Categorie postCategorie(Categorie categorie) throws Exception{
+        if (categorieRepository.existsByCategorie(categorie.getCategorie().trim())) {
+            throw new Exception("Categorie deja existant pour: "+categorie.getCategorie());
+        }
         return categorieRepository.save(categorie);
     }
 
@@ -36,7 +39,7 @@ public class CRUDcategorie {
         }
     }
 
-    public void updateCategorie(Integer id, Categorie categorie) {
+    public void updateCategorie(Integer id, Categorie categorie) throws Exception {
         Categorie categorieToUpdate = getCategorieByID(id);
 
         if (categorieToUpdate == null)

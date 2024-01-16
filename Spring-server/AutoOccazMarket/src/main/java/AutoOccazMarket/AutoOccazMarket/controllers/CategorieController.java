@@ -58,8 +58,12 @@ public class CategorieController {
 
     @PutMapping(path = "/categories/{id}")
     public CategorieDTO updateCategorie(@PathVariable("id") final Integer id, @RequestBody CategorieDTO categoriesDTO) {
-        crudCategorie.updateCategorie(id, categoriesDTO.getCategorie());
-
+        try {
+            crudCategorie.updateCategorie(id, categoriesDTO.getCategorie());
+            
+        } catch (Exception e) {
+            categoriesDTO.setErrors(e.getMessage());
+        }
         return categoriesDTO;
     }
 

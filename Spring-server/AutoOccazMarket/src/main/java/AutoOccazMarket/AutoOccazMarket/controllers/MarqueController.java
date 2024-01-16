@@ -56,7 +56,11 @@ public class MarqueController {
 
     @PutMapping(path = "/marques/{id}")
     public MarqueDTO updateMarque(@PathVariable("id") final Integer id, @RequestBody MarqueDTO marquesDTO) {
-        crudMarque.updateMarque(id, marquesDTO.getMarque());
+        try {
+            crudMarque.updateMarque(id, marquesDTO.getMarque());
+        } catch (Exception e) {
+            marquesDTO.setErrors(e.getMessage());
+        }
 
         return marquesDTO;
     }

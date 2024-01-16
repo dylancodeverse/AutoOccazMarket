@@ -63,7 +63,12 @@ public class CarburantController
     @PutMapping(path ="/carburants/{id}")
     public CarburantDTO updateCarburant(@PathVariable("id") final Integer id , @RequestBody CarburantDTO carburantsDTO)
     {
-        crudCarburant.updateCarburant(id, carburantsDTO.getCarburant());
+        try {
+            crudCarburant.updateCarburant(id, carburantsDTO.getCarburant());
+            
+        } catch (Exception e) {
+            carburantsDTO.setErrors(e.getMessage());
+        }
 
         return carburantsDTO;
     }

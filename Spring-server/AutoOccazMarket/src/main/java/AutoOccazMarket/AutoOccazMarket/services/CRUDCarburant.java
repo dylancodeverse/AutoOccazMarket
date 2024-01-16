@@ -25,8 +25,11 @@ public class CRUDCarburant {
 
     }
 
-    public Carburant postCarburant(Carburant carburant)
+    public Carburant postCarburant(Carburant carburant) throws Exception
     {
+        if (carburantRepository.existsByCarburant(carburant.getCarburant().trim())) {
+            throw new Exception("Carburant "+carburant.getCarburant() +" deja existant");
+        }
         return carburantRepository.save(carburant) ;
     }
 
@@ -42,7 +45,7 @@ public class CRUDCarburant {
         }
     }
 
-    public void updateCarburant(Integer id , Carburant carburant)
+    public void updateCarburant(Integer id , Carburant carburant) throws Exception
     {
         Carburant carburantToUpdate = getCarburantByID(id) ;
 

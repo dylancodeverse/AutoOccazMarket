@@ -26,8 +26,11 @@ public class CRUDMarque {
 
     }
 
-    public Marque postMarque(Marque marque)
+    public Marque postMarque(Marque marque) throws Exception
     {
+        if (marqueRepository.existsByMarque( marque.getMarque().trim())) {
+            throw new Exception("Marque deja existant pour: "+marque.getMarque());
+        }
         return marqueRepository.save(marque) ;
     }
 
@@ -43,7 +46,7 @@ public class CRUDMarque {
         }
     }
 
-    public void updateMarque(Integer id , Marque marque)
+    public void updateMarque(Integer id , Marque marque) throws Exception
     {
         Marque marqueToUpdate = getMarqueByID(id) ;
 

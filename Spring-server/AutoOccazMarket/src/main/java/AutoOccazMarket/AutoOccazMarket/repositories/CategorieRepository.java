@@ -6,4 +6,5 @@ import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
 
 public interface CategorieRepository extends JpaRepository<Categorie, Integer> {
 
+     boolean existsByCategorie(String categorie) ;
 }
