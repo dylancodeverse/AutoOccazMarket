@@ -6,5 +6,5 @@ import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 
 public interface ModelesRepository extends JpaRepository<Modeles,Integer> {
 
-    boolean existsByNomModele(String nomModele);
+    boolean existsByNomModele(String NomModele);
 }
