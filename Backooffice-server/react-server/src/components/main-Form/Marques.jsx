@@ -31,8 +31,10 @@ export default function Marque() {
         { headers }
       );
 
-      // Handle the response as needed
-      console.log('Marque added successfully', response.data);
+      if (response.data.errors != null) {
+        setErrorMessage(response.data.errors);
+      }
+
     } catch (error) {
       // Handle errors (e.g., display error message)
       console.error('Failed to add marque', error);

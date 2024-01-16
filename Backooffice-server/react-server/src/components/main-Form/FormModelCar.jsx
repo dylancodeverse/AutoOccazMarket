@@ -82,6 +82,9 @@ export default function FormModelCar() {
         { headers }
       );
 
+      if (response.data.errors != null) {
+        setError(response.data.errors);
+      }
       // Handle the response as needed
       console.log('Model created successfully', response.data);
     } catch (error) {

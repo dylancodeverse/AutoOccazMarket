@@ -26,8 +26,11 @@ public class CRUDModeles {
 
     }
 
-    public Modeles postModeles(Modeles modeles)
+    public Modeles postModeles(Modeles modeles) throws Exception
     {
+        if (modelesRepository.existsByNomModele(modeles.getNomModele().trim())) {
+            throw new Exception("Modele deja existant pour: "+modeles.getNomModele()) ;            
+        }   
         return modelesRepository.save(modeles) ;
     }
 
@@ -43,7 +46,7 @@ public class CRUDModeles {
         }
     }
 
-    public void updateModeles(Integer id , Modeles modeles)
+    public void updateModeles(Integer id , Modeles modeles) throws Exception
     {
         Modeles modelesToUpdate = getModelesByID(id) ;
 

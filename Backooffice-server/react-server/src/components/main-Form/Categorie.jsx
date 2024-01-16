@@ -31,6 +31,9 @@ export default function Categorie() {
         { headers }
       );
 
+      if (response.data.errors != null) {
+        setErrorMessage(response.data.errors);
+      }
       // Handle the response as needed
       console.log('Categorie added successfully', response.data);
     } catch (error) {

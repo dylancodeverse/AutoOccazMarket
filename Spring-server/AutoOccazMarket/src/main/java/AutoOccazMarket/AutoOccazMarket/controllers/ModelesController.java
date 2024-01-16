@@ -56,8 +56,11 @@ public class ModelesController {
 
     @PutMapping(path = "/modeles/{id}")
     public ModelesDTO updateModeles(@PathVariable("id") final Integer id, @RequestBody ModelesDTO modelesDTO) {
-        crudModeles.updateModeles(id, modelesDTO.getModeles());
-
+        try {
+            crudModeles.updateModeles(id, modelesDTO.getModeles());
+        } catch (Exception e) {
+            modelesDTO.setErrors(e.getMessage());
+        }
         return modelesDTO;
     }
 

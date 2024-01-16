@@ -31,6 +31,9 @@ export default function Carburant() {
         { headers }
       );
 
+      if (response.data.errors != null) {
+        setErrorMessage(response.data.errors);
+      }
       // Handle the response as needed
       console.log('Carburant added successfully', response.data);
     } catch (error) {
