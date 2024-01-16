@@ -31,10 +31,11 @@ export default function Categorie() {
         { headers }
       );
 
-      if (response.data.errors != null) {
         setErrorMessage(response.data.errors);
-      }
-      // Handle the response as needed
+        if(response.data.errors ==null){
+          // affiche success
+          
+        }
       console.log('Categorie added successfully', response.data);
     } catch (error) {
       // Handle errors (e.g., display error message)

@@ -31,11 +31,12 @@ export default function Carburant() {
         { headers }
       );
 
-      if (response.data.errors != null) {
         setErrorMessage(response.data.errors);
-      }
       // Handle the response as needed
-      console.log('Carburant added successfully', response.data);
+      if(response.data.errors ==null){
+        // affiche success
+        
+      }
     } catch (error) {
       // Handle errors (e.g., display error message)
       console.error('Failed to add carburant', error);
