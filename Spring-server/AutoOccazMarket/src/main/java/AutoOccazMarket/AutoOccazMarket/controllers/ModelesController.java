@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDModeles;
 
 @RestController
+@CrossOrigin(origins = "${frontend.url}")
 public class ModelesController {
 
     @Autowired
@@ -54,8 +56,11 @@ public class ModelesController {
 
     @PutMapping(path = "/modeles/{id}")
     public ModelesDTO updateModeles(@PathVariable("id") final Integer id, @RequestBody ModelesDTO modelesDTO) {
-        crudModeles.updateModeles(id, modelesDTO.getModeles());
-
+        try {
+            crudModeles.updateModeles(id, modelesDTO.getModeles());
+        } catch (Exception e) {
+            modelesDTO.setErrors(e.getMessage());
+        }
         return modelesDTO;
     }
 

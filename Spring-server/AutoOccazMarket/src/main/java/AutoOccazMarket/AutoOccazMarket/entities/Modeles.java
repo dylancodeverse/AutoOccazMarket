@@ -14,7 +14,7 @@ public class Modeles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_modeles")
     private Integer idModeles;
-    private String NomModele;
+    private String nomModele;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Categorie categorie;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -31,11 +31,11 @@ public class Modeles {
     }
 
     public String getNomModele() {
-        return NomModele;
+        return nomModele;
     }
 
     public void setNomModele(String nomModele) {
-        NomModele = nomModele;
+        this.nomModele = nomModele;
     }
 
     public Categorie getCategorie() {

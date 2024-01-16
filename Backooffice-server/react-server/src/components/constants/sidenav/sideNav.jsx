@@ -40,7 +40,7 @@ export default function SideNav({ params }) {
 
                 </li>
                 <li className={`nav-item ${params === 'Deconnexion' ? 'active' : ''}`}>
-                    <Link className="nav-link" to="/">
+                    <Link className="nav-link" to="/deconnection">
                         <i className="icon-grid menu-icon"></i>
                         <span className="menu-title">Se deconnecter  </span>
                     </Link>

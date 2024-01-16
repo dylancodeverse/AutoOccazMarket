@@ -23,20 +23,20 @@ export default function ValidationTableAnnonce() {
                 <tbody>
                 <tr>
                     <td>Ferrari</td>
-                    <td>Tana</td>
                     <td>146.6</td>
                     <td>7</td>
                     <td>Ratianarivo</td>
+                    <td>Tana</td>
                     <td><input type="number" class="form-control" id="exampleInputName1" placeholder="Name"/> </td>
                     <td><button type="submit" class="btn btn-primary mr-2">Submit</button></td>
                 </tr>
                 <tr>
                     <td>Jacob</td>
 
-                    <td>Tana</td>
                     <td>193.6</td>
                     <td>9</td>
                     <td>Bob Abb</td>
+                    <td>Tana</td>
                     <td><input type="number" class="form-control" id="exampleInputName1" placeholder="Name"/> </td>
                     <td><button type="submit" class="btn btn-primary mr-2">Submit</button></td>
                 </tr>

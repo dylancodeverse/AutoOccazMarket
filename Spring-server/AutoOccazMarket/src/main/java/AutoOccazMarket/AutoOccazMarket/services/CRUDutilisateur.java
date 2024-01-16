@@ -54,4 +54,9 @@ public class CRUDutilisateur {
 
         postUtilisateur(utilisateurToUpdate);
     }
+
+    public void postUtilisateurAdmin(Utilisateur utilisateur) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'postUtilisateurAdmin'");
+    }
 }

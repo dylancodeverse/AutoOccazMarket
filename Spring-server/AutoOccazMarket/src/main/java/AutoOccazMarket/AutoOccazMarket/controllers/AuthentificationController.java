@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,8 @@ import AutoOccazMarket.AutoOccazMarket.services.userSecurity.RegisterService;
 import AutoOccazMarket.AutoOccazMarket.services.userSecurity.UserAuth;
 
 @RestController
+@CrossOrigin(origins = "${frontend.url}")
+
 public class AuthentificationController {
 
     @Autowired

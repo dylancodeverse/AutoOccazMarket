@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import AutoOccazMarket.AutoOccazMarket.services.CRUDCarburant;
 
 
 @RestController
+@CrossOrigin(origins = "${frontend.url}")
 public class CarburantController 
 {
 
@@ -61,7 +63,12 @@ public class CarburantController
     @PutMapping(path ="/carburants/{id}")
     public CarburantDTO updateCarburant(@PathVariable("id") final Integer id , @RequestBody CarburantDTO carburantsDTO)
     {
-        crudCarburant.updateCarburant(id, carburantsDTO.getCarburant());
+        try {
+            crudCarburant.updateCarburant(id, carburantsDTO.getCarburant());
+            
+        } catch (Exception e) {
+            carburantsDTO.setErrors(e.getMessage());
+        }
 
         return carburantsDTO;
     }

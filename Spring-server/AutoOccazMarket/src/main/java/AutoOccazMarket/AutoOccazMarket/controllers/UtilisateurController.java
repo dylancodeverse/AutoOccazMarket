@@ -16,6 +16,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
 
 @RestController
+
 public class UtilisateurController {
 
     @Autowired
