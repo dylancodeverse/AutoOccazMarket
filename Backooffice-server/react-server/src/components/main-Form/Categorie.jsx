@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 // CategorieCRUD component
 export default function CategorieCRUD() {
@@ -12,6 +14,15 @@ export default function CategorieCRUD() {
     IdCategorie: '',
     Categorie: '',
   });
+  const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
+
+  const navigate = useNavigate(); // Initialisez useNavigate
+  
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
 
   useEffect(() => {
     fetchData();
@@ -26,7 +37,15 @@ export default function CategorieCRUD() {
     try {
       const response = await axios.get(`${API_BASE_URL}/categories`, { headers });
       setCategorieData(response.data.listCategorie);
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to fetch categorie data', error);
     }
   };
@@ -57,7 +76,7 @@ export default function CategorieCRUD() {
 
       if (isNewRow) {
         // Logic for adding a new row
-        await axios.post(
+        const response =await axios.post(
           `${API_BASE_URL}/categories`,
           {
             categorie: {
@@ -66,9 +85,16 @@ export default function CategorieCRUD() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
       } else {
         // Logic for updating an existing row
-        await axios.put(
+        const response = await axios.put(
           `${API_BASE_URL}/categories/${editedData.IdCategorie}`,
           {
             categorie: {
@@ -77,10 +103,22 @@ export default function CategorieCRUD() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
       }
 
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to update categorie data', error);
     }
 
@@ -99,10 +137,21 @@ export default function CategorieCRUD() {
         Authorization: `${accessToken}`,
       };
 
-      await axios.delete(`${API_BASE_URL}/categories/${id}`, { headers });
-
+      const response =  await axios.delete(`${API_BASE_URL}/categories/${id}`, { headers });
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
+      else{
+        // Clear any existing errors
+        setError(null);
+      }
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to delete categorie data', error);
     }
   };
@@ -134,6 +183,8 @@ export default function CategorieCRUD() {
           <button className="btn btn-inverse-primary btn-fw" onClick={handleAddRowClick}>
             <FaPlus /> Ajouter
           </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur */}
+
     
           <div className="table-responsive">
             <table className="table table-hover">

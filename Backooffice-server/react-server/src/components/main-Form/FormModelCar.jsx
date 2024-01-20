@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus, FaSave, FaTimes } from 'react-icons/fa';
 import API_BASE_URL from '../../Config';
+import { useNavigate } from 'react-router-dom';
 
 export default function FormModelCar() {
   const [modelData, setModelData] = useState([]);
@@ -17,6 +19,15 @@ export default function FormModelCar() {
   const [marques, setMarques] = useState([]);
   const [categories, setCategories] = useState([]);
   const [carburants, setCarburants] = useState([]);
+  const navigate = useNavigate(); // Initialisez useNavigate
+  const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
+
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
+
 
   useEffect(() => {
     fetchData();
@@ -44,7 +55,33 @@ export default function FormModelCar() {
       // Fetch data for Carburants
       const responseCarburants = await axios.get(`${API_BASE_URL}/carburants`, { headers });
       setCarburants(responseCarburants.data.listCarburant || []);
+
+      if (responseModels.data.errors) {
+        setError(responseModels.data.errors);
+        return;
+      }
+
+      else if (responseMarques.data.errors) {
+        setError(responseMarques.data.errors);
+        return;
+      }
+
+      else if (responseCategories.data.errors) {
+        setError(responseCategories.data.errors);
+        return;
+      }
+
+      else if (responseCarburants.data.errors) {
+        setError(responseCarburants.data.errors);
+        return;
+      }
+
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to fetch data', error);
     }
   };
@@ -83,7 +120,7 @@ export default function FormModelCar() {
 
       if (isNewRow) {
         // Logic for adding a new row
-        await axios.post(
+        const response = await axios.post(
           `${API_BASE_URL}/modeles`,
           {
 
@@ -96,9 +133,16 @@ export default function FormModelCar() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
       } else {
         // Logic for updating an existing row
-        await axios.put(
+        const response =  await axios.put(
           `${API_BASE_URL}/modeles/${editedData.idModele}`,
           {
             modeles: {
@@ -110,10 +154,23 @@ export default function FormModelCar() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
+
       }
 
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to update model data', error);
     }
 
@@ -137,10 +194,22 @@ export default function FormModelCar() {
         Authorization: `${accessToken}`,
       };
 
-      await axios.delete(`${API_BASE_URL}/modeles/${id}`, { headers });
+      const response =  await axios.delete(`${API_BASE_URL}/modeles/${id}`, { headers });
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
+      else{
+        // Clear any existing errors
+        setError(null);
+      }
 
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to delete model data', error);
     }
   };
@@ -175,6 +244,7 @@ export default function FormModelCar() {
           <button className="btn btn-inverse-primary btn-fw" onClick={handleAddRowClick}>
             <FaPlus /> Ajouter
           </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur */}
 
           <div className="table-responsive">
             <table className="table table-hover">

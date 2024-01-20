@@ -1,10 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 // MarqueCRUD component
 export function MarqueCRUD() {
+  const navigate = useNavigate(); // Initialisez useNavigate
+  
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
+
   const [marqueData, setMarqueData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
@@ -12,6 +22,7 @@ export function MarqueCRUD() {
     IdMarque: '',
     Marque: '',
   });
+  const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
 
   useEffect(() => {
     fetchData();
@@ -26,7 +37,15 @@ export function MarqueCRUD() {
     try {
       const response = await axios.get(`${API_BASE_URL}/marques`, { headers });
       setMarqueData(response.data.listMarque);
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to fetch marque data', error);
     }
   };
@@ -57,7 +76,7 @@ export function MarqueCRUD() {
 
       if (isNewRow) {
         // Logic for adding a new row
-        await axios.post(
+        const response =await axios.post(
           `${API_BASE_URL}/marques`,
           {
             marque: {
@@ -66,9 +85,17 @@ export function MarqueCRUD() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
+
       } else {
         // Logic for updating an existing row
-        await axios.put(
+        const response = await axios.put(
           `${API_BASE_URL}/marques/${editedData.IdMarque}`,
           {
             marque: {
@@ -77,10 +104,21 @@ export function MarqueCRUD() {
           },
           { headers }
         );
+        if(response.data.errors!=null){
+          setError(response.data.errors);
+        }
+        else{
+          // Clear any existing errors
+          setError(null);
+        }
       }
-
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to update marque data', error);
     }
 
@@ -99,10 +137,21 @@ export function MarqueCRUD() {
         Authorization: `${accessToken}`,
       };
 
-      await axios.delete(`${API_BASE_URL}/marques/${id}`, { headers });
-
+      const response = await axios.delete(`${API_BASE_URL}/marques/${id}`, { headers });
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
+      else{
+        // Clear any existing errors
+        setError(null);
+      }
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+
       console.error('Failed to delete marque data', error);
     }
   };
@@ -134,6 +183,7 @@ export function MarqueCRUD() {
           <button className="btn btn-inverse-primary btn-fw" onClick={handleAddRowClick}>
             <FaPlus /> Ajouter
           </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur */}
 
           <div className="table-responsive">
             <table className="table table-hover">

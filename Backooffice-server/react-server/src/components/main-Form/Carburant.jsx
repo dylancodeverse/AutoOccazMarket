@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 export default function CarburantCRUD() {
   const [carburantData, setCarburantData] = useState([]);
@@ -11,6 +13,15 @@ export default function CarburantCRUD() {
     IdMarque: '',
     Marque: '',
   });
+  const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
+
+  const navigate = useNavigate(); // Initialisez useNavigate
+  
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
 
   useEffect(() => {
     fetchData();
@@ -25,8 +36,16 @@ export default function CarburantCRUD() {
     try {
       const response = await axios.get(`${API_BASE_URL}/carburants`, { headers });
       setCarburantData(response.data.listCarburant);
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
       console.error('Failed to fetch carburant data', error);
+      setError("Une erreur s'est produite.");
+
     }
   };
 
@@ -56,31 +75,46 @@ export default function CarburantCRUD() {
 
       if (isNewRow) {
         // Logic for adding a new row
-        await axios.post(
-          `${API_BASE_URL}/carburants`,
-          {
-            carburant: {
-              carburant: editedData.Marque,
+        const response=  await axios.post(
+            `${API_BASE_URL}/carburants`,
+            {
+              carburant: {
+                carburant: editedData.Marque,
+              },
             },
-          },
-          { headers }
-        );
+            { headers }
+          );
+          if(response.data.errors!=null){
+            setError(response.data.errors);
+          }
       } else {
         // Logic for updating an existing row
-        await axios.put(
-          `${API_BASE_URL}/carburants/${editedData.IdMarque}`,
-          {
-            carburant: {
-              carburant: editedData.Marque,
+        const response=  await axios.put(
+            `${API_BASE_URL}/carburants/${editedData.IdMarque}`,
+            {
+              carburant: {
+                carburant: editedData.Marque,
+              },
             },
-          },
-          { headers }
-        );
+            { headers }
+          );
+          if(response.data.errors!=null){
+            setError(response.data.errors);
+          }      else{
+            // Clear any existing errors
+    setError(null);
+
+    }
       }
 
       fetchData();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
       console.error('Failed to update carburant data', error);
+      setError("Une erreur s'est produite.");
+
     }
 
     // Reset editedData and isNewRow state
@@ -98,10 +132,21 @@ export default function CarburantCRUD() {
         Authorization: `${accessToken}`,
       };
 
-      await axios.delete(`${API_BASE_URL}/carburants/${id}`, { headers });
+      const response = await axios.delete(`${API_BASE_URL}/carburants/${id}`, { headers });
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }      else{
+        // Clear any existing errors
+setError(null);
 
+}
       fetchData();
+
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
       console.error('Failed to delete carburant data', error);
     }
   };
@@ -133,6 +178,8 @@ export default function CarburantCRUD() {
           <button className="btn btn-inverse-primary btn-fw" onClick={handleAddRowClick}>
             <FaPlus /> Ajouter
           </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur */}
+
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>
