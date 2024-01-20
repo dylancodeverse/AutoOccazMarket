@@ -1,92 +1,267 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
+import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export default function Carburant() {
-  const [carburantDefinition, setCarburantDefinition] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+export default function CarburantCRUD() {
+  const [carburantData, setCarburantData] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isNewRow, setIsNewRow] = useState(false);
+  const [editedData, setEditedData] = useState({
+    IdMarque: '',
+    Marque: '',
+  });
+  const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const navigate = useNavigate(); // Initialisez useNavigate
+  
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
 
-    // Get the access token from local storage
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
-
-    // Set the authorization header
     const headers = {
       Authorization: `${accessToken}`,
     };
 
     try {
-      // Make a POST request to the /carburants endpoint
-      const response = await axios.post(
-        `${API_BASE_URL}/carburants`,
-        {
-          carburant: {
-            carburant: carburantDefinition,
-          },
-        },
-        { headers }
-      );
-
-        setErrorMessage(response.data.errors);
-      // Handle the response as needed
-      if(response.data.errors ==null){
-        // affiche success
-        
+      const response = await axios.get(`${API_BASE_URL}/carburants`, { headers });
+      setCarburantData(response.data.listCarburant);
+      if(response.data.errors!=null){
+        setError(response.data.errors);
       }
     } catch (error) {
-      // Handle errors (e.g., display error message)
-      console.error('Failed to add carburant', error);
-
-      // Check if the error is due to unauthorized access (401 or 403)
-      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-        // Remove the access token from local storage
-        localStorage.removeItem('accessToken');
-
-        // Navigate to the home page
-        navigate('/');
-      } else {
-        // Display the error message for other types of errors
-        setErrorMessage('An error occurred. Please try again.');
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
       }
+      console.error('Failed to fetch carburant data', error);
+      setError("Une erreur s'est produite.");
+
     }
   };
 
+  const handleEditClick = (id, marque) => {
+    setIsEditing(true);
+    setEditedData({
+      IdMarque: id,
+      Marque: marque,
+    });
+  };
+
+  const handleInputChange = (e, columnName) => {
+    setEditedData({
+      ...editedData,
+      [columnName]: e.target.value,
+    });
+  };
+
+  const handleSaveClick = async () => {
+    setIsEditing(false);
+
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+
+      if (isNewRow) {
+        // Logic for adding a new row
+        const response=  await axios.post(
+            `${API_BASE_URL}/carburants`,
+            {
+              carburant: {
+                carburant: editedData.Marque,
+              },
+            },
+            { headers }
+          );
+          if(response.data.errors!=null){
+            setError(response.data.errors);
+          }
+      } else {
+        // Logic for updating an existing row
+        const response=  await axios.put(
+            `${API_BASE_URL}/carburants/${editedData.IdMarque}`,
+            {
+              carburant: {
+                carburant: editedData.Marque,
+              },
+            },
+            { headers }
+          );
+          if(response.data.errors!=null){
+            setError(response.data.errors);
+          }      else{
+            // Clear any existing errors
+    setError(null);
+
+    }
+      }
+
+      fetchData();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      console.error('Failed to update carburant data', error);
+      setError("Une erreur s'est produite.");
+
+    }
+
+    // Reset editedData and isNewRow state
+    setEditedData({
+      IdMarque: '',
+      Marque: '',
+    });
+    setIsNewRow(false);
+  };
+
+  const handleDeleteClick = async (id) => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+
+      const response = await axios.delete(`${API_BASE_URL}/carburants/${id}`, { headers });
+      if(response.data.errors!=null){
+        setError(response.data.errors);
+      }      else{
+        // Clear any existing errors
+setError(null);
+
+}
+      fetchData();
+
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
+      console.error('Failed to delete carburant data', error);
+    }
+  };
+
+  const handleAddRowClick = () => {
+    setIsNewRow(true);
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setIsNewRow(false);
+
+    // Reset editedData state
+    setEditedData({
+      IdMarque: '',
+      Marque: '',
+    });
+  };
+
   return (
-    <div className="col-6 grid-margin stretch-card">
+    <div className="col-lg-12 grid-margin stretch-card">
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title">Gestion de carburant</h4>
-          <p className="card-description">Carburant</p>
-          <form className="forms-sample" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="exampleInputName1">Definition</label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputName1"
-                placeholder="Definition"
-                value={carburantDefinition}
-                onChange={(e) => setCarburantDefinition(e.target.value)}
-              />
-            </div>
-            {errorMessage && (
-              <div className="alert alert-danger" role="alert">
-                {errorMessage}
-              </div>
-            )}
-            <button type="submit" className="btn btn-primary mr-2">
-              Submit
-            </button>
-            <button type="button" className="btn btn-light">
-              Cancel
-            </button>
-          </form>
+          <h4 className="card-title">Les détails du carburant</h4>
+          <p className="card-description">
+            <code>Modifier, Ajouter, Supprimer</code>
+          </p>
+          <button className="btn btn-inverse-primary btn-fw" onClick={handleAddRowClick}>
+            <FaPlus /> Ajouter
+          </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur */}
+
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>IdMarque</th>
+                  <th>Marque</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {carburantData.map((data) => (
+                  <tr key={data.idCarburant}>
+                    <td>{data.idCarburant}</td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idCarburant ? (
+                        <input
+                          className='form-control'
+                          type="text"
+                          value={editedData.Marque}
+                          onChange={(e) => handleInputChange(e, 'Marque')}
+                        />
+                      ) : (
+                        data.carburant
+                      )}
+                    </td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idCarburant ? (
+                        <button className='btn btn-inverse-success btn-fw' onClick={handleSaveClick}>
+                          {isNewRow ? <FaCheck /> : <FaSave />}
+                        </button>
+                      ) : (
+                        <FaEdit
+                          style={{ color: 'green', cursor: 'pointer' }}
+                          onClick={() => handleEditClick(data.idCarburant, data.carburant)}
+                        />
+                      )}
+                    </td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idCarburant ? (
+                        <button className="btn btn-inverse-danger btn-fw" onClick={handleCancelClick}>
+                          <FaTimes />
+                        </button>
+                      ) : (
+                        <FaTrash
+                          style={{ color: 'red', cursor: 'pointer' }}
+                          onClick={() => handleDeleteClick(data.idCarburant)}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+                {isEditing && isNewRow && (
+                  <tr>
+                    <td></td>
+                    <td>
+                      <input
+                        className='form-control'
+                        type="text"
+                        placeholder="Nouveau carburant"
+                        value={editedData.Marque}
+                        onChange={(e) => handleInputChange(e, 'Marque')}
+                      />
+                    </td>
+                    <td>
+                      <button className='btn btn-inverse-success btn-fw' onClick={handleSaveClick}>
+                        <FaCheck />
+                      </button>
+                    </td>
+                    <td>
+                      <button className="btn btn-inverse-danger btn-fw" onClick={handleCancelClick}>
+                        <FaTimes />
+                      </button>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+
     </div>
   );
 }
