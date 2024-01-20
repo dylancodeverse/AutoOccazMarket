@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Header from "../../../constants/header/Header";
 import SideNav from "../../../constants/sidenav/sideNav";
 import { useNavigate } from "react-router-dom";
-import { CarburantCRUD, CategorieCRUD, MarqueCRUD } from "../../../main-Form/ModelCarElementsCRUD";
+import CRUDElements from "../../../main-Form/ModelCarElementsCRUD";
 
 export default function ManageInformation() {
     const navigate = useNavigate();
@@ -24,11 +24,7 @@ export default function ManageInformation() {
                 <div class="main-panel">        
                    <div class="content-wrapper">
                         <div class="row">
-                            <MarqueCRUD/>
-                            <CategorieCRUD/>
-                         </div>
-                         <div className="row">
-                             <CarburantCRUD/>
+                            <CRUDElements/>
                          </div>
                     </div>
                 </div>

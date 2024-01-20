@@ -1,90 +1,154 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
-import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
-export default function Marque() {
-  const [marqueDefinition, setMarqueDefinition] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+// MarqueCRUD component
+export function MarqueCRUD() {
+  const [marqueData, setMarqueData] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedData, setEditedData] = useState({
+    IdMarque: '',
+    Marque: '',
+  });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
 
-    // Get the access token from local storage
-    const accessToken = localStorage.getItem('accessToken');
-
-    // Set the authorization header
-    const headers = {
-      Authorization: `${accessToken}`,
+      try {
+        const response = await axios.get(`${API_BASE_URL}/marques`, { headers });
+        setMarqueData(response.data.listMarque);
+      } catch (error) {
+        console.error('Failed to fetch marque data', error);
+      }
     };
 
+    fetchData();
+  }, []);
+
+  const handleEditClick = (id, marque) => {
+    setIsEditing(true);
+    setEditedData({
+      IdMarque: id,
+      Marque: marque,
+    });
+  };
+
+  const handleInputChange = (e, columnName) => {
+    setEditedData({
+      ...editedData,
+      [columnName]: e.target.value,
+    });
+  };
+
+  const handleSaveClick = async () => {
+    setIsEditing(false);
+
     try {
-      // Make a POST request to the /marques endpoint
-      const response = await axios.post(
-        `${API_BASE_URL}/marques`,
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+
+      await axios.put(
+        `${API_BASE_URL}/marques/${editedData.IdMarque}`,
         {
           marque: {
-            marque: marqueDefinition,
+            marque: editedData.Marque,
           },
         },
         { headers }
       );
 
-        setErrorMessage(response.data.errors);
-        if(response.data.errors ==null){
-          // affiche success
-          
-        }
-
+      const response = await axios.get(`${API_BASE_URL}/marques`, { headers });
+      setMarqueData(response.data.listMarque);
     } catch (error) {
-      // Handle errors (e.g., display error message)
-      console.error('Failed to add marque', error);
+      console.error('Failed to update marque data', error);
+    }
+  };
 
-      // Check if the error is due to unauthorized access (401 or 403)
-      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-        // Remove the access token from local storage
-        localStorage.removeItem('accessToken');
+  const handleDeleteClick = async (id) => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
 
-        // Navigate to the home page
-        navigate('/');
-      } else {
-        // Display the error message for other types of errors
-        setErrorMessage('An error occurred. Please try again.');
-      }
+      await axios.delete(`${API_BASE_URL}/marques/${id}`, { headers });
+
+      const response = await axios.get(`${API_BASE_URL}/marques`, { headers });
+      setMarqueData(response.data.listMarque);
+    } catch (error) {
+      console.error('Failed to delete marque data', error);
     }
   };
 
   return (
-    <div className="col-6 grid-margin stretch-card">
+    <div className="col-lg-12 grid-margin stretch-card">
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title">Gestion de marque</h4>
-          <p className="card-description">Marque</p>
-          <form className="forms-sample" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="exampleInputName1">Definition</label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputName1"
-                placeholder="Definition"
-                value={marqueDefinition}
-                onChange={(e) => setMarqueDefinition(e.target.value)}
-              />
-            </div>
-            {errorMessage && (
-              <div className="alert alert-danger" role="alert">
-                {errorMessage}
-              </div>
-            )}
-            <button type="submit" className="btn btn-primary mr-2">
-              Submit
-            </button>
-            <button type="button" className="btn btn-light">
-              Cancel
-            </button>
-          </form>
+          <h4 className="card-title">Les details du marque</h4>
+          <p className="card-description">
+            <code>Modifier, Ajouter, Supprimer</code>
+          </p>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>IdMarque</th>
+                  <th>Marque</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {marqueData.map((data) => (
+                  <tr key={data.idMarque}>
+                    <td>{data.idMarque}</td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idMarque ? (
+                        <input
+                        className='form-control'
+                          type="text"
+                          value={editedData.Marque}
+                          onChange={(e) => handleInputChange(e, 'Marque')}
+                        />
+                      ) : (
+                        data.marque
+                      )}
+                    </td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idMarque ? (
+                        <button className='btn btn-inverse-success btn-fw' onClick={handleSaveClick}>Save</button>
+                      ) : (
+                        <FaEdit
+                          style={{ color: 'green', cursor: 'pointer' }}
+                          onClick={() => handleEditClick(data.idMarque, data.marque)}
+                        />
+                      )}
+                    </td>
+                    <td>
+                      {isEditing && editedData.IdMarque === data.idMarque ? (
+                        <button className="btn btn-inverse-danger btn-fw" onClick={() => setIsEditing(false)}>
+                          Annuler
+                        </button>
+                      ) : (
+                        <FaTrash
+                          style={{ color: 'red', cursor: 'pointer' }}
+                          onClick={() => handleDeleteClick(data.idMarque)}
+                        />
+                      )}
+                    </td>
+
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
