@@ -70,7 +70,7 @@ public class CRUDModeles {
         }
 
 
-        postModeles(modelesToUpdate) ;
+        modelesRepository.save(modelesToUpdate) ;
     }
 
 
