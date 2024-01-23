@@ -1,44 +1,57 @@
-        // modeles statistiques (nom ,prix de vente moyennev, nombre d'annonces)
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import API_BASE_URL from '../../Config';
 
 export default function ModelesStat() {
-return(    
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Statistiques de modele</h4>
-            <p class="card-description">
-            Plutot lie au client <code>Client</code>
-            </p>
-            <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
+  const [modelesStats, setModelesStats] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+      const response = await axios.get(`${API_BASE_URL}/modelesStats`, { headers });
+      const modelesStatsData = response.data.listModelesStats || [];
+      setModelesStats(modelesStatsData);
+    } catch (error) {
+      console.error('Failed to fetch data', error);
+      // Gérer les erreurs de requête ici
+    }
+  };
+
+  return (
+    <div className="col-lg-12 grid-margin stretch-card">
+      <div className="card">
+        <div className="card-body">
+          <h4 className="card-title">Statistiques de modèle</h4>
+          <p className="card-description">Plutôt lié au client <code>Client</code></p>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
                 <tr>
-                    <th>Nom du modele</th>
-                    <th>Prix de vente moyenne</th>
-                    <th>Nombre total d'annonces</th>
+                  <th>Nom du modèle</th>
+                  <th>Prix de vente moyen</th>
+                  <th>Nombre total d'annonces</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Ferrari</td>
-                    <td>146.6</td>
-                    <td>123</td>
-                </tr>
-                <tr>
-                    <td>Jacob</td>
-                    <td>193.6</td>
-                    <td>153</td>
-                </tr>
-                <tr>
-                    <td>Jacob</td>
-                    <td>123.6</td>
-                    <td>13</td>
-                </tr>
-                </tbody>
+              </thead>
+              <tbody>
+                {modelesStats.map((modeleStat) => (
+                  <tr key={modeleStat.nomModeles}>
+                    <td>{modeleStat.nomModeles}</td>
+                    <td>{modeleStat.prixVenteMoyenne}</td>
+                    <td>{modeleStat.nbAnnonces}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
-            </div>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
-    )
+  );
 }
