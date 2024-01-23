@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import axios from 'axios';

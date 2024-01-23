@@ -1,10 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
+import { Navigate } from 'react-router-dom';
 
 export default function AnnoncesStat() {
   const [annoncesClotureesStats, setAnnoncesClotureesStats] = useState([]);
-
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    Navigate('/');
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,8 +25,9 @@ export default function AnnoncesStat() {
       const annoncesClotureesStatsData = response.data.listAnnoncesClotureesStats || [];
       setAnnoncesClotureesStats(annoncesClotureesStatsData);
     } catch (error) {
-      console.error('Failed to fetch data', error);
-      // Gérer les erreurs de requête ici
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
     }
   };
 
