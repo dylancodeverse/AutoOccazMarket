@@ -3,12 +3,19 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import {jwtDecode} from 'jwt-decode'
+import { Navigate } from 'react-router-dom';
 export default function ValidationTableAnnonce() {
   const [annonces, setAnnonces] = useState([]);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    Navigate('/');
+  };
 
   const fetchData = async () => {
     try {
@@ -20,8 +27,9 @@ export default function ValidationTableAnnonce() {
       const annoncesData = response.data.listAnnonces || [];
       setAnnonces(annoncesData);
     } catch (error) {
-      console.error('Failed to fetch data', error);
-      // Gérer les erreurs de requête ici
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
     }
   };
 
@@ -34,7 +42,7 @@ export default function ValidationTableAnnonce() {
 
       const validateurId = jwtDecode(accessToken).idUser;
 
-      const response = await axios.post(
+       await axios.post(
         `${API_BASE_URL}/validationAnnoncesHistoriques`,
         {
           validationAnnoncesHistorique: {
@@ -50,14 +58,14 @@ export default function ValidationTableAnnonce() {
         },
         { headers }
       );
-
-//  gerer response
       
       fetchData()
 
 
     } catch (error) {
-      console.error('Failed to fetch data', error);      
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
     }
   }
 
@@ -70,7 +78,7 @@ export default function ValidationTableAnnonce() {
 
       const validateurId = jwtDecode(accessToken).idUser;
       
-      const response = await axios.post(
+       await axios.post(
         `${API_BASE_URL}/commissions`,
         {
           commission: {
@@ -85,13 +93,13 @@ export default function ValidationTableAnnonce() {
         },
         { headers }
       );
-      // Gérer la réponse de la requête si nécessaire
 
       fetchData()
 
     } catch (error) {
-      console.error('Failed to create commission', error);
-      // Gérer les erreurs de requête ici
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
     }
   };
 
