@@ -21,7 +21,7 @@ public class JWTGenerator
     @Value("${jwt.expiration}") // 
     private long expiration;
 
-    public String generateToken(String email, String username, String role) {
+    public String generateToken(String email, String username, String role , Integer idUser) {
 
         // expiryDate
         Date now = new Date();
@@ -34,6 +34,7 @@ public class JWTGenerator
         // claims
         claims.put("username", username); 
         claims.put("role", role);
+        claims.put("idUser", idUser.toString());
 
         // generate token
         return Jwts.builder()
