@@ -51,6 +51,10 @@ export default function ValidationTableAnnonce() {
         { headers }
       );
 
+//  gerer response
+      
+      fetchData()
+
 
     } catch (error) {
       console.error('Failed to fetch data', error);      
