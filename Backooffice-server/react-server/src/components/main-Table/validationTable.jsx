@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
-
+import {jwtDecode} from 'jwt-decode'
 export default function ValidationTableAnnonce() {
   const [annonces, setAnnonces] = useState([]);
 
@@ -25,6 +25,38 @@ export default function ValidationTableAnnonce() {
     }
   };
 
+  const handleDeclineClick = async (idAnnonce) =>{
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+
+      const validateurId = jwtDecode(accessToken).idUser;
+
+      const response = await axios.post(
+        `${API_BASE_URL}/validationAnnoncesHistoriques`,
+        {
+          validationAnnoncesHistorique: {
+            annonces: {
+              idAnnonce: idAnnonce
+            },
+            description: "Refuser l'annonce",
+            validateur: {
+              idutilisateur: validateurId
+            },
+            etatValidation: -30
+          }
+        },
+        { headers }
+      );
+
+
+    } catch (error) {
+      console.error('Failed to fetch data', error);      
+    }
+  }
+
   const handleCheckClick = async (idAnnonce, pourcentage) => {
     try {
       const accessToken = localStorage.getItem('accessToken');
@@ -32,7 +64,7 @@ export default function ValidationTableAnnonce() {
         Authorization: `${accessToken}`,
       };
 
-      const validateurId = 1;
+      const validateurId = jwtDecode(accessToken).idUser;
       
       const response = await axios.post(
         `${API_BASE_URL}/commissions`,
@@ -95,7 +127,7 @@ export default function ValidationTableAnnonce() {
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-inverse-danger btn-fw">
+                      <button className="btn btn-inverse-danger btn-fw" onClick={()=>handleDeclineClick(annonce.idAnnonce)}>
                         <FaTimes />
                       </button>
                     </td>

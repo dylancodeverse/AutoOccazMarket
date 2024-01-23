@@ -10,6 +10,7 @@ export default function ValidationAnnonce() {
         // Check if the token is already present in local storage
         const storedToken = localStorage.getItem('accessToken');
         if (!storedToken) {
+            
           // Redirect to ValidationAnnonce if the token is present
           navigate('/');
         }

@@ -34,7 +34,7 @@ public class JWTGenerator
         // claims
         claims.put("username", username); 
         claims.put("role", role);
-        claims.put("idUser", idUser.toString());
+        claims.put("idUser", idUser);
 
         // generate token
         return Jwts.builder()
