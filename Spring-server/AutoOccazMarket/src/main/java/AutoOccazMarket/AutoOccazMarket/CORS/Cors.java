@@ -22,7 +22,7 @@ public class Cors {
                 re.addMapping("/**").
                 allowedMethods(CorsConfiguration.ALL).
                 allowedHeaders(CorsConfiguration.ALL).
-                allowedOriginPatterns("http://localhost:3000") ;
+                allowedOriginPatterns("http://localhost:3000","http://localhost:3001") ;
             }
         };
     }    

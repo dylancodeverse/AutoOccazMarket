@@ -20,22 +20,6 @@ export default function Filtre() {
                     </div>
                 </form>
             </div>
-            <div class="facet-filter-associates">
-                <h3 class="title-name">Couleur</h3>
-                <form class="facet-form" action="#" method="post">
-                    <div class="associate-wrapper">
-                        <input type="checkbox" class="check-box" id="cbs-16"/>
-                        <label class="label-text" for="cbs-16">Heather Grey
-                            <span class="total-fetch-items">(1)</span>
-                        </label>
-                        <input type="checkbox" class="check-box" id="cbs-17"/>
-                        <label class="label-text" for="cbs-17">Black
-                            <span class="total-fetch-items">(1)</span>
-                        </label>
-                    </div>
-                </form>
-            </div>
-
 
             <div class="facet-filter-associates">
                 <h3 class="title-name">Categorie</h3>

@@ -81,7 +81,12 @@ public class AnnoncesController
     @PutMapping(path ="/annonces/{id}")
     public AnnoncesDTO updateAnnonces(@PathVariable("id") final Integer id , @RequestBody AnnoncesDTO annoncesDTO)
     {
-        crudAnnonces.updateAnnonces(id, annoncesDTO.getAnnonces());
+        try {
+            crudAnnonces.updateAnnonces(id, annoncesDTO.getAnnonces());
+            
+        } catch (Exception e) {
+            annoncesDTO.setErrors(e.getMessage());
+        }
 
         return annoncesDTO;
     }

@@ -16,17 +16,17 @@ export default function Header() {
                                 <li>
                                     <a href="wishlist.html">
                                         <i class="far fa-heart u-s-m-r-9"></i>
-                                        Mes Favoris</a>
+                                        Favoris</a>
                                 </li>
                                 <li>
                                     <a href="checkout.html">
                                         <i class="far fa-check-circle u-s-m-r-9"></i>
-                                        Mes Historiques</a>
+                                        Historiques</a>
                                 </li>
                                 <li>
                                     <a href="account.html">
                                         <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Se connecter / S'inscrire</a>
+                                        Connexion/Deconnexion</a>
                                 </li>
                             </ul>
                         </li>
