@@ -18,7 +18,6 @@ public class Cors {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry re){
-                System.out.println(url);
                 re.addMapping("/**").
                 allowedMethods(CorsConfiguration.ALL).
                 allowedHeaders(CorsConfiguration.ALL).

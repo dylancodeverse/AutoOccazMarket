@@ -43,7 +43,7 @@ export default function ListeAnnonce(params) {
                     <div class="item">
                     <div class="image-container">
                         <a class="item-img-wrapper-link" href="single-product.html">
-                        <img class="img-fluid" src={annonce.photoAnnonces[0].url} alt="Product" />
+                        <img class="img-fluid" src={"images/product/product@3x.jpg"} alt="Products" />
                         </a>
                         <div class="item-action-behaviors">
                             <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
@@ -56,11 +56,21 @@ export default function ListeAnnonce(params) {
                         <div class="what-product-is">
                            
                             <h6 class="item-title">
-                            <a href="single-product.html">{annonce.modeles.nomModele}</a>
+                             {annonce.utilisateur.nom +" " +annonce.utilisateur.prenom +" a poste le modele: "+   annonce.modeles.nomModele}
 
                             </h6>
                             <div class="item-description">
                             <p>{annonce.description}</p>
+
+                            </div>
+                            <div class="item-description">
+                            <h6 class="item-title">
+                                Details:
+                            </h6>
+                            <p>Marque :{annonce.modeles.marque.marque} </p>
+                            <p> Categorie : {annonce.modeles.categorie.categorie}</p>
+                            <p>Note: {annonce.etatGeneral}/10 situe a {annonce.localisation}</p>
+                            <p></p>
 
                             </div>
                             <div class="item-stars">
@@ -73,7 +83,7 @@ export default function ListeAnnonce(params) {
                         </div>
                         <div class="price-template">
                             <div class="item-new-price">
-                            ${annonce.prix}
+                            Ar {annonce.prix}
 
                             </div>
                            

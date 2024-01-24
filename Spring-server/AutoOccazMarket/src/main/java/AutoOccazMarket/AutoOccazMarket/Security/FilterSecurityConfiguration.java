@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.Admin.AllPermission;
+import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.AllGetForAll.AllGetForAll;
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.ClientAdmin.OnlyGetForClient;
 
 
@@ -19,6 +20,9 @@ public class FilterSecurityConfiguration
 
     @Autowired 
     private OnlyGetForClient clientAdmin ;
+
+    @Autowired
+    private AllGetForAll allGetForAll ;
 
     @Bean
     public FilterRegistrationBean<AllPermission> filterConfigurationForAdminOnly(){
@@ -42,13 +46,27 @@ public class FilterSecurityConfiguration
             = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(clientAdmin);
+        registrationBean.addUrlPatterns("");
 
-        registrationBean.addUrlPatterns("/carburants" , "/categories" , "/marques" ,"/modeles"
-                                        );
 
         registrationBean.setOrder(1);
         
         return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<AllGetForAll> filterConfForGetMethodForAll(){
+        FilterRegistrationBean<AllGetForAll> registrationBean 
+        = new FilterRegistrationBean<>();
+
+        registrationBean.setFilter(allGetForAll);
+        registrationBean.addUrlPatterns("/carburants" , "/categories" , "/marques" ,"/modeles"
+        );
+
+        registrationBean.setOrder(1);
+        return registrationBean;
+
+
     }
     
 
