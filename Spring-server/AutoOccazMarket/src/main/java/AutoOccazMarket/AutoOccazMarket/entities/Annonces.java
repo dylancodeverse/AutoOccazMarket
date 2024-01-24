@@ -34,6 +34,8 @@ public class Annonces {
     @Column(name = "etat_validation",nullable = false)
     private Integer etatValidation;
 
+    @OneToMany    
+    private List<PhotoAnnonce> photoAnnonces ;
 
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")
     private List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques ;
@@ -42,6 +44,13 @@ public class Annonces {
 
     private String description ;
 
+    public List<PhotoAnnonce> getPhotoAnnonces() {
+        return photoAnnonces;
+    }
+
+    public void setPhotoAnnonces(List<PhotoAnnonce> photoAnnonces) {
+        this.photoAnnonces = photoAnnonces;
+    }
 
     public String getDescription() {
         return description;

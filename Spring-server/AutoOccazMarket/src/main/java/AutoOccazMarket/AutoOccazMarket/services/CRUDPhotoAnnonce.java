@@ -53,6 +53,9 @@ public class CRUDPhotoAnnonce {
         if(photoannonces.getAnnonces()!=null){
             photoannoncesToUpdate.setAnnonces(photoannonces.getAnnonces());
         }
+        if (photoannonces.getBase64()!=null) {
+            photoannoncesToUpdate.setBase64(photoannonces.getBase64());
+        }
 
        
 
