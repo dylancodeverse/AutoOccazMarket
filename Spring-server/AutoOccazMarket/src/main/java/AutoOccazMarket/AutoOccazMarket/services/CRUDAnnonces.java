@@ -96,6 +96,9 @@ public class CRUDAnnonces {
         if (annonces.getPrix()!=null) {
             annoncesToUpdate.setPrix(annonces.getPrix());
         }
+        if (annonces.getDescription()!=null) {
+            annoncesToUpdate.setDescription(annonces.getDescription());
+        }
 
 
         postAnnonces(annoncesToUpdate) ;
