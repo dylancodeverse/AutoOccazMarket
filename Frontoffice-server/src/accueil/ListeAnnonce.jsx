@@ -1,8 +1,7 @@
 export default function ListeAnnonce(params) {
     const annonces = params.annonces
-    console.log(annonces)
     return (
-        <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-lg-9 col-md-9 col-sm-12" >
         {/* <!-- Page-Bar --> */}
         <div class="page-bar clearfix">
             <div class="shop-settings">
@@ -40,7 +39,7 @@ export default function ListeAnnonce(params) {
         <div class="row product-container list-style">
         {annonces.map((annonce) => (
                 <div key={annonce.idAnnonce} class="product-item col-lg-4 col-md-6 col-sm-6">
-                    <div class="item">
+                    <div class="item" id="annonces">
                     <div class="image-container">
                         <a class="item-img-wrapper-link" href="single-product.html">
                         <img class="img-fluid" src={"images/product/product@3x.jpg"} alt="Products" />

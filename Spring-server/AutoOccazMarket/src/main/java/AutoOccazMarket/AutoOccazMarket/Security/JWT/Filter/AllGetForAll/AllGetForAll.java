@@ -27,7 +27,6 @@ public class AllGetForAll extends OncePerRequestFilter {
     {
         // if the token is present
         if (request.getMethod().equals("GET")) {
-            System.out.println("tay");
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(null, null, Collections.emptyList()));
 
             filterChain.doFilter(request, response);
