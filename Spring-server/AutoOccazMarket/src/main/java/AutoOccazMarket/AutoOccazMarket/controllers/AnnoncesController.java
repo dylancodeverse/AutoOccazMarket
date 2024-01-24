@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesDTO;
+import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
 
@@ -36,6 +37,18 @@ public class AnnoncesController
         annoncesDTO.setAnnoncesAsList(annonces);
         return annoncesDTO ;
     }    
+
+    @PostMapping("/annoncesfiltre")
+    public AnnoncesFiltreDTO filtre(@RequestBody AnnoncesFiltreDTO entity) {
+        try {
+            List<Annonces> annonces = crudAnnonces.selectWhere(entity);
+            entity.setAnnoncesAsList(annonces);
+        } catch (Exception e) {
+            entity.setErrors(e.getMessage());
+        }
+        return entity;
+    }
+    
 
 
     @GetMapping(path = "/annonces")

@@ -55,6 +55,18 @@ export default function Filtre(params) {
           </div>
         ))}
       </div>
+      <div className="facet-filter-associates">
+        <h3 className="title-name">Carburants</h3>
+        {params.carburants.map((carburant, index) => (
+          <div key={index} className="associate-wrapper">
+            <input type="checkbox" className="check-box" id={`carburant-${index}`} />
+            <label htmlFor={`carburant-${index}`} className="label-text">
+              {carburant.carburant}
+              <span className="total-fetch-items">(1)</span>
+            </label>
+          </div>
+        ))}
+      </div>
       <div className="facet-filter-by-price">
         <h3 className="title-name">Prix</h3>
         <div className="facet-form">
