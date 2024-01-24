@@ -8,13 +8,13 @@ import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 public class AnnoncesFiltreDTO {
     Annonces [] listAnnonces ;    
 
-    String[] modeles;
+    List<String> modeles;
 
-    String[] categories ;
+    List<String> categories ;
     
-    String [] marque ;
+    List<String> marque ;
 
-    String [] carburant ;
+    List<String> carburant ;
 
     
     String errors ;
@@ -51,35 +51,37 @@ public class AnnoncesFiltreDTO {
         this.errors = errors;
     }
 
-    public String[] getModeles() {
+    public List<String> getModeles() {
         return modeles;
     }
 
-    public void setModeles(String[] modeles) {
+    public void setModeles(List<String> modeles) {
         this.modeles = modeles;
     }
 
-    public String[] getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 
-    public String[] getMarque() {
+    public List<String> getMarque() {
         return marque;
     }
 
-    public void setMarque(String[] marque) {
+    public void setMarque(List<String> marque) {
         this.marque = marque;
     }
 
-    public String[] getCarburant() {
+    public List<String> getCarburant() {
         return carburant;
     }
 
-    public void setCarburant(String[] carburant) {
+    public void setCarburant(List<String> carburant) {
         this.carburant = carburant;
     }
+
+
 }
