@@ -152,6 +152,9 @@ body {
   color: #ffffff;
   padding: 68px 0; }
   [class*="page-style-"]:after {
+    border-top: 1px solid #DCDCDD;
+    border-bottom: 1px solid #DCDCDD;
+
     content: '';
     position: absolute;
     left: 0;
@@ -163,13 +166,13 @@ body {
   [class*="page-style-"] .page-intro {
     text-align: center; }
     [class*="page-style-"] .page-intro > h2 {
-      color: #ffffff;
+      color: #000000;
       font-size: 36px;
       font-weight: 500;
       margin: 0 0 20px;
       text-transform: capitalize; }
     [class*="page-style-"] .page-intro > .bread-crumb > li > a {
-      color: #ffffff; }
+      color: #000000; }
     [class*="page-style-"] .page-intro > .bread-crumb > li.is-marked > a {
       color: #3949ab; }
 
@@ -187,7 +190,7 @@ body {
 
 /* Page introduction style c */
 .page-style-c:after {
-  background: #000000; }
+  background: #ffffff; }
 
 /**
  * Asterisk "*" after the field label, If the field is required.
@@ -858,6 +861,7 @@ body {
   .bread-crumb > li {
     display: inline-block; }
     .bread-crumb > li.has-separator:after {
+      color: #000000;
       content: '/';
       margin: 0 4px; }
     .bread-crumb > li.has-colon:after {

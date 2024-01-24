@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Accueil from "./gate/Accueil";
 
 
 
@@ -11,9 +12,9 @@ function App() {
 
         <Route>
 
-          {/* <Route path="/" element={<Login/>}/>
+          <Route path="/" element={<Accueil/>}/>
 
-          <Route path="/elements" element={<ManageInformation/>} />
+          {/* <Route path="/elements" element={<ManageInformation/>} />
 
           <Route path="/createModel" element={<CreateCarModel/>} />
 
@@ -28,7 +29,13 @@ function App() {
       </Routes>
 
     </BrowserRouter>  
+    // <div className="">
+    //   <p>
 
+    //   tay
+    //   </p>
+
+    // </div>
   );
 }
 
