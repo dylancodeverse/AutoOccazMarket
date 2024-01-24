@@ -46,6 +46,14 @@ public class AnnoncesController
         return annoncesDTO ;
     }
 
+    @GetMapping(path = "/annoncesAccueil")
+    public AnnoncesDTO getAnnoncessAccueil()
+    {
+        List<Annonces> annonces = crudAnnonces.getAnnoncesPostees() ;
+        annoncesDTO.setAnnoncesAsList(annonces);
+        return annoncesDTO ;
+    }
+
     @GetMapping(path = "/annonces/{id}")
     public AnnoncesDTO getAnnoncessById(@PathVariable("id") final Integer id)
     {

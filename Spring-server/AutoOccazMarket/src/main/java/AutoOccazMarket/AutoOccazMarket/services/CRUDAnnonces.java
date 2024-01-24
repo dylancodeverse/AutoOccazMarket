@@ -26,6 +26,10 @@ public class CRUDAnnonces {
         return annoncesRepository.findByEtatValidation(1);
     }
 
+    public List<Annonces> getAnnoncesPostees(){
+        return annoncesRepository.findByEtatValidation(20);
+    }
+
     public List<Annonces> getAnnoncesList() 
     {
         return annoncesRepository.findAll();
