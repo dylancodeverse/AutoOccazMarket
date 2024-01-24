@@ -120,28 +120,33 @@ public class CRUDAnnonces {
 
         if (annoncesFiltreDTO.getModeles() != null) {
             for (String modele : annoncesFiltreDTO.getModeles()) {
+                System.out.println("modeles");
                 resultSet.addAll(annoncesRepository.searchAnnoncesByModeles(modele));
             }
         }
 
         if (annoncesFiltreDTO.getCarburant() != null) {
             for (String carburant : annoncesFiltreDTO.getCarburant()) {
+                System.out.println("annonces");
                 resultSet.addAll(annoncesRepository.searchAnnoncesByCarburant(carburant));
             }
         }
 
         if (annoncesFiltreDTO.getCategories() != null) {
             for (String categorie : annoncesFiltreDTO.getCategories()) {
+                System.out.println("categorie");
                 resultSet.addAll(annoncesRepository.searchAnnoncesByCategorie(categorie));
             }
         }
 
         if (annoncesFiltreDTO.getMarque() != null) {
             for (String marque : annoncesFiltreDTO.getMarque()) {
+                System.out.println("marque");
                 resultSet.addAll(annoncesRepository.searchAnnoncesByMarque(marque));
             }
         }
 
+        System.out.println(resultSet.size());
         return new ArrayList<>(resultSet); 
     }
 
