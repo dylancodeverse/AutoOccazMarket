@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SideNav({ params }) {
+    const [isActive] = useState(false);
+
     return (
-        <nav className="sidebar sidebar-offcanvas" id="sidebar">
+        <nav className={`sidebar sidebar-offcanvas ${isActive ? 'active' : ''}`} id="sidebar">
+
             <ul className="nav">
                 <li className={`nav-item ${params === 'Validation' ? 'active' : ''}`}>
                     <Link className="nav-link" to="/validation"> 

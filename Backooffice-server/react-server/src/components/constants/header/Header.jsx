@@ -1,13 +1,27 @@
+import { useState } from "react";
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export default function Header() {
-    return(
+  const [, setSidebarIconOnly] = useState(false);
+
+  const toggleSidebarClass = () => {
+    setSidebarIconOnly((prev) => !prev);
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('active');
+    }
+    document.body.classList.toggle('sidebar-icon-only');
+  };
+    return( 
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <a class="navbar-brand brand-logo mr-5" href="../../index.html"><img src="../../images/logo.svg" class="mr-2" alt="logo"/></a>
           <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../images/logo-mini.svg" alt="logo"/></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          <button class="navbar-toggler navbar-toggler align-self-center" id="toggleButton" type="button" data-toggle="minimize">
+          <button class="navbar-toggler navbar-toggler align-self-center" id="toggleButton" type="button" data-toggle="minimize"
+                  onClick={toggleSidebarClass}
+                  >
             <span class="icon-menu"></span>
           </button>
           <ul class="navbar-nav navbar-nav-right">
@@ -27,7 +41,9 @@ export default function Header() {
               </div>
             </li>
           </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas"
+                  onClick={toggleSidebarClass}
+                  >
             <span class="icon-menu"></span>
           </button>
         </div>
