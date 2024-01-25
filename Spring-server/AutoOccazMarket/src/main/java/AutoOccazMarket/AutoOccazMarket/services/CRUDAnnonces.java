@@ -1,6 +1,8 @@
 package AutoOccazMarket.AutoOccazMarket.services;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,19 +111,44 @@ public class CRUDAnnonces {
         postAnnonces(annoncesToUpdate) ;
     }
 
-    public List<Annonces> selectWhereAnnoncePostees(AnnoncesFiltreDTO annoncesFiltreDTO) {
+    public List<Annonces> selectWhere(AnnoncesFiltreDTO annoncesFiltreDTO) {
         if (annoncesFiltreDTO == null) {
             return null;
         }
 
-        List<Annonces> result = annoncesRepository.searchAnnoncesByFilters(
-            (annoncesFiltreDTO.getModeles()),
-            (annoncesFiltreDTO.getCategories()),
-            (annoncesFiltreDTO.getMarque()),
-            (annoncesFiltreDTO.getCarburant())
-        );
+        java.util.Set<Annonces> resultSet = new HashSet<>(); // Utiliser un HashSet pour éviter les doublons
 
-        return result;
+        if (annoncesFiltreDTO.getModeles() != null) {
+            for (String modele : annoncesFiltreDTO.getModeles()) {
+                System.out.println("modeles");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByModeles(modele));
+            }
+        }
+
+        if (annoncesFiltreDTO.getCarburant() != null) {
+            for (String carburant : annoncesFiltreDTO.getCarburant()) {
+                System.out.println("annonces");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCarburant(carburant));
+            }
+        }
+
+        if (annoncesFiltreDTO.getCategories() != null) {
+            for (String categorie : annoncesFiltreDTO.getCategories()) {
+                System.out.println("categorie");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCategorie(categorie));
+            }
+        }
+
+        if (annoncesFiltreDTO.getMarque() != null) {
+            for (String marque : annoncesFiltreDTO.getMarque()) {
+                System.out.println("marque");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByMarque(marque));
+            }
+        }
+
+        System.out.println(resultSet.size());
+        return new ArrayList<>(resultSet); 
     }
+
     
 }

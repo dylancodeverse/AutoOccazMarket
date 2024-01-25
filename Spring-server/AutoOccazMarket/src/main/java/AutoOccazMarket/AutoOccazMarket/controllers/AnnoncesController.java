@@ -41,7 +41,7 @@ public class AnnoncesController
     @PostMapping("/annoncesfiltre")
     public AnnoncesFiltreDTO filtre(@RequestBody AnnoncesFiltreDTO entity) {
         try {
-            List<Annonces> annonces = crudAnnonces.selectWhereAnnoncePostees(entity);
+            List<Annonces> annonces = crudAnnonces.selectWhere(entity);
             entity.setAnnoncesAsList(annonces);
         } catch (Exception e) {
             entity.setErrors(e.getMessage());
