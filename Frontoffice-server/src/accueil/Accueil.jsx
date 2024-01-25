@@ -63,6 +63,7 @@ export default function AccueilBody() {
           categories={categories}
           marques={marques}
           carburants={carburants}
+          setAnnonces={setAnnonces}
         />
       )}
       <ListeAnnonce annonces={annonces} />

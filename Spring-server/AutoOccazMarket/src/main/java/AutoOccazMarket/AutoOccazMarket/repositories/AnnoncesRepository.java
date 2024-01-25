@@ -10,17 +10,20 @@ import java.util.List;
 public interface AnnoncesRepository extends JpaRepository<Annonces, Integer> {
 
     List<Annonces> findByEtatValidation(Integer etatValidation);
-    @Query("SELECT DISTINCT a FROM Annonces a " +
-    "WHERE (COALESCE(:modeles) IS NULL OR LOWER(a.modeles.nomModele) IN :modeles) " +
-    "OR (COALESCE(:categories) IS NULL OR LOWER(a.modeles.categorie.categorie) IN :categories) " +
-    "OR (COALESCE(:marques) IS NULL OR LOWER(a.modeles.marque.marque) IN :marques) " +
-    "OR (COALESCE(:carburants) IS NULL OR LOWER(a.modeles.carburant.carburant) IN :carburants) " +
-    "AND a.etatValidation = 20")
-List<Annonces> searchAnnoncesByFilters(
- @Param("modeles") List<String> modeles,
- @Param("categories") List<String> categories,
- @Param("marques") List<String> marques,
- @Param("carburants") List<String> carburants
-);
+    
+    @Query("SELECT a FROM Annonces a " +
+    "WHERE (:categorie IS NULL OR LOWER(a.modeles.categorie.categorie) LIKE LOWER(CONCAT('%', :categorie, '%'))) and a.etatValidation = 20")
+    List<Annonces> searchAnnoncesByCategorie(@Param("categorie") String categorie);
 
+    @Query("SELECT a FROM Annonces a " +
+           "WHERE (:marque IS NULL OR LOWER(a.modeles.marque.marque) LIKE LOWER(CONCAT('%', :marque, '%'))) and a.etatValidation = 20")
+    List<Annonces> searchAnnoncesByMarque(@Param("marque") String marque);
+
+    @Query("SELECT a FROM Annonces a " +
+           "WHERE (:carburant IS NULL OR LOWER(a.modeles.carburant.carburant) LIKE LOWER(CONCAT('%', :carburant, '%'))) and a.etatValidation = 20")
+List<Annonces> searchAnnoncesByCarburant(@Param("carburant") String carburant);
+
+    @Query("SELECT a FROM Annonces a " +
+           "WHERE (:modele IS NULL OR LOWER(a.modeles.nomModele) LIKE LOWER(CONCAT('%', :modele, '%'))) and a.etatValidation = 20")
+    List<Annonces> searchAnnoncesByModeles(@Param("modele") String modele);
 }
