@@ -1,7 +1,12 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,11 +43,23 @@ public class Annonces {
     private List<PhotoAnnonce> photoAnnonces ;
 
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")
+    @JsonIgnore
     private List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques ;
 
     private Double prix ;
 
     private String description ;
+
+    @CreationTimestamp
+    private Timestamp datePoste ;
+
+    public Timestamp getDatePoste() {
+        return datePoste;
+    }
+
+    public void setDatePoste(Timestamp datePoste) {
+        this.datePoste = datePoste;
+    }
 
     public List<PhotoAnnonce> getPhotoAnnonces() {
         return photoAnnonces;

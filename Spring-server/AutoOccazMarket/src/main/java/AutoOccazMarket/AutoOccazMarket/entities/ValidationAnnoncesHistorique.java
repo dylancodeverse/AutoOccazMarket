@@ -37,6 +37,7 @@ public class ValidationAnnoncesHistorique
     @Column(name = "etat_validation")
     private Integer etatValidation ;
 
+
     public Integer getValidationAnnoncesHistoriqueId() {
         return validationAnnoncesHistoriqueId;
     }
