@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 export default function ListeAnnonce(params) {
     const annonces = params.annonces
     return (
@@ -36,8 +37,9 @@ export default function ListeAnnonce(params) {
         </div>
         {/* <!-- Page-Bar /- --> */}
         {/* <!-- Row-of-Product-Container --> */}
-        <div class="row product-container list-style">
-        {annonces.map((annonce) => (
+        <div class="row product-container list-style" id="annonces">
+        {annonces.length > 0 ? (
+            annonces.map((annonce) => (
                 <div key={annonce.idAnnonce} class="product-item col-lg-4 col-md-6 col-sm-6">
                     <div class="item" id="annonces">
                     <div class="image-container">
@@ -45,10 +47,8 @@ export default function ListeAnnonce(params) {
                         <img class="img-fluid" src={"images/product/product@3x.jpg"} alt="Products" />
                         </a>
                         <div class="item-action-behaviors">
-                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look</a>
-                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                            <button class="item-mail">Mail</button>
+                            <button class="item-addwishlist">Add to Wishlist</button>
                         </div>
                     </div>
                     <div class="item-content">
@@ -90,7 +90,29 @@ export default function ListeAnnonce(params) {
                     </div>
                 </div>
             </div>
-                    ))}
+                    ))
+                
+            ):(
+
+                <div class="product-item col-lg-4 col-md-6 col-sm-6" id="annonces">
+                    <div class="item" id="annonces">
+                        <div class="image-container">
+                        </div>
+                        <div class="item-content">
+                            <div class="what-product-is">
+                               
+                                <h6 class="item-title">
+                                    <a href="single-product.html">Pas d'annonce disponible pour le filtre demande</a>
+                                </h6>
+                                <div class="item-description">
+                                    <p>La liste affichee depend de votre requete, les annonces doivent avoir au moins un de votre filtre.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            )}
 
 
         </div>
