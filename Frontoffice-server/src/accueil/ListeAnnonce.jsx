@@ -11,7 +11,7 @@ export default function ListeAnnonce(params) {
                 </a>
             </div>
             {/* <!-- Toolbar Sorter 1  --> */}
-            <div class="toolbar-sorter">
+            {/* <div class="toolbar-sorter">
                 <div class="select-box-wrapper">
                     <label class="sr-only" for="sort-by">Trier par</label>
                     <select class="select-box" id="sort-by">
@@ -20,10 +20,10 @@ export default function ListeAnnonce(params) {
                         <option value="">le plus apprecié</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
             {/* <!-- //end Toolbar Sorter 1  --> */}
             {/* <!-- Toolbar Sorter 2  --> */}
-            <div class="toolbar-sorter-2">
+            {/* <div class="toolbar-sorter-2">
                 <div class="select-box-wrapper">
                     <label class="sr-only" for="show-records">Afficher Par Page</label>
                     <select class="select-box" id="show-records">
@@ -32,7 +32,7 @@ export default function ListeAnnonce(params) {
                         <option value="">Afficher: 28</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
             {/* <!-- //end Toolbar Sorter 2  --> */}
         </div>
         {/* <!-- Page-Bar /- --> */}
@@ -67,7 +67,7 @@ export default function ListeAnnonce(params) {
                                 Details:
                             </h6>
                             <p>Marque :{annonce.modeles.marque.marque} </p>
-                            <p> Categorie : {annonce.modeles.categorie.categorie}</p>
+                            <p> Categorie : {annonce.modeles.categorie.categorie} avec un type de carburant : {annonce.modeles.carburant.carburant}</p>
                             <p>Note: {annonce.etatGeneral}/10 situe a {annonce.localisation}</p>
                             <p></p>
 

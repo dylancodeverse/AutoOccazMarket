@@ -22,7 +22,7 @@ public class ValidationAnnoncesHistorique
     @Column(name = "validationAnnoncesHistoriqueId")
     private Integer validationAnnoncesHistoriqueId ; 
 
-    @ManyToOne(optional = false ,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false ,fetch = FetchType.EAGER)
     private Annonces annonces ;
 
     @Column(name = "date_validation")

@@ -115,5 +115,13 @@ public class Annonces {
     public void setEtatValidation(Integer etatValidation) {
         this.etatValidation = etatValidation;
     }
+
+    public List<ValidationAnnoncesHistorique> getValidationAnnoncesHistoriques() {
+        return validationAnnoncesHistoriques;
+    }
+
+    public void setValidationAnnoncesHistoriques(List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques) {
+        this.validationAnnoncesHistoriques = validationAnnoncesHistoriques;
+    }
     
 }

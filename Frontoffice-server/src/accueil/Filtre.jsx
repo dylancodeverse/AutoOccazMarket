@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 export default function Filtre(params) {
-    const [prixRange, setPrixRange] = useState([0, 3000]);
+    const [prixRange, setPrixRange] = useState([0, 1000000]);
 
     const handleFilterClick = async () => {
       // Gérer l'application du filtre de prix
