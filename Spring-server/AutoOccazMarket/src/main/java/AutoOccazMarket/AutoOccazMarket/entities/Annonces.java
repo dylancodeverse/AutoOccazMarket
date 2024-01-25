@@ -1,7 +1,12 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,12 +39,43 @@ public class Annonces {
     @Column(name = "etat_validation",nullable = false)
     private Integer etatValidation;
 
+    @OneToMany    
+    private List<PhotoAnnonce> photoAnnonces ;
 
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")
+    @JsonIgnore
     private List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques ;
 
     private Double prix ;
 
+    private String description ;
+
+    @CreationTimestamp
+    private Timestamp datePoste ;
+
+    public Timestamp getDatePoste() {
+        return datePoste;
+    }
+
+    public void setDatePoste(Timestamp datePoste) {
+        this.datePoste = datePoste;
+    }
+
+    public List<PhotoAnnonce> getPhotoAnnonces() {
+        return photoAnnonces;
+    }
+
+    public void setPhotoAnnonces(List<PhotoAnnonce> photoAnnonces) {
+        this.photoAnnonces = photoAnnonces;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Double getPrix() {
         return prix;
@@ -95,6 +131,14 @@ public class Annonces {
 
     public void setEtatValidation(Integer etatValidation) {
         this.etatValidation = etatValidation;
+    }
+
+    public List<ValidationAnnoncesHistorique> getValidationAnnoncesHistoriques() {
+        return validationAnnoncesHistoriques;
+    }
+
+    public void setValidationAnnoncesHistoriques(List<ValidationAnnoncesHistorique> validationAnnoncesHistoriques) {
+        this.validationAnnoncesHistoriques = validationAnnoncesHistoriques;
     }
     
 }

@@ -1,43 +1,63 @@
-        // annonces statistiques (nom modele , nombre de voiture vendu ,benefice du site)
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import API_BASE_URL from '../../Config';
+import { Navigate } from 'react-router-dom';
 
 export default function AnnoncesStat() {
-    return(    <div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Vente et benefice</h4>
+  const [annoncesClotureesStats, setAnnoncesClotureesStats] = useState([]);
+  const handleUnauthorized = () => {
+    // Détruisez le token et redirigez vers la page de connexion
+    localStorage.removeItem('accessToken');
+    Navigate('/');
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-        <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Nom du modele</th>
-                <th>Nombre total de voiture vendue</th>
-                <th>Benefice du site</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Ferrari</td>
-                <td>146.6</td>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>193.6</td>
-                <td>153</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>123.6</td>
-                <td>13</td>
-            </tr>
-            </tbody>
-        </table>
+  const fetchData = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `${accessToken}`,
+      };
+      const response = await axios.get(`${API_BASE_URL}/AnnoncesClotureesStats`, { headers });
+      const annoncesClotureesStatsData = response.data.listAnnoncesClotureesStats || [];
+      setAnnoncesClotureesStats(annoncesClotureesStatsData);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+    }
+  };
+
+  return (
+    <div className="col-lg-12 grid-margin stretch-card">
+      <div className="card">
+        <div className="card-body">
+          <h4 className="card-title">Vente et bénéfice</h4>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nom du modèle</th>
+                  <th>Nombre total de voitures vendues</th>
+                  <th>Bénéfice du site</th>
+                </tr>
+              </thead>
+              <tbody>
+                {annoncesClotureesStats.map((annonceStat) => (
+                  <tr key={annonceStat.nomModele}>
+                    <td>{annonceStat.nomModele}</td>
+                    <td>{annonceStat.nbrePosteClotures}</td>
+                    <td>{annonceStat.prixvendu}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-</div>
-)
-
-
+  );
 }

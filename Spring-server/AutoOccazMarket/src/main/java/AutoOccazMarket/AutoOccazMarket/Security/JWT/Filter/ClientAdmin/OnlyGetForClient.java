@@ -62,6 +62,7 @@ public class OnlyGetForClient extends OncePerRequestFilter {
         else 
         {
             // not valid token
+            
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }

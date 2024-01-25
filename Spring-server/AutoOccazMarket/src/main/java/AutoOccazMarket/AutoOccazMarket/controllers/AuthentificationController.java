@@ -47,7 +47,7 @@ public class AuthentificationController {
         try {
             Utilisateur u = userAuth.login(utilisateurDTO.getUtilisateur()) ;                       
 
-            String token =  jwtGenerator.generateToken(u.getMail(), u.getPrenom()+" "+u.getNom(), u.getHierarchie().toString());
+            String token =  jwtGenerator.generateToken(u.getMail(), u.getPrenom()+" "+u.getNom(), u.getHierarchie().toString(), u.getIdutilisateur());
 
             Map<String, String> response = new HashMap<>();
                 response.put("accessToken", token);

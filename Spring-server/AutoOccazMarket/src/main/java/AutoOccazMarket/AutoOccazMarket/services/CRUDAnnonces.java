@@ -1,11 +1,14 @@
 package AutoOccazMarket.AutoOccazMarket.services;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.ValidationAnnoncesHistorique;
 import AutoOccazMarket.AutoOccazMarket.repositories.AnnoncesRepository;
@@ -24,6 +27,10 @@ public class CRUDAnnonces {
 
     public List<Annonces> getAnnoncesNonPostees(){
         return annoncesRepository.findByEtatValidation(1);
+    }
+
+    public List<Annonces> getAnnoncesPostees(){
+        return annoncesRepository.findByEtatValidation(20);
     }
 
     public List<Annonces> getAnnoncesList() 
@@ -96,11 +103,52 @@ public class CRUDAnnonces {
         if (annonces.getPrix()!=null) {
             annoncesToUpdate.setPrix(annonces.getPrix());
         }
+        if (annonces.getDescription()!=null) {
+            annoncesToUpdate.setDescription(annonces.getDescription());
+        }
 
 
         postAnnonces(annoncesToUpdate) ;
     }
 
+    public List<Annonces> selectWhere(AnnoncesFiltreDTO annoncesFiltreDTO) {
+        if (annoncesFiltreDTO == null) {
+            return null;
+        }
+
+        java.util.Set<Annonces> resultSet = new HashSet<>(); // Utiliser un HashSet pour éviter les doublons
+
+        if (annoncesFiltreDTO.getModeles() != null) {
+            for (String modele : annoncesFiltreDTO.getModeles()) {
+                System.out.println("modeles");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByModeles(modele));
+            }
+        }
+
+        if (annoncesFiltreDTO.getCarburant() != null) {
+            for (String carburant : annoncesFiltreDTO.getCarburant()) {
+                System.out.println("annonces");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCarburant(carburant));
+            }
+        }
+
+        if (annoncesFiltreDTO.getCategories() != null) {
+            for (String categorie : annoncesFiltreDTO.getCategories()) {
+                System.out.println("categorie");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCategorie(categorie));
+            }
+        }
+
+        if (annoncesFiltreDTO.getMarque() != null) {
+            for (String marque : annoncesFiltreDTO.getMarque()) {
+                System.out.println("marque");
+                resultSet.addAll(annoncesRepository.searchAnnoncesByMarque(marque));
+            }
+        }
+
+        System.out.println(resultSet.size());
+        return new ArrayList<>(resultSet); 
+    }
 
     
 }

@@ -6,9 +6,11 @@ import java.sql.Date;
 import AutoOccazMarket.AutoOccazMarket.Security.Encoder.SHA256PasswordEncoder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 
 @Entity
 public class Utilisateur {
@@ -30,6 +32,9 @@ public class Utilisateur {
     private Date birthday;
 
     private String nom;
+
+    // @OneToMany( mappedBy = "utilisateur" , fetch = FetchType.EAGER)
+    // private Annonces [] annonces ;
 
     public String getNom() {
         return nom;
@@ -119,6 +124,14 @@ public class Utilisateur {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+    // public Annonces[] getAnnonces() {
+    //     return annonces;
+    // }
+
+    // public void setAnnonces(Annonces[] annonces) {
+    //     this.annonces = annonces;
+    // }
 
 
 

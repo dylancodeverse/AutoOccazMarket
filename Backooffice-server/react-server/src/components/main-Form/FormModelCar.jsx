@@ -44,6 +44,8 @@ export default function FormModelCar() {
       const responseModels = await axios.get(`${API_BASE_URL}/modeles`, { headers });
       setModelData(responseModels.data.listModeles || []);
 
+      console.log(modelData)
+
       // Fetch data for Marques
       const responseMarques = await axios.get(`${API_BASE_URL}/marques`, { headers });
       setMarques(responseMarques.data.listMarque || []);
@@ -87,17 +89,17 @@ export default function FormModelCar() {
   };
 
   const handleEditClick = (id, nomModele, idMarque, idCategorie, idCarburant) => {
-    console.log(id)
+
     setIsEditing(true);
     setIsNewRow(false);
-
-    setEditedData({
+     setEditedData({
       idModele: id,
       nomModele: nomModele,
       idMarque: idMarque,
       idCategorie: idCategorie,
       idCarburant: idCarburant,
     });
+
   };
 
   const handleInputChange = (e, columnName) => {
@@ -142,18 +144,28 @@ export default function FormModelCar() {
         }
       } else {
         // Logic for updating an existing row
+        console.log({
+          modeles: {
+            nomModele: editedData.nomModele,
+            marque:{ idMarque: editedData.idMarque},
+            categorie:{ idcategorie: editedData.idCategorie},
+            carburant:{ idCarburant: editedData.idCarburant},
+          },
+        })
         const response =  await axios.put(
           `${API_BASE_URL}/modeles/${editedData.idModele}`,
           {
             modeles: {
               nomModele: editedData.nomModele,
-              idMarque: editedData.idMarque,
-              idCategorie: editedData.idCategorie,
-              idCarburant: editedData.idCarburant,
+              marque:{ idMarque: editedData.idMarque},
+              categorie:{ idcategorie: editedData.idCategorie},
+              carburant:{ idCarburant: editedData.idCarburant},
             },
           },
           { headers }
         );
+
+        // console.log(response)
         if(response.data.errors!=null){
           setError(response.data.errors);
         }
@@ -277,6 +289,7 @@ export default function FormModelCar() {
                     </td>
                     <td>
                       {isEditing && editedData.idModele === data.idModeles ? (
+                        
                         <select
                           className="form-control"
                           value={editedData.idMarque}
@@ -284,7 +297,9 @@ export default function FormModelCar() {
                         >
                           <option value="">Sélectionnez une m arque</option>
                           {marques.map((marque) => (
-                            <option key={marque.idMarque} value={marque.idMarque}>
+                            <option key={marque.idMarque} value={marque.idMarque}
+                            selected={marque.idMarque === editedData.idMarque}
+                            >
                               {marque.marque}
                             </option>
                           ))}
@@ -302,7 +317,8 @@ export default function FormModelCar() {
                         >
                           <option value="">Sélectionnez une catégorie</option>
                           {categories.map((categorie) => (
-                            <option key={categorie.idcategorie} value={categorie.idcategorie}>
+                            <option key={categorie.idcategorie} value={categorie.idcategorie}
+                            selected={categorie.idCategorie===editedData.idCategorie}>
                               {categorie.categorie}
                             </option>
                           ))}
@@ -320,7 +336,8 @@ export default function FormModelCar() {
                         >
                           <option value="">Sélectionnez un carburant</option>
                           {carburants.map((carburant) => (
-                            <option key={carburant.idCarburant} value={carburant.idCarburant}>
+                            <option key={carburant.idCarburant} value={carburant.idCarburant}
+                            selected={carburant.idCarburant===editedData.idCarburant}>
                               {carburant.carburant}
                             </option>
                           ))}
@@ -341,9 +358,9 @@ export default function FormModelCar() {
                             handleEditClick(
                               data.idModeles,
                               data.nomModele,
-                              data.idMarque,
-                              data.idCategorie,
-                              data.idCarburant
+                              data.marque.idMarque,
+                              data.categorie.idcategorie,
+                              data.carburant.idCarburant
                             )
                           }
                         />

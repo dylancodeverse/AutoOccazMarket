@@ -1,8 +1,10 @@
 package AutoOccazMarket.AutoOccazMarket.controllers;
 
+import java.sql.DriverManager;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesCompletDTO;
 import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesDTO;
+import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
+import AutoOccazMarket.AutoOccazMarket.entities.AnnoncesComplet;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
+
 
 
 @RestController
@@ -29,6 +35,15 @@ public class AnnoncesController
     @Autowired
     private AnnoncesDTO annoncesDTO ;
 
+    @Value("${spring.datasource.url}")
+    private String url ;
+
+    @Value("${spring.datasource.username}")
+    private String username ;
+
+    @Value("${spring.datasource.password}")
+    private String password ;
+
     @GetMapping(path = "/annoncesNonPostees")
     public AnnoncesDTO getAnnoncesNonPostees()
     {
@@ -37,11 +52,31 @@ public class AnnoncesController
         return annoncesDTO ;
     }    
 
+    @PostMapping("/annoncesfiltre")
+    public AnnoncesFiltreDTO filtre(@RequestBody AnnoncesFiltreDTO entity) {
+        try {
+            List<Annonces> annonces = crudAnnonces.selectWhere(entity);
+            entity.setAnnoncesAsList(annonces);
+        } catch (Exception e) {
+            entity.setErrors(e.getMessage());
+        }
+        return entity;
+    }
+    
+
 
     @GetMapping(path = "/annonces")
     public AnnoncesDTO getAnnoncess()
     {
         List<Annonces> annonces = crudAnnonces.getAnnoncesList() ;
+        annoncesDTO.setAnnoncesAsList(annonces);
+        return annoncesDTO ;
+    }
+
+    @GetMapping(path = "/annoncesAccueil")
+    public AnnoncesDTO getAnnoncessAccueil()
+    {
+        List<Annonces> annonces = crudAnnonces.getAnnoncesPostees() ;
         annoncesDTO.setAnnoncesAsList(annonces);
         return annoncesDTO ;
     }
@@ -73,7 +108,12 @@ public class AnnoncesController
     @PutMapping(path ="/annonces/{id}")
     public AnnoncesDTO updateAnnonces(@PathVariable("id") final Integer id , @RequestBody AnnoncesDTO annoncesDTO)
     {
-        crudAnnonces.updateAnnonces(id, annoncesDTO.getAnnonces());
+        try {
+            crudAnnonces.updateAnnonces(id, annoncesDTO.getAnnonces());
+            
+        } catch (Exception e) {
+            annoncesDTO.setErrors(e.getMessage());
+        }
 
         return annoncesDTO;
     }
@@ -83,4 +123,15 @@ public class AnnoncesController
     {
         crudAnnonces.deleteAnnoncesByID(id);
     }    
+
+    @GetMapping("/annoncesHistorique")
+    public AnnoncesCompletDTO getHistorique(@RequestBody AnnoncesCompletDTO param) {
+        try {
+            param.setListAnnoncesComplet(AnnoncesComplet.select(DriverManager.getConnection(url, username, password),param.getUserID()));
+        } catch (Exception e) {
+            param.setErrors(e.getMessage());
+        }
+        return param;
+    }
+    
 }
