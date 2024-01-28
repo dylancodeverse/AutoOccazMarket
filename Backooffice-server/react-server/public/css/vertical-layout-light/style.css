@@ -30636,3 +30636,10 @@ div.tagsinput span.tag a {
   font-size: 1.125rem;
   font-weight: 600;
 } 
+
+#con {
+  font-size: 1rem;
+    line-height: 1;
+    margin-right: 1rem;
+    color: #6C7383;
+}
