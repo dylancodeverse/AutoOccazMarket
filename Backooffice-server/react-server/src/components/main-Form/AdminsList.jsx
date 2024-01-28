@@ -9,6 +9,10 @@ import API_BASE_URL from '../../Config';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 
 export default function AdminsList() {
     const [adminsData, setAdminsData] = useState([]);
@@ -235,6 +239,8 @@ export default function AdminsList() {
             <FaPlus /> Ajouter
           </button>
           {error && <p style={{ color: 'red' }}>{error}</p>}
+
+
           <Modal
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
@@ -440,6 +446,14 @@ export default function AdminsList() {
               </tbody>
             </table>
           </div>
+
+          {/* Misa */}
+          <div className="misa">
+              <Stack spacing={2}>
+                <Pagination count={10} color="secondary" />
+              </Stack>
+          </div>
+
         </div>
       </div>
     </div>
