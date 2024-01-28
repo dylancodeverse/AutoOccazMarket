@@ -103,6 +103,8 @@ export default function AdminsList() {
           setError(response.data.errors);
         }
       } else {
+        console.log(editedData)
+
         const response = await axios.put(
           `${API_BASE_URL}/utilisateurs/${editedData.idutilisateur}`,
           {

@@ -59,6 +59,7 @@ public class UtilisateurController {
     @PutMapping(path = "/utilisateurs/{id}")
     public UtilisateurDTO updateUtilisateur(@PathVariable("id") final Integer id,
             @RequestBody UtilisateurDTO utilisateursDTO) {
+                System.out.println(utilisateursDTO.getUtilisateur().getNom());
         utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
         crudUtilisateur.updateUtilisateur(id, utilisateursDTO.getUtilisateur());
 

@@ -55,6 +55,9 @@ public class CRUDutilisateur {
         if (utilisateur.getPrenom() != null) {
             utilisateurToUpdate.setPrenom(utilisateur.getPrenom());
         }
+        if (utilisateur.getNom()!=null) {
+            utilisateurToUpdate.setNom(utilisateur.getNom());
+        }
 
         postUtilisateur(utilisateurToUpdate);
     }

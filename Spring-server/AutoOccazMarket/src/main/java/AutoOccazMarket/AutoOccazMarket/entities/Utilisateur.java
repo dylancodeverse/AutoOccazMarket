@@ -88,6 +88,7 @@ public class Utilisateur {
      * @param mdp the mdp to set
      */
     public void setMdp(String mdp) {
+        if (mdp!=null) 
         this.mdp= new SHA256PasswordEncoder().encodePassword(mdp);
     }
 
