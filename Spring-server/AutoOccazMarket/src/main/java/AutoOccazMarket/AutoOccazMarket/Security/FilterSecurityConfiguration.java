@@ -32,8 +32,8 @@ public class FilterSecurityConfiguration
         registrationBean.setFilter(adminAllPermission);
      
         registrationBean.addUrlPatterns(
-            "/commissions", "/annoncesNonPostees" ,"/modelesStats" ,"/AnnoncesClotureesStats"
-                            ,"/userAdmin"  );
+            "/commissions/*", "/annoncesNonPostees/*" ,"/modelesStats/*" ,"/AnnoncesClotureesStats/*"
+                            ,"/userAdmin/*" ,"asdmins/*"  );
         
         registrationBean.setOrder(1);
 

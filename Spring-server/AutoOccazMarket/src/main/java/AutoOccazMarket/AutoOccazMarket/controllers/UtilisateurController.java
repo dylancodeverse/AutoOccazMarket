@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
