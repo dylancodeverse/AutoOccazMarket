@@ -8,6 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 // CategorieCRUD component
 export default function CategorieCRUD() {
+  // MISA
   const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
   const handleItemsPerPageChange = (e) => {
     const newItemsPerPage = parseInt(e.target.value, 10);
@@ -36,6 +37,7 @@ export default function CategorieCRUD() {
     navigate('/');
   };
 
+  // MISA
   const [currentPage, setCurrentPage] = useState(1); // Default current page
 
   useEffect(() => {
@@ -69,6 +71,7 @@ export default function CategorieCRUD() {
   };
   // HATRETO
 
+  // MISA
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
