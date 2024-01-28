@@ -80,14 +80,17 @@ public class CarburantController
         crudCarburant.deleteCarburantByID(id);
     }    
 
-    @GetMapping(path =  "/carburants/{one}/{two}")
-    public  CarburantDTO getCarburants(@PathVariable("one") Integer offset , @PathVariable("two") Integer pageSize , @RequestBody CarburantDTO carburantsDTO) {
+    @GetMapping(path = "/carburant/{offset}/{pageSize}")
+    public CarburantDTO getCarburants(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        CarburantDTO carburantDTO = new CarburantDTO();
+        
         try {
-            carburantsDTO.setCarburantAsList(crudCarburant.findCarburantsWithPagination(offset, pageSize));
+            carburantDTO.setCarburantAsList(crudCarburant.findCarburantsWithPagination(offset, pageSize));
         } catch (Exception e) {
-            carburantsDTO.setErrors(e.getMessage());         
+            carburantDTO.setErrors(e.getMessage());
         }
-        return carburantsDTO ;
+        
+        return carburantDTO;
     }
     
 }

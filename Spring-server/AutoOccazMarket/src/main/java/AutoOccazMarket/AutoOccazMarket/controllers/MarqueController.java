@@ -71,13 +71,17 @@ public class MarqueController {
     }
 
 
-    @GetMapping(path =  "/marques/{one}/{two}")
-    public  MarqueDTO getMarques(@PathVariable("one") Integer offset , @PathVariable("two") Integer pageSize , @RequestBody MarqueDTO marquesDTO) {
+    @GetMapping(path = "/marques/{offset}/{pageSize}")
+    public MarqueDTO getMarques(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        MarqueDTO marquesDTO = new MarqueDTO();
+        
         try {
             marquesDTO.setMarqueAsList(crudMarque.findMarquesWithPagination(offset, pageSize));
         } catch (Exception e) {
-            marquesDTO.setErrors(e.getMessage());         
+            marquesDTO.setErrors(e.getMessage());
         }
-        return marquesDTO ;
+        
+        return marquesDTO;
     }
+    
 }
