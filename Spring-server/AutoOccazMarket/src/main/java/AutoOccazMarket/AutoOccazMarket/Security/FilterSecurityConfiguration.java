@@ -60,7 +60,7 @@ public class FilterSecurityConfiguration
         = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(allGetForAll);
-        registrationBean.addUrlPatterns("/carburants" , "/categories" , "/marques" ,"/modeles"
+        registrationBean.addUrlPatterns("/carburants/*" , "/categories/*" , "/marques/*" ,"/modeles/*"
         );
 
         registrationBean.setOrder(1);

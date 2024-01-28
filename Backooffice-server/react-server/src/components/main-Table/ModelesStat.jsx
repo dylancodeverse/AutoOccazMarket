@@ -2,17 +2,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ModelesStat() {
   const [modelesStats, setModelesStats] = useState([]);
   const handleUnauthorized = () => {
     // Détruisez le token et redirigez vers la page de connexion
     localStorage.removeItem('accessToken');
-    Navigate('/');
+    navigate('/');
   };
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchData();
+    
+    const storedToken = localStorage.getItem('accessToken');
+    if (!storedToken) {
+      // Redirect to ValidationAnnonce if the token is present
+      navigate('/');
+    } 
+    else{
+      fetchData();
+    } 
   }, []);
 
   const fetchData = async () => {
