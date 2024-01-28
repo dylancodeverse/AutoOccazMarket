@@ -14,11 +14,15 @@ import Stack from '@mui/material/Stack';
 
 
 export default function AdminsList() {
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
     const [adminsData, setAdminsData] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [isNewRow, setIsNewRow] = useState(false);
     const [pages ,setPages] = useState(10);
-
+    const [currentPage, setCurrentPage] = useState(1); // Default current page
     const [editedData, setEditedData] = useState({
       idutilisateur: '',
       mail: '',
