@@ -18,13 +18,17 @@ public class CRUDutilisateur {
         return utilisateurRepository.findAll();
     }
 
+    public List<Utilisateur> getAdminList(){
+        return utilisateurRepository.findByHierarchieGreaterThan(1);
+    }
+
     public void deleteUtilisateurByID(Integer id) {
         utilisateurRepository.deleteById(id);
 
     }
 
     public Utilisateur postUtilisateur(Utilisateur utilisateur) {
-        
+        utilisateur.setHierarchie(30);
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -50,6 +54,9 @@ public class CRUDutilisateur {
         }
         if (utilisateur.getPrenom() != null) {
             utilisateurToUpdate.setPrenom(utilisateur.getPrenom());
+        }
+        if (utilisateur.getNom()!=null) {
+            utilisateurToUpdate.setNom(utilisateur.getNom());
         }
 
         postUtilisateur(utilisateurToUpdate);

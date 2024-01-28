@@ -2,6 +2,7 @@ package AutoOccazMarket.AutoOccazMarket.entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import AutoOccazMarket.AutoOccazMarket.Security.Encoder.SHA256PasswordEncoder;
 import jakarta.persistence.Column;
@@ -24,6 +25,7 @@ public class Utilisateur {
     private String mail;
 
     @Column(nullable = false, length = 250)
+    @JsonIgnore
     private String mdp;
 
     @Column(nullable = false, unique = true, length = 250)
@@ -86,6 +88,7 @@ public class Utilisateur {
      * @param mdp the mdp to set
      */
     public void setMdp(String mdp) {
+        if (mdp!=null) 
         this.mdp= new SHA256PasswordEncoder().encodePassword(mdp);
     }
 

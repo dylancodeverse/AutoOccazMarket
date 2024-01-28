@@ -4,18 +4,27 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import {jwtDecode} from 'jwt-decode'
-import { Navigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 export default function ValidationTableAnnonce() {
   const [annonces, setAnnonces] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
+    // Check if the token is already present in local storage
+    const storedToken = localStorage.getItem('accessToken');
+    if (!storedToken) {
+        
+      // Redirect to ValidationAnnonce if the token is present
+      navigate('/');
+    }else {
+      fetchData();
+    }
   }, []);
 
   const handleUnauthorized = () => {
     // Détruisez le token et redirigez vers la page de connexion
     localStorage.removeItem('accessToken');
-    Navigate('/');
+    navigate('/');
   };
 
   const fetchData = async () => {

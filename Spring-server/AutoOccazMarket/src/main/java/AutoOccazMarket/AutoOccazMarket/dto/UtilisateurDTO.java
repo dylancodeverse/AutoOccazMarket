@@ -13,6 +13,8 @@ public class UtilisateurDTO {
 
     Utilisateur utilisateur;
 
+    String mdp;
+
     String errors;
 
     Map<String, String> tokenInformation;
@@ -51,6 +53,14 @@ public class UtilisateurDTO {
 
     public void setErrors(String errors) {
         this.errors = errors;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 
 }

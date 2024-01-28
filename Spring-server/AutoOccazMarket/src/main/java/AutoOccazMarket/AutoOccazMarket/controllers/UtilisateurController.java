@@ -15,6 +15,7 @@ import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
 
+
 @RestController
 
 public class UtilisateurController {
@@ -43,6 +44,7 @@ public class UtilisateurController {
     @PostMapping(path = "/utilisateurs")
     public UtilisateurDTO saveUtilisateur(@RequestBody UtilisateurDTO utilisateursDTO) {
         try {
+            utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
             crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
 
         } catch (Exception e) {
@@ -57,6 +59,8 @@ public class UtilisateurController {
     @PutMapping(path = "/utilisateurs/{id}")
     public UtilisateurDTO updateUtilisateur(@PathVariable("id") final Integer id,
             @RequestBody UtilisateurDTO utilisateursDTO) {
+                System.out.println(utilisateursDTO.getUtilisateur().getNom());
+        utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
         crudUtilisateur.updateUtilisateur(id, utilisateursDTO.getUtilisateur());
 
         return utilisateursDTO;
@@ -66,4 +70,26 @@ public class UtilisateurController {
     public void deleteUtilisateur(@PathVariable("id") final Integer id) {
         crudUtilisateur.deleteUtilisateurByID(id);
     }
+
+    @GetMapping("/admins")
+    public UtilisateurDTO getAdmins() {
+        List<Utilisateur> utilisateurs = crudUtilisateur.getAdminList();
+        utilisateursDTO.setUtilisateurAsList(utilisateurs);
+        return utilisateursDTO;
+    }
+
+    @PostMapping(path = "/admins")
+    public UtilisateurDTO saveAdmins(@RequestBody UtilisateurDTO utilisateursDTO) {
+        try {
+            utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
+            crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
+
+        } catch (Exception e) {
+            utilisateursDTO.setErrors(e.getMessage());
+        }
+
+        return utilisateursDTO;
+
+    }
+    
 }

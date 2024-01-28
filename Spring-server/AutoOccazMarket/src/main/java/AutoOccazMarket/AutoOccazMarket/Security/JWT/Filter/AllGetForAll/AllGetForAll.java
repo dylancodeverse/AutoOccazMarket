@@ -43,7 +43,8 @@ public class AllGetForAll extends OncePerRequestFilter {
 
         if (token != null && jwtValidator.validateToken(token)) {
 
-            // token informations
+            // token informations 
+            System.out.println("valide lele");
 
             String username = jwtValidator.getUsernameFromJWT(token);
             Double role = jwtValidator.getRoleFromJWT(token);

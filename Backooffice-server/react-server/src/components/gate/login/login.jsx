@@ -20,7 +20,7 @@ export default function Login() {
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
       // Redirect to ValidationAnnonce if the token is present
-      navigate('/validation');
+      navigate('/statistics');
     }
   }, [navigate]);
 
@@ -30,9 +30,9 @@ export default function Login() {
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, {
         utilisateur: {
-          mail: username,
-          mdp: password,
+          mail: username
         },
+        mdp: password,
       });
 
       // Handle the response as needed

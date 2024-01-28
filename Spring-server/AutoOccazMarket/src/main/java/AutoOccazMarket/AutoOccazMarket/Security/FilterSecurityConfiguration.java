@@ -32,8 +32,8 @@ public class FilterSecurityConfiguration
         registrationBean.setFilter(adminAllPermission);
      
         registrationBean.addUrlPatterns(
-            "/commissions", "/annoncesNonPostees" ,"/modelesStats" ,"/AnnoncesClotureesStats"
-                            ,"/userAdmin"  );
+            "/commissions/*", "/annoncesNonPostees/*" ,"/modelesStats/*" ,"/AnnoncesClotureesStats/*"
+            ,"/admins/*");
         
         registrationBean.setOrder(1);
 
@@ -60,7 +60,7 @@ public class FilterSecurityConfiguration
         = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(allGetForAll);
-        registrationBean.addUrlPatterns("/carburants" , "/categories" , "/marques" ,"/modeles"
+        registrationBean.addUrlPatterns("/carburants/*" , "/categories/*" , "/marques/*" ,"/modeles/*"
         );
 
         registrationBean.setOrder(1);
