@@ -69,4 +69,19 @@ public class MarqueController {
     public void deleteMarque(@PathVariable("id") final Integer id) {
         crudMarque.deleteMarqueByID(id);
     }
+
+
+    @GetMapping(path = "/marques/{offset}/{pageSize}")
+    public MarqueDTO getMarques(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        MarqueDTO marquesDTO = new MarqueDTO();
+        
+        try {
+            marquesDTO.setMarqueAsList(crudMarque.findMarquesWithPagination(offset, pageSize));
+        } catch (Exception e) {
+            marquesDTO.setErrors(e.getMessage());
+        }
+        
+        return marquesDTO;
+    }
+    
 }

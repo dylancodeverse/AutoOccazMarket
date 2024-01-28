@@ -71,4 +71,17 @@ public class CategorieController {
     public void deleteCategorie(@PathVariable("id") final Integer id) {
         crudCategorie.deleteCategorieByID(id);
     }
+
+    @GetMapping(path = "/categories/{offset}/{pageSize}")
+    public CategorieDTO getCategories(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        CategorieDTO categoriesDTO = new CategorieDTO();
+        
+        try {
+            categoriesDTO.setCategorieAsList(crudCategorie.findCategoriesWithPagination(offset, pageSize));
+        } catch (Exception e) {
+            categoriesDTO.setErrors(e.getMessage());
+        }
+        
+        return categoriesDTO;
+    }
 }
