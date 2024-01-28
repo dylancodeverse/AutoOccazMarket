@@ -30650,3 +30650,19 @@ div.tagsinput span.tag a {
   margin-top: 45px;
 
 }
+/* Add this to your existing CSS file or style section */
+
+
+
+.items-per-page-input label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.items-per-page-input input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 60px;
+}

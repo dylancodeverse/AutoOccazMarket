@@ -56,7 +56,8 @@ public class CategorieDTO {
     }
 
     public void setPage(int totalPages) {
-      this.page=totalPages;
+        this.page = totalPages ;
+
     }
 
     public int getPage() {

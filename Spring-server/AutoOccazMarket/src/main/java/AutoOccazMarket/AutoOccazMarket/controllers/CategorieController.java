@@ -78,9 +78,10 @@ public class CategorieController {
         CategorieDTO categoriesDTO = new CategorieDTO();
         
         try {
-            Page<Categorie> c=crudCategorie.findCategoriesWithPagination(offset, pageSize);
+            Page<Categorie> c = crudCategorie.findCategoriesWithPagination(offset, pageSize) ;
             categoriesDTO.setCategorieAsList(c.toList());
-            categoriesDTO.setPage(c.getTotalPages());
+            categoriesDTO.setPage(c.getTotalPages()) ;
+
         } catch (Exception e) {
             categoriesDTO.setErrors(e.getMessage());
         }

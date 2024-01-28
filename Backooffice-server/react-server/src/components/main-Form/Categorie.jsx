@@ -4,9 +4,21 @@ import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 // CategorieCRUD component
 export default function CategorieCRUD() {
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+  };
+
+  // MISA
+  const [pages ,setPages] = useState(10);
+
+
+
   const [categorieData, setCategorieData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
@@ -24,9 +36,11 @@ export default function CategorieCRUD() {
     navigate('/');
   };
 
+  const [currentPage, setCurrentPage] = useState(1); // Default current page
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage, itemsPerPage]); // Update data when currentPage or itemsPerPage changes
 
   const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -34,10 +48,14 @@ export default function CategorieCRUD() {
       Authorization: `${accessToken}`,
     };
 
+
+    //  MISA
     try {
-      const response = await axios.get(`${API_BASE_URL}/categories`, { headers });
+                                                        // ETO MIOVA
+      const response = await axios.get(`${API_BASE_URL}/categories/${currentPage-1}/${itemsPerPage}`, { headers });
       setCategorieData(response.data.listCategorie);
-      if(response.data.errors!=null){
+      setPages(response.data.page)
+      if (response.data.errors != null) {
         setError(response.data.errors);
       }
     } catch (error) {
@@ -48,6 +66,11 @@ export default function CategorieCRUD() {
 
       console.error('Failed to fetch categorie data', error);
     }
+  };
+  // HATRETO
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
   };
 
   const handleEditClick = (id, categorie) => {
@@ -266,11 +289,24 @@ export default function CategorieCRUD() {
             </table>
           </div>
 
+
           {/* Misa */}
           <div className="misa">
-              <Stack spacing={2}>
-                <Pagination count={10} color="secondary" />
-              </Stack>
+          <div className="items-per-page-input">
+            <label htmlFor="itemsPerPage">Elements par page:</label>
+            <input
+              type="number"
+              id="itemsPerPage"
+              name="itemsPerPage"
+              min="1"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+            />
+          </div>
+            <Stack spacing={2}>
+                              {/* MISA */}
+              <Pagination count={pages} color="secondary" onChange={handlePageChange} />
+            </Stack>
           </div>
           
         </div>
