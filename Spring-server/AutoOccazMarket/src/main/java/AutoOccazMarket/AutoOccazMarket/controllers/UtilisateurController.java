@@ -44,6 +44,7 @@ public class UtilisateurController {
     @PostMapping(path = "/utilisateurs")
     public UtilisateurDTO saveUtilisateur(@RequestBody UtilisateurDTO utilisateursDTO) {
         try {
+            utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
             crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
 
         } catch (Exception e) {
@@ -58,6 +59,7 @@ public class UtilisateurController {
     @PutMapping(path = "/utilisateurs/{id}")
     public UtilisateurDTO updateUtilisateur(@PathVariable("id") final Integer id,
             @RequestBody UtilisateurDTO utilisateursDTO) {
+        utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
         crudUtilisateur.updateUtilisateur(id, utilisateursDTO.getUtilisateur());
 
         return utilisateursDTO;
@@ -78,6 +80,7 @@ public class UtilisateurController {
     @PostMapping(path = "/admins")
     public UtilisateurDTO saveAdmins(@RequestBody UtilisateurDTO utilisateursDTO) {
         try {
+            utilisateursDTO.getUtilisateur().setMdp(utilisateursDTO.getMdp());
             crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
 
         } catch (Exception e) {
