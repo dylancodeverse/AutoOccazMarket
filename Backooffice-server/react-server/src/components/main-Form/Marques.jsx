@@ -19,6 +19,7 @@ export function MarqueCRUD() {
   const [marqueData, setMarqueData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
+  const [pages ,setPages] = useState(10);
   const [editedData, setEditedData] = useState({
     IdMarque: '',
     Marque: '',
@@ -34,22 +35,28 @@ export function MarqueCRUD() {
     const headers = {
       Authorization: `${accessToken}`,
     };
+   
 
-    try {
-      const response = await axios.get(`${API_BASE_URL}/marques`, { headers });
-      setMarqueData(response.data.listMarque);
-      if(response.data.errors!=null){
-        setError(response.data.errors);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        handleUnauthorized();
-      }
-      setError("Une erreur s'est produite.");
+  //  MISA
+  try {
+    // ETO MIOVA
+const response = await axios.get(`${API_BASE_URL}/marques/${currentPage-1}/${itemsPerPage}`, { headers });
+setMarqueData(response.data.listCategorie);  //tsy miova
+setPages(response.data.page)  //miampy
+if (response.data.errors != null) {
+setError(response.data.errors);
+}
+} catch (error) {
+if (error.response && error.response.status === 401) {
+handleUnauthorized();
+}
+setError("Une erreur s'est produite.");
 
-      console.error('Failed to fetch marque data', error);
-    }
-  };
+console.error('Failed to fetch categorie data', error);
+}
+};
+// HATRETO
+
 
   const handleEditClick = (id, marque) => {
     setIsEditing(true);
@@ -268,9 +275,10 @@ export function MarqueCRUD() {
 
           {/* Misa */}
           <div className="misa">
-              <Stack spacing={2}>
-                <Pagination count={10} color="secondary" />
-              </Stack>
+          <Stack spacing={2}>
+                              {/* MISA */}
+              <Pagination count={pages} color="secondary" onChange={handlePageChange} />
+            </Stack>
           </div>
           
         </div>

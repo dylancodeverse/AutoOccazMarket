@@ -17,6 +17,7 @@ export default function AdminsList() {
     const [adminsData, setAdminsData] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [isNewRow, setIsNewRow] = useState(false);
+    const [pages ,setPages] = useState(10);
 
     const [editedData, setEditedData] = useState({
       idutilisateur: '',
@@ -51,21 +52,27 @@ export default function AdminsList() {
     const headers = {
       Authorization: `${accessToken}`,
     };
+    
 
-    try {
-      const response = await axios.get(`${API_BASE_URL}/admins`, { headers });
-      setAdminsData(response.data.listUtilisateur);
-      if (response.data.errors !== null) {
-        setError(response.data.errors);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        handleUnauthorized();
-      }
-      console.error('Failed to fetch admins data', error);
-      setError("Une erreur s'est produite.");
-    }
-  };
+   //  MISA
+   try {
+    // ETO MIOVA
+const response = await axios.get(`${API_BASE_URL}/admins/${currentPage-1}/${itemsPerPage}`, { headers });
+setAdminsData(response.data.listCategorie);  //tsy miova
+setPages(response.data.page)  //miampy
+if (response.data.errors != null) {
+setError(response.data.errors);
+}
+} catch (error) {
+if (error.response && error.response.status === 401) {
+handleUnauthorized();
+}
+setError("Une erreur s'est produite.");
+
+console.error('Failed to fetch categorie data', error);
+}
+};
+// HATRETO
 
   const handleUnauthorized = () => {
     localStorage.removeItem('accessToken');
@@ -448,9 +455,10 @@ export default function AdminsList() {
 
           {/* Misa */}
           <div className="misa">
-              <Stack spacing={2}>
-                <Pagination count={10} color="secondary" />
-              </Stack>
+          <Stack spacing={2}>
+                              {/* MISA */}
+              <Pagination count={pages} color="secondary" onChange={handlePageChange} />
+            </Stack>
           </div>
 
         </div>

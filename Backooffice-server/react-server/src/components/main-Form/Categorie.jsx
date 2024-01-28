@@ -53,8 +53,8 @@ export default function CategorieCRUD() {
     try {
                                                         // ETO MIOVA
       const response = await axios.get(`${API_BASE_URL}/categories/${currentPage-1}/${itemsPerPage}`, { headers });
-      setCategorieData(response.data.listCategorie);
-      setPages(response.data.page)
+      setCategorieData(response.data.listCategorie);  //tsy miova
+      setPages(response.data.page)  //miampy
       if (response.data.errors != null) {
         setError(response.data.errors);
       }
