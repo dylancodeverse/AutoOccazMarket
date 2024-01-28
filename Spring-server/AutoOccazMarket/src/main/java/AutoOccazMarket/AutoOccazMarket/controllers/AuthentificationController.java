@@ -30,10 +30,11 @@ public class AuthentificationController {
     private UserAuth userAuth ;
 
     @PostMapping("/register")
-    public UtilisateurDTO register(@RequestBody UtilisateurDTO utilisateurDTO){
+    public UtilisateurDTO register(@RequestBody UtilisateurDTO utilisateurDTO ){
         try {
             
             Utilisateur user = utilisateurDTO.getUtilisateur();
+            user.setMdp(utilisateurDTO.getMdp());
             user.setHierarchie(1);
             registerService.registerUser(user);
         } catch (Exception e) {
@@ -45,7 +46,8 @@ public class AuthentificationController {
     @PostMapping("/login")
     public UtilisateurDTO login(@RequestBody UtilisateurDTO utilisateurDTO){
         try {
-            Utilisateur u = userAuth.login(utilisateurDTO.getUtilisateur()) ;                       
+            Utilisateur u = userAuth.login(utilisateurDTO.getUtilisateur()) ;                   
+            u.setMdp(utilisateurDTO.getMdp());    
 
             String token =  jwtGenerator.generateToken(u.getMail(), u.getPrenom()+" "+u.getNom(), u.getHierarchie().toString(), u.getIdutilisateur());
 
