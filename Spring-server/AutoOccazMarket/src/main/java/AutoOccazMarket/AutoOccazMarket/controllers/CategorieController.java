@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +78,9 @@ public class CategorieController {
         CategorieDTO categoriesDTO = new CategorieDTO();
         
         try {
-            categoriesDTO.setCategorieAsList(crudCategorie.findCategoriesWithPagination(offset, pageSize));
+            Page<Categorie> c = crudCategorie.findCategoriesWithPagination(offset, pageSize) ;
+            categoriesDTO.setCategorieAsList(c.toList());
+            categoriesDTO.setPage(c.getTotalPages()) ;
         } catch (Exception e) {
             categoriesDTO.setErrors(e.getMessage());
         }

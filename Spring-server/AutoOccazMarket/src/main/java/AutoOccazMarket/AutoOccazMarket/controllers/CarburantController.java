@@ -80,7 +80,7 @@ public class CarburantController
         crudCarburant.deleteCarburantByID(id);
     }    
 
-    @GetMapping(path = "/carburant/{offset}/{pageSize}")
+    @GetMapping(path = "/carburants/{offset}/{pageSize}")
     public CarburantDTO getCarburants(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
         CarburantDTO carburantDTO = new CarburantDTO();
         

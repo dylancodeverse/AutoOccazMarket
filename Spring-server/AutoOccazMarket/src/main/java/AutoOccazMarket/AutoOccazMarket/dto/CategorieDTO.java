@@ -17,6 +17,8 @@ public class CategorieDTO {
 
     Map<String, String> tokenInformation;
 
+    private int page;
+
     public Map<String, String> getTokenInformation() {
         return tokenInformation;
     }
@@ -51,6 +53,15 @@ public class CategorieDTO {
 
     public void setErrors(String errors) {
         this.errors = errors;
+    }
+
+    public void setPage(int totalPages) {
+        this.page = totalPages ;
+
+    }
+
+    public int getPage() {
+        return page;
     }
 
 }

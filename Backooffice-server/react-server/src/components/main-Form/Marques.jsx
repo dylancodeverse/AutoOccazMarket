@@ -4,7 +4,8 @@ import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 // MarqueCRUD component
 export function MarqueCRUD() {
   const navigate = useNavigate(); // Initialisez useNavigate

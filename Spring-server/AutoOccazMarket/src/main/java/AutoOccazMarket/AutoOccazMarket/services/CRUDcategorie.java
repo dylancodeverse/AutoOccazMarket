@@ -54,9 +54,10 @@ public class CRUDcategorie {
         postCategorie(categorieToUpdate);
     }
 
-    public List<Categorie> findCategoriesWithPagination(Integer offset, Integer pageSize) {
+    public Page<Categorie> findCategoriesWithPagination(Integer offset, Integer pageSize) {
         Page<Categorie> products = categorieRepository.findAll(PageRequest.of(offset, pageSize));
-        return  products.toList();
+
+        return  products;
     }
 
 }
