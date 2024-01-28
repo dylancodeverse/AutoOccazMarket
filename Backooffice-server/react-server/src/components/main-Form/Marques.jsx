@@ -16,6 +16,18 @@ export function MarqueCRUD() {
     navigate('/');
   };
 
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+  };
+    // MISA
+    const [currentPage, setCurrentPage] = useState(1); // Default current page
+
+    const handlePageChange = (event, value) => {
+      setCurrentPage(value);
+    };
+
   const [marqueData, setMarqueData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
@@ -28,7 +40,7 @@ export function MarqueCRUD() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage, itemsPerPage]); // Update data when currentPage or itemsPerPage changes
 
   const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -41,7 +53,7 @@ export function MarqueCRUD() {
   try {
     // ETO MIOVA
 const response = await axios.get(`${API_BASE_URL}/marques/${currentPage-1}/${itemsPerPage}`, { headers });
-setMarqueData(response.data.listCategorie);  //tsy miova
+setMarqueData(response.data.listMarque);  //tsy miova
 setPages(response.data.page)  //miampy
 if (response.data.errors != null) {
 setError(response.data.errors);
@@ -275,8 +287,19 @@ console.error('Failed to fetch categorie data', error);
 
           {/* Misa */}
           <div className="misa">
-          <Stack spacing={2}>
-                              {/* MISA */}
+            <div className="items-per-page-input">
+              <label htmlFor="itemsPerPage">Elements par page:</label>
+              <input
+                type="number"
+                id="itemsPerPage"
+                name="itemsPerPage"
+                min="1"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              />
+            </div>
+            <Stack spacing={2}>
+
               <Pagination count={pages} color="secondary" onChange={handlePageChange} />
             </Stack>
           </div>
