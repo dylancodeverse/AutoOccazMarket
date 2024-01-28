@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.ModelesDTO;
+import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDModeles;
 
@@ -67,5 +69,21 @@ public class ModelesController {
     @DeleteMapping(path = "/modeles/{id}")
     public void deleteModeles(@PathVariable("id") final Integer id) {
         crudModeles.deleteModelesByID(id);
+    }
+
+    @GetMapping(path = "/modeles/{offset}/{pageSize}")
+    public ModelesDTO getModeles(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        ModelesDTO modelesDTO = new ModelesDTO();
+
+        try {
+             Page<Modeles>  c =crudModeles.findModelesWithPagination(offset, pageSize);
+            modelesDTO.setModelesAsList(c.toList());
+            modelesDTO.setPage(c.getTotalPages());
+            
+        } catch (Exception e) {
+            modelesDTO.setErrors(e.getMessage());
+        }
+
+        return modelesDTO;
     }
 }

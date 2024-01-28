@@ -19,6 +19,8 @@ public class UtilisateurDTO {
 
     Map<String, String> tokenInformation;
 
+    private int page;
+
     public Map<String, String> getTokenInformation() {
         return tokenInformation;
     }
@@ -61,6 +63,14 @@ public class UtilisateurDTO {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    public void setPage(int totalPages) {
+        this.page = totalPages;
+    }
+
+    public int getPage() {
+        return page;
     }
 
 }

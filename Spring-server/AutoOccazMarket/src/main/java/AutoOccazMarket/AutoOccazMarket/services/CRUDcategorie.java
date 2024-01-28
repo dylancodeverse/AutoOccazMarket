@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
 import AutoOccazMarket.AutoOccazMarket.repositories.CategorieRepository;
 
-
 @Service
 public class CRUDcategorie {
 
@@ -26,9 +25,9 @@ public class CRUDcategorie {
 
     }
 
-    public Categorie postCategorie(Categorie categorie) throws Exception{
+    public Categorie postCategorie(Categorie categorie) throws Exception {
         if (categorieRepository.existsByCategorie(categorie.getCategorie().trim())) {
-            throw new Exception("Categorie deja existant pour: "+categorie.getCategorie());
+            throw new Exception("Categorie deja existant pour: " + categorie.getCategorie());
         }
         return categorieRepository.save(categorie);
     }
@@ -56,8 +55,7 @@ public class CRUDcategorie {
 
     public Page<Categorie> findCategoriesWithPagination(Integer offset, Integer pageSize) {
         Page<Categorie> products = categorieRepository.findAll(PageRequest.of(offset, pageSize));
-
-        return  products;
+        return products;
     }
 
 }

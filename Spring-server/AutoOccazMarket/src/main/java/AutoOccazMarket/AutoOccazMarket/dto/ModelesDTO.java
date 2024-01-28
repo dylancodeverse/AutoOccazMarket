@@ -7,18 +7,17 @@ import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 
-
-
 @Component
-public class ModelesDTO 
-{
-    Modeles [] listModeles ;    
+public class ModelesDTO {
+    Modeles[] listModeles;
 
-    Modeles modeles ;
+    Modeles modeles;
 
-    String errors ;
+    String errors;
 
     Map<String, String> tokenInformation;
+
+    private int page;
 
     public Map<String, String> getTokenInformation() {
         return tokenInformation;
@@ -28,8 +27,7 @@ public class ModelesDTO
         this.tokenInformation = tokenInformation;
     }
 
-    public void setModelesAsList(List<Modeles> list)
-    {
+    public void setModelesAsList(List<Modeles> list) {
         listModeles = list.toArray(new Modeles[list.size()]);
     }
 
@@ -57,5 +55,12 @@ public class ModelesDTO
         this.errors = errors;
     }
 
-}
+    public void setPage(int totalPages) {
+        this.page = totalPages;
+    }
 
+    public int getPage() {
+        return page;
+    }
+
+}
