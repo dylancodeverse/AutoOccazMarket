@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 
@@ -66,4 +68,25 @@ public class UtilisateurController {
     public void deleteUtilisateur(@PathVariable("id") final Integer id) {
         crudUtilisateur.deleteUtilisateurByID(id);
     }
+
+    @GetMapping("/admins")
+    public UtilisateurDTO getAdmins() {
+        List<Utilisateur> utilisateurs = crudUtilisateur.getAdminList();
+        utilisateursDTO.setUtilisateurAsList(utilisateurs);
+        return utilisateursDTO;
+    }
+
+    @PostMapping(path = "/admins")
+    public UtilisateurDTO saveAdmins(@RequestBody UtilisateurDTO utilisateursDTO) {
+        try {
+            crudUtilisateur.postUtilisateur(utilisateursDTO.getUtilisateur());
+
+        } catch (Exception e) {
+            utilisateursDTO.setErrors(e.getMessage());
+        }
+
+        return utilisateursDTO;
+
+    }
+    
 }

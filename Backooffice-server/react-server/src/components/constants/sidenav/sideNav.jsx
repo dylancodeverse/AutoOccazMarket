@@ -43,6 +43,13 @@ export default function SideNav({ params }) {
                     </Link>
 
                 </li>
+                <li className={`nav-item ${params === 'UserAdmin' ? 'active' : ''}`}>
+                    <Link className="nav-link" to="/admins">
+                        <i className="icon-grid menu-icon"></i>
+                        <span className="menu-title">Les administrateurs  </span>
+                    </Link>
+
+                </li>
                 <li className={`nav-item ${params === 'Deconnexion' ? 'active' : ''}`}>
                     <Link className="nav-link" to="/deconnection">
                         <i className="icon-grid menu-icon"></i>

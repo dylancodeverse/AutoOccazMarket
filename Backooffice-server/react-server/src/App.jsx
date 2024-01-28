@@ -5,6 +5,7 @@ import ManageInformation from "./components/gate/gestion/createCarModel/ManageCa
 import Statistics from "./components/gate/stats/Statistics";
 import ValidationAnnonce from "./components/gate/validation/ValidatonAnnonces";
 import Deconnection from "./components/gate/login/Deconnection";
+import Admins from "./components/gate/admins/Admins";
 
 
 
@@ -25,6 +26,8 @@ function App() {
           <Route path="/statistics" element = {<Statistics/>} />
 
           <Route path="/validation" element = {<ValidationAnnonce/>} />
+
+          <Route path="/admins" element = {<Admins/>} />
 
           <Route path="/deconnection" element = {<Deconnection/>} />
           
