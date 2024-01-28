@@ -30,11 +30,21 @@ export default function FormModelCar() {
     navigate('/');
   };
 
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+  };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+    const [pages ,setPages] = useState(3);
+  
+    const [currentPage, setCurrentPage] = useState(1); // Default current page
 
+
+    useEffect(() => {
+      fetchData();
+    }, [currentPage, itemsPerPage]); // Update data when currentPage or itemsPerPage changes
+  
   const fetchData = async () => {
     try {
       const accessToken = localStorage.getItem('accessToken');
@@ -43,8 +53,9 @@ export default function FormModelCar() {
       };
 
       // Fetch data for Models
-      const responseModels = await axios.get(`${API_BASE_URL}/modeles`, { headers });
+      const responseModels = await axios.get(`${API_BASE_URL}/modeles/${currentPage-1}/${itemsPerPage}`, { headers });
       setModelData(responseModels.data.listModeles || []);
+      setPages(responseModels.data.page)  //miampy
 
       console.log(modelData)
 
@@ -89,7 +100,10 @@ export default function FormModelCar() {
       console.error('Failed to fetch data', error);
     }
   };
-
+  // MISA
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
   const handleEditClick = (id, nomModele, idMarque, idCategorie, idCarburant) => {
 
     setIsEditing(true);
@@ -454,9 +468,21 @@ export default function FormModelCar() {
 
           {/* Misa */}
           <div className="misa">
-              <Stack spacing={2}>
-                <Pagination count={10} color="secondary" />
-              </Stack>
+            <div className="items-per-page-input">
+              <label htmlFor="itemsPerPage">Elements par page:</label>
+              <input
+                type="number"
+                id="itemsPerPage"
+                name="itemsPerPage"
+                min="1"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              />
+            </div>
+            <Stack spacing={2}>
+                              {/* MISA */}
+              <Pagination count={pages} color="secondary" onChange={handlePageChange} />
+            </Stack>
           </div>
           
         </div>
