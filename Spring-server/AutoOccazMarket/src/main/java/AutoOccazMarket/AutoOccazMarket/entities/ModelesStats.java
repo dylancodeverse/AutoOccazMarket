@@ -19,7 +19,7 @@ public class ModelesStats {
     public static ModelesStats[] select(Connection connection) throws Exception{
 
         Statement statement = connection.createStatement();
-        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele)select * from v_MODELES_ANNONCES_STATM ");
+        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele) , v_end as ( select * from v_MODELES_ANNONCES_STATM union all select nom_modele , 0 as nb_annonces , 0 as avg_prix from modeles) select nom_modele , sum(nb_annonces) nb_annonces ,sum(avg_prix) as avg_prix from v_end group by nom_modele");
         ArrayList<ModelesStats> modelesStats = new ArrayList<>();
         while (rs.next()) {
             ModelesStats m = new ModelesStats();
@@ -31,37 +31,9 @@ public class ModelesStats {
         return modelesStats.toArray(new ModelesStats[modelesStats.size()]);
     }
 
-    public static ModelesStats[]sortByNomModele(Connection connection)throws Exception{
+    public static ModelesStats[]sortBy(Connection connection , String by , String order)throws Exception{
         Statement statement = connection.createStatement();
-        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele)select * from v_MODELES_ANNONCES_STATM ORDER BY nom_modele ");
-        ArrayList<ModelesStats> modelesStats = new ArrayList<>();
-        while (rs.next()) {
-            ModelesStats m = new ModelesStats();
-            m.setNomModeles(rs.getString("nom_modele"));
-            m.setPrixVenteMoyenne(rs.getDouble("avg_prix"));
-            m.setNbAnnonces(rs.getInt("nb_annonces"));
-            modelesStats.add(m);            
-        }
-        return modelesStats.toArray(new ModelesStats[modelesStats.size()]);
-    }
-
-    public static ModelesStats[]SortByAvgPrix(Connection connection)throws Exception{
-        Statement statement = connection.createStatement();
-        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele)select * from v_MODELES_ANNONCES_STATM ORDER BY nom_modele ORDER BY avg_prix");
-        ArrayList<ModelesStats> modelesStats = new ArrayList<>();
-        while (rs.next()) {
-            ModelesStats m = new ModelesStats();
-            m.setNomModeles(rs.getString("nom_modele"));
-            m.setPrixVenteMoyenne(rs.getDouble("avg_prix"));
-            m.setNbAnnonces(rs.getInt("nb_annonces"));
-            modelesStats.add(m);            
-        }
-        return modelesStats.toArray(new ModelesStats[modelesStats.size()]);
-    }
-
-    public static ModelesStats[]SortByAnnonces(Connection connection)throws Exception{
-        Statement statement = connection.createStatement();
-        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele)select * from v_MODELES_ANNONCES_STATM ORDER BY nom_modele ORDER BY avg_prix ORDER BY nb_annonces");
+        ResultSet rs= statement.executeQuery("with V_modeles_annonces as (select id_modeles , nom_modele , id_annonce , etat_general , etat_validation , localisation , modeles_id_modeles , utilisateur_id_utilisateur , prix from modeles join annonces  on modeles_id_modeles = id_modeles ) ,v_MODELES_ANNONCES_STATM as (select nom_modele , count(id_annonce) as nb_annonces ,avg(prix) as avg_prix from V_modeles_annonces group by nom_modele) , v_end as ( select * from v_MODELES_ANNONCES_STATM union all select nom_modele , 0 as nb_annonces , 0 as avg_prix from modeles) select nom_modele , sum(nb_annonces) nb_annonces ,sum(avg_prix) as avg_prix from v_end group by nom_modele  ORDER BY  "+by+" "+order);
         ArrayList<ModelesStats> modelesStats = new ArrayList<>();
         while (rs.next()) {
             ModelesStats m = new ModelesStats();
