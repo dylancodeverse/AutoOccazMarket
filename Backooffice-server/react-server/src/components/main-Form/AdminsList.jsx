@@ -15,6 +15,10 @@ import Stack from '@mui/material/Stack';
 
 export default function AdminsList() {
   const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+  };
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -49,7 +53,7 @@ export default function AdminsList() {
   
     useEffect(() => {
       fetchData();
-    }, []);
+    }, [currentPage, itemsPerPage]); // Update data when currentPage or itemsPerPage changes
 
   const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -458,7 +462,19 @@ console.error('Failed to fetch categorie data', error);
           </div>
 
           {/* Misa */}
+          
           <div className="misa">
+          <div className="items-per-page-input">
+            <label htmlFor="itemsPerPage">Elements par page:</label>
+            <input
+              type="number"
+              id="itemsPerPage"
+              name="itemsPerPage"
+              min="1"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+            />
+          </div>
           <Stack spacing={2}>
                               {/* MISA */}
               <Pagination count={pages} color="secondary" onChange={handlePageChange} />

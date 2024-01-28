@@ -8,6 +8,9 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 export default function CarburantCRUD() {
+
+  
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
   const [carburantData, setCarburantData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
@@ -16,8 +19,16 @@ export default function CarburantCRUD() {
     IdMarque: '',
     Marque: '',
   });
+  const handleItemsPerPageChange = (e) => {
+    const newItemsPerPage = parseInt(e.target.value, 10);
+    setItemsPerPage(newItemsPerPage);
+  };
+    // MISA
+  const [currentPage, setCurrentPage] = useState(1); // Default current page
   const [error, setError] = useState(null); // Nouvel état pour stocker les erreurs
-
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
   const navigate = useNavigate(); // Initialisez useNavigate
   
   const handleUnauthorized = () => {
@@ -28,7 +39,7 @@ export default function CarburantCRUD() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage, itemsPerPage]); // Update data when currentPage or itemsPerPage changes
 
   const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -40,21 +51,22 @@ export default function CarburantCRUD() {
    //  MISA
    try {
     // ETO MIOVA
-const response = await axios.get(`${API_BASE_URL}/carburants/${currentPage-1}/${itemsPerPage}`, { headers });
-setCarburantData(response.data.listCategorie);  //tsy miova
-setPages(response.data.page)  //miampy
-if (response.data.errors != null) {
-setError(response.data.errors);
-}
-} catch (error) {
-if (error.response && error.response.status === 401) {
-handleUnauthorized();
-}
-setError("Une erreur s'est produite.");
+      const response = await axios.get(`${API_BASE_URL}/carburants/${currentPage-1}/${itemsPerPage}`, { headers });
+      setCarburantData(response.data.listCarburant);  //tsy miova
+      setPages(response.data.page)  //miampy
+      if (response.data.errors != null) {
+        setError(response.data.errors);
+      }
+    } 
+    catch (error) {
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      }
+      setError("Une erreur s'est produite.");
 
-console.error('Failed to fetch categorie data', error);
-}
-};
+      console.error('Failed to fetch categorie data', error);
+    }
+  };
 // HATRETO
 
   const handleEditClick = (id, marque) => {
@@ -270,8 +282,18 @@ setError(null);
 
           {/* Misa */}
           <div className="misa">
-          <Stack spacing={2}>
-                              {/* MISA */}
+            <div className="items-per-page-input">
+              <label htmlFor="itemsPerPage">Elements par page:</label>
+              <input
+                type="number"
+                id="itemsPerPage"
+                name="itemsPerPage"
+                min="1"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              />
+            </div>
+            <Stack spacing={2}>
               <Pagination count={pages} color="secondary" onChange={handlePageChange} />
             </Stack>
           </div>

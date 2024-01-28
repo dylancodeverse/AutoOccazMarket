@@ -293,7 +293,7 @@ export default function CategorieCRUD() {
           </div>
 
 
-          {/* Misa */}
+          {/* MISA */}
           <div className="misa">
           <div className="items-per-page-input">
             <label htmlFor="itemsPerPage">Elements par page:</label>
