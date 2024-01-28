@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.CarburantDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
-import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDCarburant;
 
 

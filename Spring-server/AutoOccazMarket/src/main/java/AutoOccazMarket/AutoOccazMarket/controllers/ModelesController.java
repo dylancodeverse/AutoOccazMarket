@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.ModelesDTO;
-import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDModeles;
 

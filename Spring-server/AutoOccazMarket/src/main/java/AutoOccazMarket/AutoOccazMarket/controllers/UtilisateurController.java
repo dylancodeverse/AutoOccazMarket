@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
-import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
-import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
+
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
 
