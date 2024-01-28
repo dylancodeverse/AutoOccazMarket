@@ -3,6 +3,8 @@ package AutoOccazMarket.AutoOccazMarket.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
@@ -50,6 +52,11 @@ public class CRUDcategorie {
         }
 
         postCategorie(categorieToUpdate);
+    }
+
+    public List<Categorie> findCategoriesWithPagination(Integer offset, Integer pageSize) {
+        Page<Categorie> products = categorieRepository.findAll(PageRequest.of(offset, pageSize));
+        return  products.toList();
     }
 
 }

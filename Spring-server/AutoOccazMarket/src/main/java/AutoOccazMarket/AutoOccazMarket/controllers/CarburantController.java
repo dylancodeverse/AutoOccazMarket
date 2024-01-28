@@ -17,6 +17,7 @@ import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDCarburant;
 
 
+
 @RestController
 @CrossOrigin(origins = "${frontend.url}")
 public class CarburantController 
@@ -78,4 +79,15 @@ public class CarburantController
     {
         crudCarburant.deleteCarburantByID(id);
     }    
+
+    @GetMapping(path =  "/carburants/{one}/{two}")
+    public  CarburantDTO getCarburants(@PathVariable("one") Integer offset , @PathVariable("two") Integer pageSize , @RequestBody CarburantDTO carburantsDTO) {
+        try {
+            carburantsDTO.setCarburantAsList(crudCarburant.findCarburantsWithPagination(offset, pageSize));
+        } catch (Exception e) {
+            carburantsDTO.setErrors(e.getMessage());         
+        }
+        return carburantsDTO ;
+    }
+    
 }

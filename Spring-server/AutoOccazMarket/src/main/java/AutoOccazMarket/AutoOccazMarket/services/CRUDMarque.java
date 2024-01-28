@@ -2,9 +2,9 @@ package AutoOccazMarket.AutoOccazMarket.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-
 
 import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 import AutoOccazMarket.AutoOccazMarket.repositories.MarqueRepository;
@@ -62,6 +62,10 @@ public class CRUDMarque {
 
         postMarque(marqueToUpdate) ;
     }
+
+    public List<Marque> findMarquesWithPagination(Integer offset, Integer pageSize) {
+        Page<Marque> products = marqueRepository.findAll(PageRequest.of(offset, pageSize));
+        return  products.toList();    }
 
 
     

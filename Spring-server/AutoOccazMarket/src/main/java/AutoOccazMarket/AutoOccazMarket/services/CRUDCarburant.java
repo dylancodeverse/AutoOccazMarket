@@ -3,6 +3,8 @@ package AutoOccazMarket.AutoOccazMarket.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
@@ -17,6 +19,11 @@ public class CRUDCarburant {
     public List<Carburant> getCarburantList() 
     {
         return carburantRepository.findAll();
+    }
+
+    public List<Carburant> findCarburantsWithPagination(int offset,int pageSize){
+        Page<Carburant> products = carburantRepository.findAll(PageRequest.of(offset, pageSize));
+        return  products.toList();
     }
 
     public void deleteCarburantByID(Integer id)
