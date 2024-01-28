@@ -449,6 +449,14 @@ export default function FormModelCar() {
               </tbody>
             </table>
           </div>
+
+          {/* Misa */}
+          <div className="misa">
+              <Stack spacing={2}>
+                <Pagination count={10} color="secondary" />
+              </Stack>
+          </div>
+          
         </div>
       </div>
     </div>

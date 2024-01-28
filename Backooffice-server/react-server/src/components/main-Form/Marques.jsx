@@ -4,11 +4,6 @@ import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import API_BASE_URL from '../../Config';
-import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaSave } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
 // MarqueCRUD component
 export function MarqueCRUD() {
@@ -18,38 +13,6 @@ export function MarqueCRUD() {
     // Détruisez le token et redirigez vers la page de connexion
     localStorage.removeItem('accessToken');
     navigate('/');
-
-    //manomboka eto n code de pagination 
-
-    // Déclarez l'état pour gérer la pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Nombre d'éléments par page
-
-  // Calculez l'index du dernier élément de la page en fonction de currentPage et itemsPerPage
-  const indexOfLastItem = currentPage * itemsPerPage;
-  // Calculez l'index du premier élément de la page
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  // Fonction pour changer de page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Votre code existant pour récupérer les données de l'API, gérer l'édition, l'ajout, la suppression, etc.
-
-  return (
-    <div className="col-lg-12 grid-margin stretch-card">
-      {/* Votre code existant pour la liste des marques */}
-      
-      {/* Ajoutez les boutons de pagination */}
-      <div className="pagination">
-        {/* Générez les boutons de pagination en fonction du nombre de pages */}
-        {Array.from({ length: Math.ceil(marqueData.length / itemsPerPage) }, (_, index) => (
-          <button key={index} className={`page-btn ${currentPage === index + 1 ? 'active' : ''}`} onClick={() => paginate(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
   };
 
   const [marqueData, setMarqueData] = useState([]);
@@ -64,15 +27,6 @@ export function MarqueCRUD() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  //code na pagination 
-
-  // Importez useState pour gérer l'état des boutons de pagination
-
-
-
-//hatreto ny code na pagination
-
 
   const fetchData = async () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -310,9 +264,16 @@ export function MarqueCRUD() {
               </tbody>
             </table>
           </div>
+
+          {/* Misa */}
+          <div className="misa">
+              <Stack spacing={2}>
+                <Pagination count={10} color="secondary" />
+              </Stack>
+          </div>
+          
         </div>
       </div>
-
     </div>
   );
 }
