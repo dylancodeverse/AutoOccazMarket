@@ -295,17 +295,17 @@ export default function CategorieCRUD() {
 
           {/* MISA */}
           <div className="misa">
-          <div className="items-per-page-input">
-            <label htmlFor="itemsPerPage">Elements par page:</label>
-            <input
-              type="number"
-              id="itemsPerPage"
-              name="itemsPerPage"
-              min="1"
-              value={itemsPerPage}
-              onChange={handleItemsPerPageChange}
-            />
-          </div>
+            <div className="items-per-page-input">
+              <label htmlFor="itemsPerPage">Elements par page:</label>
+              <input
+                type="number"
+                id="itemsPerPage"
+                name="itemsPerPage"
+                min="1"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              />
+            </div>
             <Stack spacing={2}>
                               {/* MISA */}
               <Pagination count={pages} color="secondary" onChange={handlePageChange} />
