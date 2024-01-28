@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,7 +77,9 @@ public class MarqueController {
         MarqueDTO marquesDTO = new MarqueDTO();
         
         try {
-            marquesDTO.setMarqueAsList(crudMarque.findMarquesWithPagination(offset, pageSize));
+            Page<Marque>  c =crudMarque.findMarquesWithPagination(offset, pageSize);
+            marquesDTO.setMarqueAsList(c.toList());
+            marquesDTO.setPage(c.getTotalPages());
         } catch (Exception e) {
             marquesDTO.setErrors(e.getMessage());
         }

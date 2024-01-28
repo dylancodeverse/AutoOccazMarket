@@ -3,8 +3,11 @@ package AutoOccazMarket.AutoOccazMarket.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.repositories.UtilisateurRepository;
 
@@ -18,7 +21,7 @@ public class CRUDutilisateur {
         return utilisateurRepository.findAll();
     }
 
-    public List<Utilisateur> getAdminList(){
+    public List<Utilisateur> getAdminList() {
         return utilisateurRepository.findByHierarchieGreaterThan(1);
     }
 
@@ -55,15 +58,15 @@ public class CRUDutilisateur {
         if (utilisateur.getPrenom() != null) {
             utilisateurToUpdate.setPrenom(utilisateur.getPrenom());
         }
-        if (utilisateur.getNom()!=null) {
+        if (utilisateur.getNom() != null) {
             utilisateurToUpdate.setNom(utilisateur.getNom());
         }
 
         postUtilisateur(utilisateurToUpdate);
     }
 
-    public void postUtilisateurAdmin(Utilisateur utilisateur) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'postUtilisateurAdmin'");
+    public Page<Utilisateur> findUtilisateurWithPagination(Integer offset, Integer pageSize) {
+        Page<Utilisateur> products = utilisateurRepository.findAll(PageRequest.of(offset, pageSize));
+        return products;
     }
 }

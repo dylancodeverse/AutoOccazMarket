@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.CarburantDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
+import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDCarburant;
 
 
@@ -85,7 +87,10 @@ public class CarburantController
         CarburantDTO carburantDTO = new CarburantDTO();
         
         try {
-            carburantDTO.setCarburantAsList(crudCarburant.findCarburantsWithPagination(offset, pageSize));
+             Page<Carburant> c=crudCarburant.findCarburantsWithPagination(offset, pageSize);
+            carburantDTO.setCarburantAsList(c.toList());
+            carburantDTO.setPage(c.getTotalPages());
+            
         } catch (Exception e) {
             carburantDTO.setErrors(e.getMessage());
         }

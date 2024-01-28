@@ -1,11 +1,11 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
+
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Categorie;
-
 
 @Component
 public class CategorieDTO {
@@ -17,6 +17,8 @@ public class CategorieDTO {
 
     Map<String, String> tokenInformation;
 
+    private int page;
+
     public Map<String, String> getTokenInformation() {
         return tokenInformation;
     }
@@ -24,7 +26,7 @@ public class CategorieDTO {
     public void setTokenInformation(Map<String, String> tokenInformation) {
         this.tokenInformation = tokenInformation;
     }
-    
+
     public void setCategorieAsList(List<Categorie> list) {
         listCategorie = list.toArray(new Categorie[list.size()]);
     }
@@ -53,4 +55,11 @@ public class CategorieDTO {
         this.errors = errors;
     }
 
+    public void setPage(int totalPages) {
+      this.page=totalPages;
+    }
+
+    public int getPage() {
+        return page;
+    }
 }

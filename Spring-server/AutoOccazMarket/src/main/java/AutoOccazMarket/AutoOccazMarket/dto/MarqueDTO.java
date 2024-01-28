@@ -7,17 +7,17 @@ import org.springframework.stereotype.Component;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Marque;
 
-
 @Component
-public class MarqueDTO 
-{
-    Marque [] listMarque ;    
+public class MarqueDTO {
+    Marque[] listMarque;
 
-    Marque marque ;
+    Marque marque;
 
-    String errors ;
+    String errors;
 
     Map<String, String> tokenInformation;
+
+    private int page;
 
     public Map<String, String> getTokenInformation() {
         return tokenInformation;
@@ -27,8 +27,7 @@ public class MarqueDTO
         this.tokenInformation = tokenInformation;
     }
 
-    public void setMarqueAsList(List<Marque> list)
-    {
+    public void setMarqueAsList(List<Marque> list) {
         listMarque = list.toArray(new Marque[list.size()]);
     }
 
@@ -54,6 +53,14 @@ public class MarqueDTO
 
     public void setErrors(String errors) {
         this.errors = errors;
+    }
+
+    public void setPage(int totalPages) {
+        this.page = totalPages;
+    }
+
+    public int getPage() {
+        return page;
     }
 
 }

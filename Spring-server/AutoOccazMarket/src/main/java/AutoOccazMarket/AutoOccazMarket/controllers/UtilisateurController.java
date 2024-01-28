@@ -3,6 +3,7 @@ package AutoOccazMarket.AutoOccazMarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
+import AutoOccazMarket.AutoOccazMarket.dto.UtilisateurDTO;
+import AutoOccazMarket.AutoOccazMarket.entities.Modeles;
 import AutoOccazMarket.AutoOccazMarket.entities.Utilisateur;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDutilisateur;
 
@@ -90,6 +93,24 @@ public class UtilisateurController {
 
         return utilisateursDTO;
 
+    }
+
+    @GetMapping(path = "/admins/{offset}/{pageSize}")
+    public UtilisateurDTO getUtilisateur(@PathVariable("offset") Integer offset, @PathVariable("pageSize") Integer pageSize) {
+        UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
+
+        try {
+
+            Page<Utilisateur>  c =crudUtilisateur.findUtilisateurWithPagination(offset, pageSize);
+            utilisateurDTO.setUtilisateurAsList(c.toList());
+            utilisateurDTO.setPage(c.getTotalPages());
+            
+            
+        } catch (Exception e) {
+            utilisateurDTO.setErrors(e.getMessage());
+        }
+
+        return utilisateurDTO;
     }
     
 }
