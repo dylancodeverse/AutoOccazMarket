@@ -14,7 +14,7 @@ import Stack from '@mui/material/Stack';
 
 
 export default function AdminsList() {
-  const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
   const handleItemsPerPageChange = (e) => {
     const newItemsPerPage = parseInt(e.target.value, 10);
     setItemsPerPage(newItemsPerPage);
@@ -65,20 +65,20 @@ export default function AdminsList() {
    //  MISA
    try {
     // ETO MIOVA
-const response = await axios.get(`${API_BASE_URL}/admins/${currentPage-1}/${itemsPerPage}`, { headers });
-setAdminsData(response.data.listCategorie);  //tsy miova
-setPages(response.data.page)  //miampy
-if (response.data.errors != null) {
-setError(response.data.errors);
-}
-} catch (error) {
-if (error.response && error.response.status === 401) {
-handleUnauthorized();
-}
-setError("Une erreur s'est produite.");
+    const response = await axios.get(`${API_BASE_URL}/admins/${currentPage-1}/${itemsPerPage}`, { headers });
+    setAdminsData(response.data.listUtilisateur);  //tsy miova
+    setPages(response.data.page)  //miampy
+    if (response.data.errors != null) {
+      setError(response.data.errors);
+    }
+    } catch (error) {
+    if (error.response && error.response.status === 401) {
+      handleUnauthorized();
+    }
+      setError("Une erreur s'est produite.");
 
-console.error('Failed to fetch categorie data', error);
-}
+      console.error('Failed to fetch categorie data', error);
+    }
 };
 // HATRETO
 

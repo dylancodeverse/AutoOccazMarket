@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
-import AutoOccazMarket.AutoOccazMarket.entities.Carburant;
 import AutoOccazMarket.AutoOccazMarket.repositories.CarburantRepository;
 
 @Service

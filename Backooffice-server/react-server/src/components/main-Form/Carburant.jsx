@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 export default function CarburantCRUD() {
 
   
-  const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
   const [carburantData, setCarburantData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
