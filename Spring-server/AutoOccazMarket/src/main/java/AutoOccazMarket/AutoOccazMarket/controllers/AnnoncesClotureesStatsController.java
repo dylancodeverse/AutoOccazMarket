@@ -13,44 +13,41 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
 @RestController
 @CrossOrigin(origins = "${frontend.url}")
 public class AnnoncesClotureesStatsController {
 
     @Value("${spring.datasource.url}")
-    private String url ;
+    private String url;
 
     @Value("${spring.datasource.username}")
-    private String username ;
+    private String username;
 
     @Value("${spring.datasource.password}")
-    private String password ;
+    private String password;
 
     @GetMapping("/AnnoncesClotureesStats")
     public AnnoncesClotureesStatsDTO select() {
         AnnoncesClotureesStatsDTO c = new AnnoncesClotureesStatsDTO();
         try {
-            Connection con = DriverManager.getConnection(url, username, password) ;
-            c.setListAnnoncesClotureesStats(AnnoncesClotureesStats.select(con));            
+            Connection con = DriverManager.getConnection(url, username, password);
+            c.setListAnnoncesClotureesStats(AnnoncesClotureesStats.select(con));
         } catch (Exception e) {
-            c.setErrors(e.getMessage());            
+            c.setErrors(e.getMessage());
         }
-        return c ;
+        return c;
     }
 
     @GetMapping("/annoncesClotureesStats/{order}/{by}")
-    public AnnoncesClotureesStatsDTO sortBy(@PathVariable String order , @PathVariable String by) {
+    public AnnoncesClotureesStatsDTO sortBy(@PathVariable String order, @PathVariable String by) {
         AnnoncesClotureesStatsDTO c = new AnnoncesClotureesStatsDTO();
         try {
-            Connection con = DriverManager.getConnection(url, username, password) ;
-            c.setListAnnoncesClotureesStats(AnnoncesClotureesStats.sortBy(con ,by ,order));            
+            Connection con = DriverManager.getConnection(url, username, password);
+            c.setListAnnoncesClotureesStats(AnnoncesClotureesStats.sortBy(con, by, order));
         } catch (Exception e) {
-            c.setErrors(e.getMessage());            
+            c.setErrors(e.getMessage());
         }
-        return c ;
+        return c;
     }
-    
-    
+
 }
