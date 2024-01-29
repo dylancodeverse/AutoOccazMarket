@@ -28,7 +28,7 @@ public class Marque {
     }
 
     public void setMarque(String marque) {
-        this.marque = marque;
+        this.marque = marque.trim();
     }
 
 }

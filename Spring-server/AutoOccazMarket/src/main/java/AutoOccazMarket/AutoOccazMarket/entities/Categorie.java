@@ -42,7 +42,7 @@ public class Categorie {
      * @param categorie the categorie to set
      */
     public void setCategorie(String categorie) {
-        this.categorie = categorie;
+        this.categorie = categorie.trim();
     }
 
 }

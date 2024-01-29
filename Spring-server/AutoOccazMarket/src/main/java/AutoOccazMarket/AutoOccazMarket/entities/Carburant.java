@@ -31,6 +31,6 @@ public class Carburant {
     }
 
     public void setCarburant(String carburant) {
-        this.carburant = carburant;
+        this.carburant = carburant.trim();
     }
 }
