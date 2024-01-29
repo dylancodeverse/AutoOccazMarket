@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaInfoCircle, FaTimes } from "react-icons/fa";
 import axios from 'axios';
 import API_BASE_URL from '../../Config';
 import {jwtDecode} from 'jwt-decode'
 import {  useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import Modal from 'react-modal';
-import { useNavigate } from 'react-router-dom';
 
 export default function ValidationTableAnnonce() {
   const [annonces, setAnnonces] = useState([]);
@@ -187,23 +184,26 @@ export default function ValidationTableAnnonce() {
         </div>
       </div>
          {/* Modal pour afficher l'information sur l'annonce */}
-      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <div>
-          <h2>Information sur l'annonce</h2>
-          {selectedAnnonce && (
-            <div>
-              <p>Nom du modèle: {selectedAnnonce.modeles.nomModele}</p>
-              <p>Prix de vente: {selectedAnnonce.prix}</p>
-              <p>État 0-10: {selectedAnnonce.etatGeneral}</p>
-              <p>Utilisateur: {selectedAnnonce.utilisateur.prenom + ' ' + selectedAnnonce.utilisateur.nom}</p>
-              <p>Localisation: {selectedAnnonce.localisation}</p>
-              {/* Ajoutez d'autres informations sur l'annonce si nécessaire */}
-            </div>
-          )}
-          <button onClick={closeModal}>Fermer</button>
-        </div>
-      </Modal>          
 
+
+         <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            className="modal-content"
+            overlayClassName="modal-overlay"
+          >
+            <div>
+              <h2 className="modal-title">Information sur l'annonce</h2>
+              {selectedAnnonce && (
+                <div>
+                  <img src="url_of_your_static_image" alt="Annonce" className="modal-image" />
+                  <p className="modal-description">Description: {selectedAnnonce.description}</p>
+                  {/* Add other information about the ad if necessary */}
+                </div>
+              )}
+              <button className="modal-button" onClick={closeModal}>Fermer</button>
+            </div>
+          </Modal>
     </div>
   );
 }
