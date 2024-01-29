@@ -214,7 +214,7 @@ export default function ValidationTableAnnonce() {
                     {/* Assuming you have an array of image URLs in selectedAnnonce.images */}
                     {selectedAnnonce.photoAnnonces.map((image, index) => (
                       <div key={index}>
-                        <img src={`data:image/png;base64,${image.base64}`} alt={`Annonce ${index + 1}`} className="modal-image" />
+                        <img src={image.base64} alt={`Annonce ${index + 1}`} className="modal-image" />
                       </div>
                     ))}
                   </Slider>
