@@ -54,6 +54,7 @@ const AnnoncesStat = () => {
       <div className="card">
         <div className="card-body">
           <h4 className="card-title">Vente et bénéfice</h4>
+          <p className="card-description">Cliquer sur les colonnes pour <code>Trier</code></p>
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>
