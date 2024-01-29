@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import Modal from 'react-modal';
-import API_BASE_URL from '../../Config';
 import { useNavigate } from 'react-router-dom';
 
 export default function ValidationTableAnnonce() {
