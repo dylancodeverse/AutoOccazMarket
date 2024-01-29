@@ -64,8 +64,8 @@ public class CRUDutilisateur {
         postUtilisateur(utilisateurToUpdate);
     }
 
-    public Page<Utilisateur> findUtilisateurWithPagination(Integer offset, Integer pageSize) {
-        Page<Utilisateur> products = utilisateurRepository.findAll(PageRequest.of(offset, pageSize));
+    public Page<Utilisateur> findUtilisateurWithPagination( Integer offset, Integer pageSize) {
+        Page<Utilisateur> products = utilisateurRepository.findByHierarchieGreaterThan( 1 ,PageRequest.of(offset, pageSize));
         return products;
     }
 }
