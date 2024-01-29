@@ -1,0 +1,806 @@
+{
+    "info": {
+        "_postman_id": "96253394-fa6b-4bd5-8a32-d28c1aecd46e",
+        "name": "AutoOccazMarketREALESE",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Admin",
+            "item": [
+                {
+                    "name": "Validation des annonces",
+                    "item": [
+                        {
+                            "name": "Liste des Annonces non validees",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/annoncesNonPostees",
+                                    "path": [
+                                        "annoncesNonPostees"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgVW5pdmVyc2l0eSIsInJvbGUiOiIzMCIsImlkVXNlciI6MSwiaWF0IjoxNzA2NTI3OTg3LCJleHAiOjE3MDY1MzUxODd9.02oaBNswvJasBFZpZKwuSTLcdWjczrTd-F7i5aTJkTEYrXjw-KmBh-bs8rqPIVSVQW5KOHJFKbEgCpt1y_npfw"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "Valider une annonce",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/commissions",
+                                    "path": [
+                                        "commissions"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgVW5pdmVyc2l0eSIsInJvbGUiOiIzMCIsImlkVXNlciI6MSwiaWF0IjoxNzA2NTI3OTg3LCJleHAiOjE3MDY1MzUxODd9.02oaBNswvJasBFZpZKwuSTLcdWjczrTd-F7i5aTJkTEYrXjw-KmBh-bs8rqPIVSVQW5KOHJFKbEgCpt1y_npfw"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "// exemple de body (enlever cette ligne)\n\n{\n  \"commission\": {\n    \"annonces\": {\n      \"idAnnonce\": 2\n    },\n    \"pourcentages\": 39,\n    \"validateur\": {\n      \"idutilisateur\": 1\n    }\n  }\n}"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Statistiques",
+                    "item": [
+                        {
+                            "name": "Modeles stats",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modelesStats",
+                                    "path": [
+                                        "modelesStats"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgVW5pdmVyc2l0eSIsInJvbGUiOiIzMCIsImlkVXNlciI6MSwiaWF0IjoxNzA2NTI3OTg3LCJleHAiOjE3MDY1MzUxODd9.02oaBNswvJasBFZpZKwuSTLcdWjczrTd-F7i5aTJkTEYrXjw-KmBh-bs8rqPIVSVQW5KOHJFKbEgCpt1y_npfw"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "AnnoncesStats",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/AnnoncesClotureesStats",
+                                    "path": [
+                                        "AnnoncesClotureesStats"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgVW5pdmVyc2l0eSIsInJvbGUiOiIzMCIsImlkVXNlciI6MSwiaWF0IjoxNzA2NTI3OTg3LCJleHAiOjE3MDY1MzUxODd9.02oaBNswvJasBFZpZKwuSTLcdWjczrTd-F7i5aTJkTEYrXjw-KmBh-bs8rqPIVSVQW5KOHJFKbEgCpt1y_npfw"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "modeles",
+                    "item": [
+                        {
+                            "name": "post",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modeles",
+                                    "path": [
+                                        "modeles"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA1NzY2OTczLCJleHAiOjE3MDU3NzQxNzN9.CKYRdBrY1kQjDzKGZvhn26mX6Npdx3bE7vsKitOJxlsuItZL6iVhEq2ILpSZT4-Q7GbeOE8KvvJeuLFzWER6fA"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"modeles\": {\n    \"nomModele\": \"Nissan 252\",\n    \"carburant\": {\n      \"idCarburant\": 1\n    },\n    \"categorie\": {\n      \"idcategorie\": 1\n    },\n    \"marque\": {\n      \"idMarque\": 1\n    }\n  }\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "get",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modeles",
+                                    "path": [
+                                        "modeles"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA2MDAxNDkwLCJleHAiOjE3MDYwMDg2OTB9.rE0NHOPBn3LPXGorYDjJjoz4cnegTL7OtlRvI_T_-DGaq3MXkmEPZr4TVA8s2teaeL6zoKR5tjfR88eH8TfbCA"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "put",
+                            "request": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modeles/4",
+                                    "path": [
+                                        "modeles",
+                                        "4"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA2MDAxNDkwLCJleHAiOjE3MDYwMDg2OTB9.rE0NHOPBn3LPXGorYDjJjoz4cnegTL7OtlRvI_T_-DGaq3MXkmEPZr4TVA8s2teaeL6zoKR5tjfR88eH8TfbCA"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"modeles\": {\n    \"nomModele\": \"Nissan 252\",\n    \"carburant\": {\n      \"idCarburant\": 1\n    },\n    \"categorie\": {\n      \"idcategorie\": 1\n    },\n    \"marque\": {\n      \"idMarque\": 1\n    }\n  }\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "del",
+                            "request": {
+                                "method": "DELETE",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modeles/4",
+                                    "path": [
+                                        "modeles",
+                                        "4"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "modelesPagination",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/modeles/0/3",
+                                    "path": [
+                                        "modeles",
+                                        "0",
+                                        "3"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Marque",
+                    "item": [
+                        {
+                            "name": "Marque",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/marques",
+                                    "path": [
+                                        "marques"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA1NzUzNDk5LCJleHAiOjE3MDU3NjA2OTl9.y6p--qCwnv9r8TF3-hYViPQHlBB_UrCda_GZ7AjpCo4urceRU3gJZy0cF9Jg0jxUYtARw6koEcjTCeTSdRj4Bg"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "post",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/marques",
+                                    "path": [
+                                        "marques"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA1Mzk0NzMzLCJleHAiOjE3MDU0MDE5MzN9.hznpiLxJ-Wj8XjKVQzfZTv3cNQLtkeaHaH2F0oumA-akrWYzgGchYPRheImFTEHTkUhhI1ptgkjjZa0RGaK-sw"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"marque\": {\n    \"marque\": \"Nissan\"\n  }\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "put",
+                            "request": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/marques/1",
+                                    "path": [
+                                        "marques",
+                                        "1"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"marque\":{\n      \"idMarque\": 1,\n      \"marque\": \"Mercedes kely\"    \n  }\n\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "del",
+                            "request": {
+                                "method": "DELETE",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/marques/-888",
+                                    "path": [
+                                        "marques",
+                                        "-888"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgVW5pdmVyc2l0eSIsInJvbGUiOiIzMCIsImlkVXNlciI6MSwiaWF0IjoxNzA2NTMwNjQzLCJleHAiOjE3MDY1Mzc4NDN9.gVfrJufuY6pyHUgKWxFOitb4gMVo-DMucX4V0dKDe3FZ5-pfNxy41cj5PHmP3FK3FmlOZPGG-Y8HL5VhD4JaVg"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "MarquesPagination",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/marques/0/3",
+                                    "path": [
+                                        "marques",
+                                        "0",
+                                        "3"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Categorie",
+                    "item": [
+                        {
+                            "name": "Categorie",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/categories",
+                                    "path": [
+                                        "categories"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA1NzUzNDk5LCJleHAiOjE3MDU3NjA2OTl9.y6p--qCwnv9r8TF3-hYViPQHlBB_UrCda_GZ7AjpCo4urceRU3gJZy0cF9Jg0jxUYtARw6koEcjTCeTSdRj4Bg"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "Insert",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/categories",
+                                    "path": [
+                                        "categories"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"categorie\":{\n    \"categorie\":\"Voiture de Luxe\"\n  }\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Delete",
+                            "request": {
+                                "method": "DELETE",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/categories",
+                                    "path": [
+                                        "categories"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Update",
+                            "request": {
+                                "method": "PUT",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/categories",
+                                    "path": [
+                                        "categories"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "categoriePagination",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/categories/1/1",
+                                    "path": [
+                                        "categories",
+                                        "1",
+                                        "1"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "carburant",
+                    "item": [
+                        {
+                            "name": "post",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "localhost:8080/carburants",
+                                    "path": [
+                                        "carburants"
+                                    ],
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8080"
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"carburant\":{\n    \"carburant\": \"essence\"\n  }\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "del",
+                            "request": {
+                                "method": "DELETE"
+                            }
+                        },
+                        {
+                            "name": "get",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "autooccazmarket-production.up.railway.app/carburants",
+                                    "path": [
+                                        "carburants"
+                                    ],
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJJVFVAZ21haWwuY29tIiwidXNlcm5hbWUiOiJJVFUgSVRVIiwicm9sZSI6IjMwIiwiaWF0IjoxNzA1NzUzNDk5LCJleHAiOjE3MDU3NjA2OTl9.y6p--qCwnv9r8TF3-hYViPQHlBB_UrCda_GZ7AjpCo4urceRU3gJZy0cF9Jg0jxUYtARw6koEcjTCeTSdRj4Bg"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "put",
+                            "request": {
+                                "method": "PUT"
+                            }
+                        },
+                        {
+                            "name": "carburantsPagination",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "localhost:8080/carburants/0/3",
+                                    "path": [
+                                        "carburants",
+                                        "0",
+                                        "3"
+                                    ],
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8080"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "nouveau admin",
+                    "item": [
+                        {
+                            "name": "Nouveaux admins",
+                            "request": {
+                                "method": "POST",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/admins",
+                                    "path": [
+                                        "admins"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "GetAdmins Copy",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/admins",
+                                    "path": [
+                                        "admins"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSb2pvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiUm9qbyBSb2pvIiwicm9sZSI6IjMwIiwiaWRVc2VyIjo3LCJpYXQiOjE3MDY0NzE3NTEsImV4cCI6MTcwNjQ3ODk1MX0.tj9l93IhtQc1ON2ZDjjvV2hTO5JhWSVc0AoGmkdNQd_tn-dqMACKPWfxR2hLUXh1NrxjnNidnQVhotSl3JAatQ"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "AdminsPagination Copy",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/admins/0/2",
+                                    "path": [
+                                        "admins",
+                                        "0",
+                                        "2"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSb2pvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiUm9qbyBSb2pvIiwicm9sZSI6IjMwIiwiaWRVc2VyIjo3LCJpYXQiOjE3MDY0NzE3NTEsImV4cCI6MTcwNjQ3ODk1MX0.tj9l93IhtQc1ON2ZDjjvV2hTO5JhWSVc0AoGmkdNQd_tn-dqMACKPWfxR2hLUXh1NrxjnNidnQVhotSl3JAatQ"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "SimpleUser",
+            "item": [
+                {
+                    "name": "annonces",
+                    "item": [
+                        {
+                            "name": "Historique par utilisateur",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/annoncesHistorique",
+                                    "path": [
+                                        "annoncesHistorique"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    },
+                                    "raw": "{\n  \"userID\":1\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Annonces affichees sur l'accueil",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "https://autooccazmarket-production.up.railway.app/annoncesAccueil",
+                                    "path": [
+                                        "annoncesAccueil"
+                                    ],
+                                    "protocol": "https",
+                                    "host": [
+                                        "autooccazmarket-production",
+                                        "up",
+                                        "railway",
+                                        "app"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Authentification",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/login",
+                            "path": [
+                                "login"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"utilisateur\": {\n    \"mail\": \"ITU@gmail.com\"\n  },\n    \"mdp\": \"ITU\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "CreerCompte",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "https://autooccazmarket-production.up.railway.app/register",
+                            "path": [
+                                "register"
+                            ],
+                            "protocol": "https",
+                            "host": [
+                                "autooccazmarket-production",
+                                "up",
+                                "railway",
+                                "app"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"utilisateur\": {\n    \"mail\": \"ITU@gmail.com\",\n    \"prenom\": \"ITU\",\n    \"nom\": \"University\",\n    \"birthday\": \"2003-02-06\",\n    \"hierarchie\":30\n  },\n  \"mdp\": \"ITU\"\n}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
