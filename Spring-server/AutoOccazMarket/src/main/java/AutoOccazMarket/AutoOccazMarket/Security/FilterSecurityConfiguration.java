@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.Admin.AllPermission;
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.AllGetForAll.AllGetForAll;
 import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.ClientAdmin.OnlyGetForClient;
+import AutoOccazMarket.AutoOccazMarket.Security.JWT.Filter.OnlyClient.AllForClient;
 
 
 @Component
@@ -23,6 +24,9 @@ public class FilterSecurityConfiguration
 
     @Autowired
     private AllGetForAll allGetForAll ;
+
+    @Autowired
+    private AllForClient allForClient; 
 
     @Bean
     public FilterRegistrationBean<AllPermission> filterConfigurationForAdminOnly(){
@@ -69,6 +73,14 @@ public class FilterSecurityConfiguration
 
     }
     
+    @Bean
+    public FilterRegistrationBean<AllForClient> filterRegistrationBeanForClient(){
+        FilterRegistrationBean<AllForClient> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(allForClient);
+        registrationBean.addUrlPatterns("/validationAnnoncesHistoriques/*" ,"/annoncesHistorique/*");
+        registrationBean.setOrder(1);
+        return registrationBean ;
+    }
 
 
 }
