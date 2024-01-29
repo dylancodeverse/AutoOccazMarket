@@ -7,6 +7,11 @@ import {jwtDecode} from 'jwt-decode'
 import {  useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 
+import Slider from 'react-slick';
+
+// Import slick carousel styles
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 export default function ValidationTableAnnonce() {
   const [annonces, setAnnonces] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -129,7 +134,16 @@ export default function ValidationTableAnnonce() {
     setIsModalOpen(false);
   };
 
+  const [, setCurrentSlide] = useState(0);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    afterChange: (current) => setCurrentSlide(current),
+  };
   return (
     <div className="col-lg-12 grid-margin stretch-card">
       <div className="card">
@@ -196,12 +210,21 @@ export default function ValidationTableAnnonce() {
               <h2 className="modal-title">Information sur l'annonce</h2>
               {selectedAnnonce && (
                 <div>
-                  <img src="url_of_your_static_image" alt="Annonce" className="modal-image" />
+                  <Slider {...settings}>
+                    {/* Assuming you have an array of image URLs in selectedAnnonce.images */}
+                    {selectedAnnonce.photoAnnonces.map((image, index) => (
+                      <div key={index}>
+                        <img src={`data:image/png;base64,${image.base64}`} alt={`Annonce ${index + 1}`} className="modal-image" />
+                      </div>
+                    ))}
+                  </Slider>
                   <p className="modal-description">Description: {selectedAnnonce.description}</p>
                   {/* Add other information about the ad if necessary */}
                 </div>
               )}
-              <button className="modal-button" onClick={closeModal}>Fermer</button>
+              <button className="modal-button" onClick={closeModal}>
+                Fermer
+              </button>
             </div>
           </Modal>
     </div>

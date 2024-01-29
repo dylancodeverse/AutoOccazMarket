@@ -39,7 +39,7 @@ public class Annonces {
     @Column(name = "etat_validation",nullable = false)
     private Integer etatValidation;
 
-    @OneToMany    
+    @OneToMany(mappedBy = "annonces")    
     private List<PhotoAnnonce> photoAnnonces ;
 
     @OneToMany( fetch = FetchType.EAGER  , mappedBy = "annonces")

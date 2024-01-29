@@ -6,10 +6,12 @@ import Statistics from "./components/gate/stats/Statistics";
 import ValidationAnnonce from "./components/gate/validation/ValidatonAnnonces";
 import Deconnection from "./components/gate/login/Deconnection";
 import Admins from "./components/gate/admins/Admins";
+import YourComponent from "./components/constants/Base64";
 
 
 
 function App() {
+  console.log(<YourComponent/>)
   return (
     <BrowserRouter>
 
@@ -40,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default App ;

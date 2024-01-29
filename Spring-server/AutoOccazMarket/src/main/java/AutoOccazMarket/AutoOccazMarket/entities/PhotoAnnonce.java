@@ -1,5 +1,6 @@
 package AutoOccazMarket.AutoOccazMarket.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,8 +15,9 @@ public class PhotoAnnonce {
     private Integer idPhotoAnnonce;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Annonces annonces;
-
+    @Column(columnDefinition = "TEXT")
     private String base64;
+
 
 
     public String getBase64() {
