@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -38,4 +40,17 @@ public class ModelesStatsController
         }
         return m ;
     }
+
+    @GetMapping("/modelesStats")
+    public ModelesStatsDTO sortBy(@RequestParam String order , @RequestParam String by) {
+        ModelesStatsDTO m = new ModelesStatsDTO();
+        try {
+            Connection con = DriverManager.getConnection(url, username, password) ;
+            m.setListModelesStats( ModelesStats.sortBy(con,by,order));
+        } catch (Exception e) {
+            m.setErrors(e.getMessage());
+        }
+        return m ;
+    }
+    
 }
