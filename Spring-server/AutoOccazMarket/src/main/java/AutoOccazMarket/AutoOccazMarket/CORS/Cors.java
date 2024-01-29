@@ -21,7 +21,7 @@ public class Cors {
                 re.addMapping("/**").
                 allowedMethods(CorsConfiguration.ALL).
                 allowedHeaders(CorsConfiguration.ALL).
-                allowedOriginPatterns("http://localhost:3000","http://localhost:3001") ;
+                allowedOriginPatterns("https://magenta-quokka-f70b53.netlify.app") ;
             }
         };
     }    
