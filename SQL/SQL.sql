@@ -190,3 +190,21 @@ v_annonces2 as( select * from v_annonces where etat_validation =20)
 
 select v_annonces2.* , status from v_annonces2 join favok on v_annonces2.id_annonce =favok.id_annonce 
 ;
+
+
+WITH fav AS (SELECT id_annonce, 0 AS status FROM annonces WHERE etat_validation = 20),  
+                     userfav AS (SELECT favoris.id_annonce, status FROM favoris JOIN annonces ON etat_validation = 20 and favoris.id_annonce = annonces.id_annonce WHERE iduser = 1),  
+                     favunion AS (SELECT * FROM fav UNION ALL SELECT * FROM userfav),  
+                     favok AS (SELECT id_annonce, SUM(status) AS status FROM favunion GROUP BY id_annonce),  
+                     v_annonces AS (SELECT a.id_annonce, a.etat_general, a.etat_validation, a.localisation, a.prix, a.modeles_id_modeles,  
+                                    a.utilisateur_id_utilisateur, a.description, a.annonces_order, a.date_poste, m.nom_modele,  
+                                    m.carburant_id_carburant, m.categorie_id_categorie, m.marque_id_marque, c.categorie, cb.carburant,  
+                                    ma.marque, u.birthday, u.hierarchie, u.mail, u.nom, u.prenom  
+                                    FROM annonces a  
+                                    JOIN modeles m ON a.modeles_id_modeles = m.id_modeles  
+                                    JOIN categorie c ON m.categorie_id_categorie = c.id_categorie  
+                                    JOIN carburant cb ON m.carburant_id_carburant = cb.id_carburant  
+                                    JOIN marque ma ON m.marque_id_marque = ma.id_marque  
+                                    JOIN utilisateur u ON a.utilisateur_id_utilisateur = u.id_utilisateur),  
+                     v_annonces2 AS (SELECT * FROM v_annonces WHERE etat_validation = 20)  
+                     SELECT v_annonces2.*, status FROM v_annonces2 JOIN favok ON v_annonces2.id_annonce = favok.id_annonce where status =1;

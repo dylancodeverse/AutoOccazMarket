@@ -69,7 +69,7 @@ public class Annonces {
 
         // SQL query with CTEs
         String sql = "WITH fav AS (SELECT id_annonce, 0 AS status FROM annonces WHERE etat_validation = 20), " +
-                     "userfav AS (SELECT favoris.id_annonce, status FROM favoris JOIN annonces ON etat_validation = 20 WHERE iduser = ?), " +
+                     "userfav AS (SELECT favoris.id_annonce, status FROM favoris JOIN annonces ON etat_validation = 20 and favoris.id_annonce = annonces.id_annonce WHERE iduser = ?), " +
                      "favunion AS (SELECT * FROM fav UNION ALL SELECT * FROM userfav), " +
                      "favok AS (SELECT id_annonce, SUM(status) AS status FROM favunion GROUP BY id_annonce), " +
                      "v_annonces AS (SELECT a.id_annonce, a.etat_general, a.etat_validation, a.localisation, a.prix, a.modeles_id_modeles, " +
@@ -133,7 +133,7 @@ public class Annonces {
         ArrayList<Annonces> annoncesList = new ArrayList<>();
 
         String sql = "WITH fav AS (SELECT id_annonce, 0 AS status FROM annonces WHERE etat_validation = 20), " +
-                     "userfav AS (SELECT favoris.id_annonce, status FROM favoris JOIN annonces ON etat_validation = 20 WHERE iduser = ?), " +
+                     "userfav AS (SELECT favoris.id_annonce, status FROM favoris JOIN annonces ON etat_validation = 20 and favoris.id_annonce = annonces.id_annonce WHERE iduser = ?), " +
                      "favunion AS (SELECT * FROM fav UNION ALL SELECT * FROM userfav), " +
                      "favok AS (SELECT id_annonce, SUM(status) AS status FROM favunion GROUP BY id_annonce), " +
                      "v_annonces AS (SELECT a.id_annonce, a.etat_general, a.etat_validation, a.localisation, a.prix, a.modeles_id_modeles, " +
