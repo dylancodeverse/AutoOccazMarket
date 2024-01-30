@@ -20,7 +20,6 @@ import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.AnnoncesComplet;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
