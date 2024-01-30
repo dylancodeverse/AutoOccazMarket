@@ -20,6 +20,8 @@ import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.AnnoncesComplet;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -44,6 +46,9 @@ public class AnnoncesController
 
     @Value("${spring.datasource.password}")
     private String password ;
+
+
+
 
     @GetMapping(path = "/annoncesNonPostees")
     public AnnoncesDTO getAnnoncesNonPostees()
@@ -81,6 +86,18 @@ public class AnnoncesController
         annoncesDTO.setAnnoncesAsList(annonces);
         return annoncesDTO ;
     }
+
+    @GetMapping("/annoncesAccueil/{user}")
+    public AnnoncesDTO getannoncesAccueilByUser(@PathVariable("user") Integer user) {
+        AnnoncesDTO x = new AnnoncesDTO() ;
+        try {
+            x.setAnnoncesAsList(Annonces.getAnnoncesAccueil(DriverManager.getConnection(url, username, password), user));            
+        } catch (Exception e) {
+            x.setErrors(e.getMessage());
+        }
+        return x;
+    }
+    
 
     @GetMapping("/annoncesAccueil/{key}")
     public AnnoncesDTO getMethodName(@PathVariable("key") String key) {
