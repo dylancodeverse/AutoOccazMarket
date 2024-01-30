@@ -90,3 +90,103 @@ v_annonces8 as (select v_annonces7.* , marque from v_annonces7 join marque on ma
 
 select  id_annonce ,etat_general ,localisation ,prix , utilisateur_id_utilisateur ,description,commission ,nom_modele ,carburant ,categorie     ,marque from v_annonces8
 ;
+
+
+
+create table favoris (
+    idfavoris serial primary key ,
+    iduser integer ,
+    id_annonce integer ,
+    status integer default(0),
+    foreign key(iduser) references utilisateur( id_utilisateur),
+    foreign key(id_annonce) references annonces(id_annonce)
+) ;
+
+
+
+with v_annonces as (SELECT 
+    a.id_annonce,
+    a.etat_general,
+    a.etat_validation,
+    a.localisation,
+    a.prix,
+    a.modeles_id_modeles,
+    a.utilisateur_id_utilisateur,
+    a.description,
+    a.annonces_order,
+    a.date_poste,
+    m.nom_modele,
+    m.carburant_id_carburant,
+    m.categorie_id_categorie,
+    m.marque_id_marque,
+    c.categorie,
+    cb.carburant,
+    ma.marque,
+    u.birthday,
+    u.hierarchie,
+    u.mail,
+    u.nom,
+    u.prenom
+FROM 
+    annonces a
+JOIN 
+    modeles m ON a.modeles_id_modeles = m.id_modeles
+JOIN 
+    categorie c ON m.categorie_id_categorie = c.id_categorie
+JOIN 
+    carburant cb ON m.carburant_id_carburant = cb.id_carburant
+JOIN 
+    marque ma ON m.marque_id_marque = ma.id_marque
+JOIN 
+    utilisateur u ON a.utilisateur_id_utilisateur = u.id_utilisateur
+) , 
+v_annonces2 as( select * from v_annonces where etat_validation =20) 
+select v_annonces2.* from v_annonces2  ;
+
+
+
+-- favoris
+
+with fav AS (select id_annonce ,0 as status from annonces where etat_validation=20),
+userfav as (select favoris.id_annonce ,status from favoris join annonces on etat_validation=20 where iduser =  //iduser) , 
+favunion as (select * from fav union all select * from userfav ) , favok as (select id_annonce ,sum(status) as status from favunion group by id_annonce),
+v_annonces as (SELECT 
+    a.id_annonce,
+    a.etat_general,
+    a.etat_validation,
+    a.localisation,
+    a.prix,
+    a.modeles_id_modeles,
+    a.utilisateur_id_utilisateur,
+    a.description,
+    a.annonces_order,
+    a.date_poste,
+    m.nom_modele,
+    m.carburant_id_carburant,
+    m.categorie_id_categorie,
+    m.marque_id_marque,
+    c.categorie,
+    cb.carburant,
+    ma.marque,
+    u.birthday,
+    u.hierarchie,
+    u.mail,
+    u.nom,
+    u.prenom
+FROM 
+    annonces a
+JOIN 
+    modeles m ON a.modeles_id_modeles = m.id_modeles
+JOIN 
+    categorie c ON m.categorie_id_categorie = c.id_categorie
+JOIN 
+    carburant cb ON m.carburant_id_carburant = cb.id_carburant
+JOIN 
+    marque ma ON m.marque_id_marque = ma.id_marque
+JOIN 
+    utilisateur u ON a.utilisateur_id_utilisateur = u.id_utilisateur
+) , 
+v_annonces2 as( select * from v_annonces where etat_validation =20) 
+
+select v_annonces2.* , status from v_annonces2 join favok on v_annonces2.id_annonce =favok.id_annonce 
+;
