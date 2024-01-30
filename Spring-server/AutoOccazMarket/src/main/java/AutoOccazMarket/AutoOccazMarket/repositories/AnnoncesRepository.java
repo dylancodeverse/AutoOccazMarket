@@ -29,13 +29,17 @@ List<Annonces> searchAnnoncesByCarburant(@Param("carburant") String carburant);
 
 
     @Query("SELECT a FROM Annonces a " +
-    "WHERE LOWER(a.description) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "WHERE a.etatValidation = 20 AND " +
+    "(LOWER(a.description) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.localisation) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.modeles.nomModele) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.utilisateur.nom) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.utilisateur.prenom) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.modeles.marque.marque) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
     "LOWER(a.modeles.categorie.categorie) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
-    "LOWER(a.modeles.carburant.carburant) LIKE LOWER(CONCAT('%', :motCle, '%'))")
-List<Annonces> searchByMotCle(@Param("motCle") String motCle);
+    "LOWER(a.modeles.carburant.carburant) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "CAST(a.prix AS TEXT) LIKE :motCle)")
+    List<Annonces> searchByMotCle(@Param("motCle") String motCle);
+
+
 }
