@@ -96,6 +96,8 @@ public class AnnoncesController
         }
         return x;
     }
+
+    
     
 
     @GetMapping("/annoncesAccueil/{key}")
