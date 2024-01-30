@@ -26,4 +26,16 @@ List<Annonces> searchAnnoncesByCarburant(@Param("carburant") String carburant);
     @Query("SELECT a FROM Annonces a " +
            "WHERE (:modele IS NULL OR LOWER(a.modeles.nomModele) LIKE LOWER(CONCAT('%', :modele, '%'))) and a.etatValidation = 20")
     List<Annonces> searchAnnoncesByModeles(@Param("modele") String modele);
+
+
+    @Query("SELECT a FROM Annonces a " +
+    "WHERE LOWER(a.description) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.localisation) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.modeles.nomModele) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.utilisateur.nom) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.utilisateur.prenom) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.modeles.marque.marque) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.modeles.categorie.categorie) LIKE LOWER(CONCAT('%', :motCle, '%')) OR " +
+    "LOWER(a.modeles.carburant.carburant) LIKE LOWER(CONCAT('%', :motCle, '%'))")
+List<Annonces> searchByMotCle(@Param("motCle") String motCle);
 }

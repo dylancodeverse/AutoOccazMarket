@@ -20,6 +20,8 @@ import AutoOccazMarket.AutoOccazMarket.dto.AnnoncesFiltreDTO;
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 import AutoOccazMarket.AutoOccazMarket.entities.AnnoncesComplet;
 import AutoOccazMarket.AutoOccazMarket.services.CRUDAnnonces;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -80,6 +82,18 @@ public class AnnoncesController
         annoncesDTO.setAnnoncesAsList(annonces);
         return annoncesDTO ;
     }
+
+    @GetMapping("/annoncesAccueil/{key}")
+    public AnnoncesDTO getMethodName(@PathVariable("key") String key) {
+        AnnoncesDTO c = new AnnoncesDTO() ;
+        try {
+            c.setAnnoncesAsList(crudAnnonces.searchBy(key));            
+        } catch (Exception e) {
+            c.setErrors(e.getMessage());
+        }
+        return c;
+    }
+    
 
     @GetMapping(path = "/annonces/{id}")
     public AnnoncesDTO getAnnoncessById(@PathVariable("id") final Integer id)

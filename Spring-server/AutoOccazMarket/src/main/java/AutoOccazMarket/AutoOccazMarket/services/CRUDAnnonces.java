@@ -150,5 +150,10 @@ public class CRUDAnnonces {
         return new ArrayList<>(resultSet); 
     }
 
+
+    public List<Annonces> searchBy(String key){
+        return annoncesRepository.searchByMotCle(key);
+    }
+
     
 }
