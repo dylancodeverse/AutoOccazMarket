@@ -86,7 +86,7 @@ public class AnnoncesController
         return annoncesDTO ;
     }
 
-    @GetMapping("/annoncesAccueil/{user}")
+    @GetMapping("/annoncesAccueilByUser/{user}")
     public AnnoncesDTO getannoncesAccueilByUser(@PathVariable("user") Integer user) {
         AnnoncesDTO x = new AnnoncesDTO() ;
         try {
