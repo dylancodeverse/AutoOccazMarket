@@ -100,11 +100,11 @@ public class AnnoncesController
     
     
 
-    @GetMapping("/annoncesAccueil/{key}")
-    public AnnoncesDTO getMethodName(@PathVariable("key") String key) {
+    @GetMapping("/annoncesAccueilKeyWord")
+    public AnnoncesDTO getMethodName(@RequestBody AnnoncesFiltreDTO annoncesFiltreDTO) {
         AnnoncesDTO c = new AnnoncesDTO() ;
         try {
-            c.setAnnoncesAsList(crudAnnonces.searchBy(key));            
+            c.setAnnoncesAsList(crudAnnonces.searchBy(annoncesFiltreDTO));            
         } catch (Exception e) {
             c.setErrors(e.getMessage());
         }

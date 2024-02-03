@@ -1,7 +1,6 @@
 package AutoOccazMarket.AutoOccazMarket.dto;
 
 import java.util.List;
-import java.util.Map;
 
 import AutoOccazMarket.AutoOccazMarket.entities.Annonces;
 
@@ -16,18 +15,12 @@ public class AnnoncesFiltreDTO {
 
     String [] carburant ;
 
-    
     String errors ;
 
-    Map<String, String> tokenInformation;
+    String order ;
 
-    public Map<String, String> getTokenInformation() {
-        return tokenInformation;
-    }
+    String key ;
 
-    public void setTokenInformation(Map<String, String> tokenInformation) {
-        this.tokenInformation = tokenInformation;
-    }
 
     public void setAnnoncesAsList(List<Annonces> list)
     {
@@ -52,6 +45,9 @@ public class AnnoncesFiltreDTO {
     }
 
     public String[] getModeles() {
+        if (modeles.length==0) {
+            return null ;
+        }
         return modeles;
     }
 
@@ -60,6 +56,9 @@ public class AnnoncesFiltreDTO {
     }
 
     public String[] getCategories() {
+        if (categories.length == 0) {
+            return null ;
+        }
         return categories;
     }
 
@@ -68,6 +67,9 @@ public class AnnoncesFiltreDTO {
     }
 
     public String[] getMarque() {
+        if (marque.length==0) {
+            return null ;
+        }
         return marque;
     }
 
@@ -76,10 +78,35 @@ public class AnnoncesFiltreDTO {
     }
 
     public String[] getCarburant() {
+        if (carburant.length == 0) {
+            return  null ;
+        }
         return carburant;
     }
 
     public void setCarburant(String[] carburant) {
         this.carburant = carburant;
+    }
+
+    public String getOrder() {
+        if (order==null) {
+            return "desc";
+        }
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getKey() {
+        if (key==null) {
+            return "";
+        }
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

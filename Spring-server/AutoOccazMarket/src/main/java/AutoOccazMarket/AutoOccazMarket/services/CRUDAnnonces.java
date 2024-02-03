@@ -2,7 +2,8 @@ package AutoOccazMarket.AutoOccazMarket.services;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,11 @@ public class CRUDAnnonces {
 
 
     public List<Annonces> getAnnoncesNonPostees(){
-        return annoncesRepository.findByEtatValidation(1);
+        return annoncesRepository.findByEtatValidationOrderByDatePosteAsc(1);
     }
 
     public List<Annonces> getAnnoncesPostees(){
-        return annoncesRepository.findByEtatValidation(20);
+        return annoncesRepository.findByEtatValidationOrderByDatePosteDesc(20);
     }
 
     public List<Annonces> getAnnoncesList() 
@@ -116,43 +117,48 @@ public class CRUDAnnonces {
             return null;
         }
 
-        java.util.Set<Annonces> resultSet = new HashSet<>(); // Utiliser un HashSet pour éviter les doublons
+        java.util.Set<Annonces> resultSet = new LinkedHashSet<>(); // Use LinkedHashSet for consistent order
 
         if (annoncesFiltreDTO.getModeles() != null) {
             for (String modele : annoncesFiltreDTO.getModeles()) {
                 System.out.println("modeles");
-                resultSet.addAll(annoncesRepository.searchAnnoncesByModeles(modele));
+                resultSet.addAll(annoncesRepository.searchAnnoncesByModeles(modele, annoncesFiltreDTO.getOrder()));
             }
         }
 
         if (annoncesFiltreDTO.getCarburant() != null) {
             for (String carburant : annoncesFiltreDTO.getCarburant()) {
                 System.out.println("annonces");
-                resultSet.addAll(annoncesRepository.searchAnnoncesByCarburant(carburant));
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCarburant(carburant, annoncesFiltreDTO.getOrder()));
             }
         }
 
         if (annoncesFiltreDTO.getCategories() != null) {
             for (String categorie : annoncesFiltreDTO.getCategories()) {
                 System.out.println("categorie");
-                resultSet.addAll(annoncesRepository.searchAnnoncesByCategorie(categorie));
+                resultSet.addAll(annoncesRepository.searchAnnoncesByCategorie(categorie, annoncesFiltreDTO.getOrder()));
             }
         }
 
         if (annoncesFiltreDTO.getMarque() != null) {
             for (String marque : annoncesFiltreDTO.getMarque()) {
                 System.out.println("marque");
-                resultSet.addAll(annoncesRepository.searchAnnoncesByMarque(marque));
+                resultSet.addAll(annoncesRepository.searchAnnoncesByMarque(marque, annoncesFiltreDTO.getOrder()));
             }
         }
 
+        if (annoncesFiltreDTO.getCarburant() == null && annoncesFiltreDTO.getCategories() == null
+                && annoncesFiltreDTO.getMarque() == null && annoncesFiltreDTO.getModeles() == null) {
+            System.out.println(annoncesFiltreDTO.getOrder());
+            resultSet.addAll(annoncesRepository.searchByDate(annoncesFiltreDTO.getOrder()));
+        }
+
         System.out.println(resultSet.size());
-        return new ArrayList<>(resultSet); 
+        return new ArrayList<>(resultSet);
     }
 
-
-    public List<Annonces> searchBy(String key){
-        return annoncesRepository.searchByMotCle(key);
+    public List<Annonces> searchBy(AnnoncesFiltreDTO annoncesFiltreDTO){
+        return annoncesRepository.searchByMotCle(annoncesFiltreDTO.getKey() ,annoncesFiltreDTO.getOrder());
     }
 
     

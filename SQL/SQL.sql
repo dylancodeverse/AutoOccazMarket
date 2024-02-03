@@ -208,3 +208,7 @@ WITH fav AS (SELECT id_annonce, 0 AS status FROM annonces WHERE etat_validation 
                                     JOIN utilisateur u ON a.utilisateur_id_utilisateur = u.id_utilisateur),  
                      v_annonces2 AS (SELECT * FROM v_annonces WHERE etat_validation = 20)  
                      SELECT v_annonces2.*, status FROM v_annonces2 JOIN favok ON v_annonces2.id_annonce = favok.id_annonce where status =1;
+
+
+
+
